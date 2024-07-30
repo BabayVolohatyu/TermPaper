@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <list>
-#include <memory>
 
 class Contact;
 
@@ -33,4 +32,6 @@ public:
 	void insert(int id, Contact&& contact);
 
 	void erase(int id);
+
+	int getSize() const;
 };

@@ -58,3 +58,6 @@ void ContactBook::erase(int id) {
 	
 }
 
+int ContactBook::getSize() const {
+	return contacts.size();
+}
