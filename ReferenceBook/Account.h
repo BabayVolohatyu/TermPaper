@@ -13,11 +13,9 @@ private:
 
 	Account() = delete;
 
-	Account(ContactBook* contactBook);
+	Account(const std::string& email);
 
-	Account(ContactBook* contactBook, const std::string& email);
-
-	Account(ContactBook* contactBook, const std::string& email, const std::string& name); 
+	Account(const std::string& email, const std::string& name); 
 
 public:
 
@@ -25,13 +23,9 @@ public:
 
 	~Account();
 
-	static Account* getAccountInstance(ContactBook* contactBook);
+	static Account* getInstance(const std::string& email);
 
-	static Account* getAccountInstance(ContactBook* contactBook, const std::string& email);
-
-	static Account* getAccountInstance(ContactBook* contactBook, const std::string& email, const std::string& name);
-
-	static ContactBook* getContactBookInstance();
+	static Account* getInstance(const std::string& email, const std::string& name);
 
 	std::string getEmail() const;
 
