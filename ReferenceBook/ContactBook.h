@@ -3,9 +3,11 @@
 #include <iostream>
 #include <list>
 
+#include "Serializable.h"
+
 class Contact;
 
-class ContactBook {
+class ContactBook : public Serializable {
 private:
 	std::list<Contact> contacts;
 
@@ -34,4 +36,8 @@ public:
 	void erase(int id);
 
 	int getSize() const;
+
+	void downloadInfo(const std::string& path) override;
+
+	void uploadInfo(const std::string& path) const override;
 };

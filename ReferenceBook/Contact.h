@@ -2,9 +2,11 @@
 
 #include <iostream>
 
+#include "Serializable.h"
+
 class ContactBook;
 
-class Contact {
+class Contact : public Serializable {
 private:
 	ContactBook* contactBook;
 	std::string name;
@@ -57,4 +59,8 @@ public:
 	bool operator<(const Contact& other) const = delete;
 
 	bool operator>(const Contact& other) const = delete;
+
+	void downloadInfo(const std::string& path) override;
+
+	void uploadInfo(const std::string& path) const override;
 };

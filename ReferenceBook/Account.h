@@ -2,9 +2,11 @@
 
 #include <iostream>
 
+#include "Serializable.h"
+
 class ContactBook;
 
-class Account {
+class Account : public Serializable{
 private:
 	std::string email;
 	std::string name;
@@ -35,4 +37,7 @@ public:
 
 	void setEmail(const std::string& newEmail);
 
+	void downloadInfo(const std::string& path) override;
+
+	void uploadInfo(const std::string& path) const override;
 };

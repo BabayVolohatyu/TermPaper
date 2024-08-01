@@ -70,3 +70,12 @@ bool Contact::operator!=(const Contact& other) const
 	if (number != other.number) return true;
 	return false;
 }
+
+void Contact::downloadInfo(const std::string& path){
+}
+
+void Contact::uploadInfo(const std::string& path) const{
+}
+
+
+

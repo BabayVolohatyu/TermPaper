@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "Account.h"
 #include "ContactBook.h"
 
@@ -49,5 +51,10 @@ void Account::setName(const std::string& newName){
 	name = newName;
 }
 
+void Account::downloadInfo(const std::string& path){
+	std::ofstream fileToWrite;
+}
 
+void Account::uploadInfo(const std::string& path) const{
 
+}

@@ -61,3 +61,11 @@ void ContactBook::erase(int id) {
 int ContactBook::getSize() const {
 	return contacts.size();
 }
+
+void ContactBook::downloadInfo(const std::string& path){
+}
+
+void ContactBook::uploadInfo(const std::string& path) const{
+}
+
+
