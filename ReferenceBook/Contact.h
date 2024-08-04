@@ -59,8 +59,4 @@ public:
 	bool operator<(const Contact& other) const = delete;
 
 	bool operator>(const Contact& other) const = delete;
-
-	void downloadInfo(const std::string& path) override;
-
-	void uploadInfo(const std::string& path) const override;
 };
