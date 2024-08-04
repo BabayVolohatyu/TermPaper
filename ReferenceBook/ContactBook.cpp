@@ -1,22 +1,24 @@
 #include "ContactBook.h"
 #include "Contact.h"
 
-ContactBook* ContactBook::instancePtr = nullptr;
+ContactBook* ContactBook::contactBook = nullptr;
 
 ContactBook::ContactBook()
 	:contacts{} {}
 
-ContactBook::~ContactBook() {
-	delete instancePtr;
-	instancePtr = nullptr;
-}
+ContactBook::~ContactBook() = default;
 
 ContactBook* ContactBook::getInstance() {
-	if (!instancePtr) {
-		instancePtr = new ContactBook;
-		return instancePtr;
+	if (!contactBook) {
+		contactBook = new ContactBook;
+		return contactBook;
 	}
-	else return instancePtr;
+	else return contactBook;
+}
+
+void ContactBook::deleteInstance() {
+	delete contactBook;
+	contactBook = nullptr;
 }
 
 void ContactBook::emplace_front(Contact&& contact) {
@@ -61,11 +63,3 @@ void ContactBook::erase(int id) {
 int ContactBook::getSize() const {
 	return contacts.size();
 }
-
-void ContactBook::downloadInfo(const std::string& path){
-}
-
-void ContactBook::uploadInfo(const std::string& path) const{
-}
-
-

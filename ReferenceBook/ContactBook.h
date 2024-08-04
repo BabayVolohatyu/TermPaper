@@ -11,7 +11,7 @@ class ContactBook : public Serializable {
 private:
 	std::list<Contact> contacts;
 
-	static ContactBook* instancePtr;
+	static ContactBook* contactBook;
 
 	ContactBook();
 
@@ -22,6 +22,8 @@ public:
 	~ContactBook();
 
 	static ContactBook* getInstance();
+
+	static void deleteInstance();
 
 	void emplace_front(Contact&& contact);
 
@@ -36,8 +38,4 @@ public:
 	void erase(int id);
 
 	int getSize() const;
-
-	void downloadInfo(const std::string& path) override;
-
-	void uploadInfo(const std::string& path) const override;
 };
