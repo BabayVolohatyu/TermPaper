@@ -29,6 +29,8 @@ public:
 
 	static Account* getInstance(const std::string& email, const std::string& name);
 
+	static void deleteInstance();
+
 	std::string getEmail() const;
 
 	std::string getName() const;
@@ -36,8 +38,4 @@ public:
 	void setName(const std::string& newName);
 
 	void setEmail(const std::string& newEmail);
-
-	void downloadInfo(const std::string& path) override;
-
-	void uploadInfo(const std::string& path) const override;
 };

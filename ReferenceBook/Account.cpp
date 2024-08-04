@@ -14,10 +14,7 @@ Account::Account(const std::string& email, const std::string& name)
 	:email{ email }, name{name} {
 }
 
-Account::~Account() {
-	delete account;
-	account = nullptr;
-};
+Account::~Account() = default;
 
 Account* Account::getInstance(const std::string& email){
 	if (!account) {
@@ -35,6 +32,10 @@ Account* Account::getInstance(const std::string& email, const std::string& name)
 	else return account;
 }
 
+void Account::deleteInstance() {
+	delete account;
+	account = nullptr;
+}
 std::string Account::getEmail() const{
 	return email;
 }
@@ -49,12 +50,4 @@ void Account::setEmail(const std::string& newEmail){
 
 void Account::setName(const std::string& newName){
 	name = newName;
-}
-
-void Account::downloadInfo(const std::string& path){
-	std::ofstream fileToWrite;
-}
-
-void Account::uploadInfo(const std::string& path) const{
-
 }
