@@ -1,11 +1,11 @@
 #include "Serializable.h"
 
 std::istream& operator>>(std::istream& is, Serializable& object){
-	object.getDataFromObject(is);
+	object.setDataToObject(is);
 	return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const Serializable& object){
-	object.setDataToObject(os);
+	object.getDataFromObject(os);
 	return os;
 }
