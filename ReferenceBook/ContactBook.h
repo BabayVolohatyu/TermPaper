@@ -7,7 +7,7 @@
 
 class Contact;
 
-class ContactBook : public Serializable {
+class ContactBook : virtual public Serializable {
 private:
 	std::list<Contact> contacts;
 
@@ -38,4 +38,8 @@ public:
 	void erase(int id);
 
 	int getSize() const;
+
+	void getDataFromObject(std::ostream& os) const override;
+
+	void setDataToObject(std::istream& is) override;
 };

@@ -6,7 +6,7 @@
 
 class ContactBook;
 
-class Contact : public Serializable {
+class Contact : virtual public Serializable {
 private:
 	ContactBook* contactBook;
 	std::string name;
@@ -14,11 +14,9 @@ private:
 
 	Contact() = delete;
 
-	explicit Contact(ContactBook* contactBook);
+	Contact(const std::string& name);
 
-	Contact(ContactBook* contactBook, const std::string& name);
-
-	Contact(ContactBook* contactBook, const std::string& name, const std::string& number);
+	Contact(const std::string& name, const std::string& number);
 
 public:
 
@@ -28,11 +26,9 @@ public:
 
 	~Contact();
 
-	[[nodiscard]] static Contact getInstance(ContactBook* contactBook);
+	[[nodiscard]] static Contact getInstance(const std::string& name);
 
-	[[nodiscard]] static Contact getInstance(ContactBook* contactBook, const std::string& name);
-
-	[[nodiscard]] static Contact getInstance(ContactBook* contactBook, const std::string& name, const std::string& number);
+	[[nodiscard]] static Contact getInstance(const std::string& name, const std::string& number);
 
 	std::string getName() const;
 
@@ -59,4 +55,8 @@ public:
 	bool operator<(const Contact& other) const = delete;
 
 	bool operator>(const Contact& other) const = delete;
+
+	void getDataFromObject(std::ostream& os) const override;
+
+	void setDataToObject(std::istream& is) override;
 };

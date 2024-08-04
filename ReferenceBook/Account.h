@@ -6,7 +6,7 @@
 
 class ContactBook;
 
-class Account : public Serializable{
+class Account : virtual public Serializable {
 private:
 	std::string email;
 	std::string name;
@@ -38,4 +38,8 @@ public:
 	void setName(const std::string& newName);
 
 	void setEmail(const std::string& newEmail);
+
+	void getDataFromObject(std::ostream& os) const override;
+
+	void setDataToObject(std::istream& is) override;
 };

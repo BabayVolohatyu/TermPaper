@@ -63,3 +63,15 @@ void ContactBook::erase(int id) {
 int ContactBook::getSize() const {
 	return contacts.size();
 }
+
+void ContactBook::getDataFromObject(std::ostream& os) const{
+	os << contacts.size() << std::endl;
+	for (std::list<Contact>::const_iterator it = contacts.begin(); it != contacts.end();it++) {
+		it->getDataFromObject(os);
+	}
+}
+
+void ContactBook::setDataToObject(std::istream& is){
+
+}
+

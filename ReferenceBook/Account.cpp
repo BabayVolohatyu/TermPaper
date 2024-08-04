@@ -51,3 +51,13 @@ void Account::setEmail(const std::string& newEmail){
 void Account::setName(const std::string& newName){
 	name = newName;
 }
+
+void Account::getDataFromObject(std::ostream& os) const{
+	os << email << std::endl
+		<< name << std::endl;
+	contactBook->getDataFromObject(os);
+}
+
+void Account::setDataToObject(std::istream& is){
+
+}
