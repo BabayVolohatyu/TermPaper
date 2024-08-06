@@ -7,7 +7,7 @@
 
 class Contact;
 
-class ContactBook : virtual public Serializable {
+class ContactBook : public Serializable {
 private:
 	std::list<Contact> contacts;
 
@@ -23,11 +23,17 @@ public:
 
 	static ContactBook* getInstance();
 
-	static void deleteInstance();
+	/*метод deleteInstance() має викликатися виключно з об'єкту Account для 
+	запобіганню проблем з алокацією та деаолкацією пам'яті'*/
+	void deleteInstance();
 
 	void emplace_front(Contact&& contact);
 
+	void emplace_front(const Contact& contact);
+
 	void emplace_back(Contact&& contact);
+
+	void emplace_back(const Contact& contact);
 
 	void pop_front();
 

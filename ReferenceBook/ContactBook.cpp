@@ -1,3 +1,5 @@
+#include <string>
+
 #include "ContactBook.h"
 #include "Contact.h"
 
@@ -10,7 +12,7 @@ ContactBook::~ContactBook() = default;
 
 ContactBook* ContactBook::getInstance() {
 	if (!contactBook) {
-		contactBook = new ContactBook;
+		contactBook = new ContactBook();
 		return contactBook;
 	}
 	else return contactBook;
@@ -25,7 +27,15 @@ void ContactBook::emplace_front(Contact&& contact) {
 	contacts.emplace_front(std::move(contact));
 }
 
+void ContactBook::emplace_front(const Contact& contact){
+	contacts.emplace_front(std::move(contact));
+}
+
 void ContactBook::emplace_back(Contact&& contact) {
+	contacts.emplace_back(std::move(contact));
+}
+
+void ContactBook::emplace_back(const Contact& contact){
 	contacts.emplace_back(std::move(contact));
 }
 
@@ -72,6 +82,19 @@ void ContactBook::getDataFromObject(std::ostream& os) const{
 }
 
 void ContactBook::setDataToObject(std::istream& is){
-
+	std::string currentLine;
+	std::getline(is, currentLine);
+	int numberOfContacts = 0;
+	try {
+		numberOfContacts = std::stoi(currentLine);
+	}
+	catch (...) {
+		return;
+	}
+	for (int i = 0; i < numberOfContacts;i++) {
+		Contact newContact;
+		newContact.setDataToObject(is);
+		contactBook->emplace_back(newContact);
+	}
 }
 
