@@ -6,19 +6,22 @@
 
 class ContactBook;
 
-class Contact : virtual public Serializable {
+class Contact : public Serializable {
 private:
 	ContactBook* contactBook;
 	std::string name;
 	std::string number;
+	std::string dateOfBirth;
 
-	Contact() = delete;
+public:
+
+	Contact();
 
 	Contact(const std::string& name);
 
 	Contact(const std::string& name, const std::string& number);
 
-public:
+	Contact(const std::string& name, const std::string& number, const std::string& dateOfBirth);
 
 	Contact(const Contact& other);
 
@@ -26,13 +29,11 @@ public:
 
 	~Contact();
 
-	[[nodiscard]] static Contact getInstance(const std::string& name);
-
-	[[nodiscard]] static Contact getInstance(const std::string& name, const std::string& number);
-
 	std::string getName() const;
 
 	std::string getNumber() const;
+
+	std::string getDateOfBirth() const;
 
 	ContactBook* getContactBookByReference() const;
 
@@ -43,6 +44,8 @@ public:
 	void setNumber(const std::string& newNumber);
 
 	void setContactBook(ContactBook* newContactBook);
+
+	void getDateOfBirth(const std::string& newDateOfBirth);
 
 	bool operator==(const Contact& other) const;
 

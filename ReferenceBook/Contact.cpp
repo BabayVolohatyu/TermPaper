@@ -1,26 +1,31 @@
+#include <string>
+
 #include "Contact.h"
 #include "ContactBook.h"
 
+Contact::Contact()
+	:Contact{"Noname","2005/01/01",} {}
+
 Contact::Contact(const std::string& name)
-	:Contact{name,"" } {}
+	:Contact{name,"","2005/01/01"} {}
 
 Contact::Contact(const std::string& name, const std::string& number)
-	:contactBook{ContactBook::getInstance()}, name{name}, number{number} {}
+	:Contact{name,number,"2005/01/01"} {}
+
+Contact::Contact(const std::string& name, const std::string& number, 
+	const std::string& dateOfBirth)
+	:contactBook{ ContactBook::getInstance() }, name{ name }, number{ number }, 
+	dateOfBirth{dateOfBirth} {}
 
 Contact::Contact(const Contact& other)
-	:contactBook{ std::move(other.contactBook) }, name(other.name), number{ other.number } {}
+	:contactBook{ other.contactBook }, name{ other.name }, number{ other.number },
+	dateOfBirth{other.dateOfBirth} {}
 
 Contact::Contact(Contact&& other) noexcept
-	:contactBook{ std::move(other.contactBook) }, name{ std::move(other.name) }, number{std::move(other.number)} {}
+	:contactBook{ std::move(other.contactBook) }, name{ std::move(other.name) }, 
+	number{std::move(other.number)}, dateOfBirth{ std::move(other.dateOfBirth) } {}
 
 Contact::~Contact() = default;
-
-Contact Contact::getInstance(const std::string& name) {
-	return Contact(name);
-}
-Contact Contact::getInstance(const std::string& name, const std::string& number) {
-	return Contact(name, number);
-}
 
 std::string Contact::getName() const{
 	return name;
@@ -28,6 +33,10 @@ std::string Contact::getName() const{
 
 std::string Contact::getNumber() const{
 	return number;
+}
+
+std::string Contact::getDateOfBirth() const {
+	return dateOfBirth;
 }
 
 ContactBook* Contact::getContactBookByReference() const{
@@ -46,6 +55,10 @@ void Contact::setNumber(const std::string& newNumber){
 	number = newNumber;
 }
 
+void Contact::getDateOfBirth(const std::string& newDateOfBirth) {
+	dateOfBirth = newDateOfBirth;
+}
+
 void Contact::setContactBook(ContactBook* newContactBook){
 	contactBook = newContactBook;
 }
@@ -53,20 +66,30 @@ void Contact::setContactBook(ContactBook* newContactBook){
 bool Contact::operator==(const Contact& other) const{
 	if (name != other.name) return false;
 	if (number != other.number) return false;
+	if (dateOfBirth != other.dateOfBirth) return false;
 	return true;
 }
 
 bool Contact::operator!=(const Contact& other) const{
 	if (name != other.name) return true;
 	if (number != other.number) return true;
+	if (dateOfBirth != other.dateOfBirth) return true;
 	return false;
 }
 
 void Contact::getDataFromObject(std::ostream& os) const {
 	os << name << std::endl
-		 << number << std::endl;
+		<< number << std::endl
+		<< dateOfBirth << std::endl;
+
 }
 
 void Contact::setDataToObject(std::istream& is) {
-
+	std::string currentLine;
+	std::getline(is, currentLine);
+	name = currentLine;
+	std::getline(is, currentLine);
+	number = currentLine;
+	std::getline(is, currentLine);
+	dateOfBirth = currentLine;
 }

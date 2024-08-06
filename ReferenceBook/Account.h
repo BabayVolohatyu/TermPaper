@@ -6,11 +6,10 @@
 
 class ContactBook;
 
-class Account : virtual public Serializable {
+class Account : public Serializable {
 private:
 	std::string email;
 	std::string name;
-	static ContactBook* contactBook;
 	static Account* account;
 
 	Account() = delete;
@@ -20,6 +19,7 @@ private:
 	Account(const std::string& email, const std::string& name); 
 
 public:
+	static ContactBook* contactBook;
 
 	Account(const Account& other) = delete;
 

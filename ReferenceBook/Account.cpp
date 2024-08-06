@@ -1,4 +1,4 @@
-#include <fstream>
+#include <string>
 
 #include "Account.h"
 #include "ContactBook.h"
@@ -11,7 +11,8 @@ Account::Account(const std::string& email)
 	:Account{ email, "Username"} {}
 
 Account::Account(const std::string& email, const std::string& name)
-	:email{ email }, name{name} {
+	:email{email}, name{name} {
+	contactBook =  ContactBook::getInstance();
 }
 
 Account::~Account() = default;
@@ -33,6 +34,8 @@ Account* Account::getInstance(const std::string& email, const std::string& name)
 }
 
 void Account::deleteInstance() {
+	contactBook->deleteInstance();
+	contactBook = nullptr;
 	delete account;
 	account = nullptr;
 }
@@ -59,5 +62,10 @@ void Account::getDataFromObject(std::ostream& os) const{
 }
 
 void Account::setDataToObject(std::istream& is){
-
+	std::string currentLine;
+	std::getline(is, currentLine);
+	email = currentLine;
+	std::getline(is, currentLine);
+	name = currentLine;
+	contactBook->setDataToObject(is);
 }
