@@ -25,7 +25,9 @@ Contact::Contact(Contact&& other) noexcept
 	:contactBook{ std::move(other.contactBook) }, name{ std::move(other.name) }, 
 	number{std::move(other.number)}, dateOfBirth{ std::move(other.dateOfBirth) } {}
 
-Contact::~Contact() = default;
+Contact::~Contact() {
+	contactBook = nullptr;
+};
 
 std::string Contact::getName() const{
 	return name;
