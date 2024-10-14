@@ -17,7 +17,10 @@ add_executable (ReferenceBook  "main.cpp"
 "System/Source/ContactBook.cpp"
 "System/Source/Account.cpp"
 "System/Source/FileManager.cpp"
-"System/Source/Serializable.cpp")
+"System/Source/Serializable.cpp"
+"UI/Sourse/Button.cpp" 
+"UI/Sourse/Menu.cpp"
+"UI/Sourse/Object.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ReferenceBook PROPERTY CXX_STANDARD 20)
