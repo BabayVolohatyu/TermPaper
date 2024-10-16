@@ -23,8 +23,6 @@ public:
 
 	static ContactBook* getInstance();
 
-	/*метод deleteInstance() має викликатися виключно з об'єкту Account для 
-	запобіганню проблем з алокацією та деаолкацією пам'яті'*/
 	void deleteInstance();
 
 	void emplace_front(Contact&& contact);

@@ -5,7 +5,7 @@
 
 Account* Account::account = nullptr;
 
-ContactBook* Account::contactBook = ContactBook::getInstance();;
+ContactBook* Account::contactBook = nullptr;
 
 Account::Account(const std::string& email)
 	:Account{ email, "Username"} {}
