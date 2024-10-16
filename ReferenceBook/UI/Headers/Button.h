@@ -4,16 +4,16 @@
 
 #include "Visual.h"
 #include "Object.h"
+#include "../Color.h"
 
-class Button : public Visual, Object {
+class Button : public Visual, public Object {
 private:
-	Button() = delete;
+    Button() = delete;
+
 public:
-	Button(const std::string& name);
 
-	Button(const std::string& name, int size);
+    Button(const std::string &name, int height, int width);
 
-	Button(const std::string& name, int width, int height);
+    void print() const;
 
-	void print();
 };

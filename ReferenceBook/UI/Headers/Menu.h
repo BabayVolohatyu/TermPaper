@@ -5,19 +5,22 @@
 
 #include "Visual.h"
 #include "Object.h"
+#include "Button.h"
 
-class Button;
-
-class Menu : public Visual, Object {
+class Menu : public Visual, public Object {
 private:
-	std::vector<Button> buttons;
-	int size;
+    std::vector<Button*> buttons;
+    Menu() = delete;
 
-	Menu() = delete;
 public:
-	Menu(const std::string& name);
 
-	Menu(const std::string& name, std::vector<Button> buttons);
+    Menu(const std::string &name, int width);
 
-	void print();
+    ~Menu();
+
+    void emplace_back(Button* button);
+
+    Button *getButton(int index);
+
+    void print() const;
 };
