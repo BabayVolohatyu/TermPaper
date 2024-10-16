@@ -4,16 +4,22 @@
 
 class Object {
 protected:
-	std::string name;
-	int width;
-	int height;
+    std::string name;
+    int width;
+    int height;
 
-	Object() = delete;
+    Object() = delete;
 
 public:
-	Object(const std::string& name, int height, int width);
+    Object(const std::string &name,
+        int height, int width);
 
-	Object(const Object& other);
+    void setWidth(int width);
 
-	Object(Object&& other);
+    void setHeight(int height);
+
+    int getWidth() const;
+
+    int getHeight() const;
+
 };
