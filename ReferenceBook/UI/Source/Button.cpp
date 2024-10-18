@@ -1,4 +1,4 @@
-#include "../Headers/Button.h";
+#include "../Headers/Button.h"
 
 #include "../Headers/ConsoleManager.h"
 
@@ -7,7 +7,7 @@ Button::Button(const std::string &name, int height, int width)
 }
 
 void Button::print() const {
-    ConsoleManager::changeTextColor(color);
+    ConsoleManager::changeTextColor(currentColor);
     std::cout << ' ';
     for (int i = 0; i < width; i++) {
         std::cout << '~';

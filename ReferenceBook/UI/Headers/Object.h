@@ -12,14 +12,17 @@ protected:
 
 public:
     Object(const std::string &name,
-        int height, int width);
+           int height, int width);
 
     void setWidth(int width);
 
     void setHeight(int height);
 
+    void setName(const std::string &name);
+
     int getWidth() const;
 
     int getHeight() const;
 
+    std::string getName() const;
 };

@@ -11,9 +11,7 @@ private:
     Button() = delete;
 
 public:
-
     Button(const std::string &name, int height, int width);
 
     void print() const;
-
 };
