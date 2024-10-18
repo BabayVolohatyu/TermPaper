@@ -4,8 +4,12 @@
 
 class Visual {
 protected:
-    Color color = WHITE;
+    Color currentColor = MAGENTA;
+
 public:
+    static Color selectedColor;
+    static Color standardColor;
+
     virtual void print() const = 0;
 
     virtual ~Visual() = default;
