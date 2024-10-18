@@ -12,15 +12,30 @@ endif()
 project ("ReferenceBook")
 
 # Add source to this project's executable.
-add_executable (ReferenceBook  "main.cpp" 
-"System/Source/Contact.cpp"
-"System/Source/ContactBook.cpp"
-"System/Source/Account.cpp"
-"System/Source/FileManager.cpp"
-"System/Source/Serializable.cpp"
-"UI/Sourse/Button.cpp" 
-"UI/Sourse/Menu.cpp"
-"UI/Sourse/Object.cpp")
+add_executable (ReferenceBook
+        main.cpp
+        System/Headers/Contact.h
+        System/Source/Contact.cpp
+        System/Headers/ContactBook.h
+        System/Source/ContactBook.cpp
+        System/Headers/Account.h
+        System/Source/Account.cpp
+        System/Headers/FileManager.h
+        System/Source/FileManager.cpp
+        System/Headers/Serializable.h
+        System/Source/Serializable.cpp
+        UI/Headers/Button.h
+        UI/Source/Button.cpp
+        UI/Headers/Menu.h
+        UI/Source/Menu.cpp
+        UI/Headers/Object.h
+        UI/Source/Object.cpp
+        UI/Headers/Visual.h
+        UI/Source/Visual.cpp
+        UI/Headers/ConsoleManager.h
+        UI/Source/ConsoleManager.cpp
+        UI/Color.h
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ReferenceBook PROPERTY CXX_STANDARD 20)
