@@ -2,20 +2,21 @@
 
 #include <windows.h>
 
-#include "../Color.h"
-#include "../Headers/Visual.h"
+#include "Menu.h"
 
 class ConsoleManager {
-    private:
-    static Color standardConsoleColor;
-    public:
-
+public:
     ConsoleManager();
-    static void selectObject(Visual& visualObject);
 
     static void changeTextColor(Color color);
 
-    static void display(Visual& object);
+    static void display(Visual &visualObject);
 
-    static void setColorToObject(Visual& visualObject, Color color);
+    static void refresh(Visual &visualObject);
+
+    static void setColorToObject(Visual &visualObject, Color color);
+
+    static void delay(int milliseconds);
+
+    static void selectNext(Menu &menu);
 };
