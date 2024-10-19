@@ -69,5 +69,5 @@ void Menu::print() const {
     for (int i = 0; i < offset; i++) {
         std::cout << '-';
     }
-    std::cout << '|';
+    std::cout << '|' << std::endl;
 }
