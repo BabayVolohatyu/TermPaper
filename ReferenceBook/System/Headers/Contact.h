@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Serializable.h"
+#include "Date.h"
 
 class ContactBook;
 
@@ -11,7 +12,8 @@ private:
 	ContactBook* contactBook;
 	std::string name;
 	std::string number;
-	std::string dateOfBirth;
+	Date dateOfBirth;
+
 
 public:
 
@@ -33,7 +35,7 @@ public:
 
 	std::string getNumber() const;
 
-	std::string getDateOfBirth() const;
+	Date getDateOfBirth() const;
 
 	ContactBook* getContactBookByReference() const;
 
@@ -45,7 +47,7 @@ public:
 
 	void setContactBook(ContactBook* newContactBook);
 
-	void getDateOfBirth(const std::string& newDateOfBirth);
+	void setDateOfBirth(const Date& newDateOfBirth);
 
 	bool operator==(const Contact& other) const;
 

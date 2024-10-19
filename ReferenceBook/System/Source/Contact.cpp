@@ -4,10 +4,10 @@
 #include "../Headers/ContactBook.h"
 
 Contact::Contact()
-	:Contact{"Noname","2005/01/01",} {}
+	:Contact{"Empty","Empty", "2000/01/01" } {}
 
 Contact::Contact(const std::string& name)
-	:Contact{name,"","2005/01/01"} {}
+	:Contact{name,"Empty","2000/01/01"} {}
 
 Contact::Contact(const std::string& name, const std::string& number)
 	:Contact{name,number,"2005/01/01"} {}
@@ -15,7 +15,7 @@ Contact::Contact(const std::string& name, const std::string& number)
 Contact::Contact(const std::string& name, const std::string& number, 
 	const std::string& dateOfBirth)
 	:contactBook{ ContactBook::getInstance() }, name{ name }, number{ number }, 
-	dateOfBirth{dateOfBirth} {}
+	dateOfBirth{Date::parseStringToDate(dateOfBirth)} {}
 
 Contact::Contact(const Contact& other)
 	:contactBook{ other.contactBook }, name{ other.name }, number{ other.number },
@@ -37,7 +37,7 @@ std::string Contact::getNumber() const{
 	return number;
 }
 
-std::string Contact::getDateOfBirth() const {
+Date Contact::getDateOfBirth() const {
 	return dateOfBirth;
 }
 
@@ -57,7 +57,7 @@ void Contact::setNumber(const std::string& newNumber){
 	number = newNumber;
 }
 
-void Contact::getDateOfBirth(const std::string& newDateOfBirth) {
+void Contact::setDateOfBirth(const Date& newDateOfBirth) {
 	dateOfBirth = newDateOfBirth;
 }
 
@@ -82,7 +82,7 @@ bool Contact::operator!=(const Contact& other) const{
 void Contact::getDataFromObject(std::ostream& os) const {
 	os << name << std::endl
 		<< number << std::endl
-		<< dateOfBirth << std::endl;
+		<< Date::parseDateToString(dateOfBirth) << std::endl;
 
 }
 
@@ -93,5 +93,5 @@ void Contact::setDataToObject(std::istream& is) {
 	std::getline(is, currentLine);
 	number = currentLine;
 	std::getline(is, currentLine);
-	dateOfBirth = currentLine;
+	dateOfBirth = Date::parseStringToDate(currentLine);
 }
