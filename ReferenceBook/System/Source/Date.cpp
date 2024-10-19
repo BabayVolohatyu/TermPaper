@@ -96,6 +96,27 @@ unsigned Date::getLocalDayAsValue() {
     return static_cast<unsigned>(localDate.day());
 }
 
+int Date::getLocalHourAsValue() {
+    std::time_t now = std::chrono::system_clock::to_time_t(
+        std::chrono::system_clock::now());
+    std::tm localTime = *std::localtime(&now);
+    return localTime.tm_hour;
+}
+
+int Date::getLocalMinuteAsValue() {
+    std::time_t now = std::chrono::system_clock::to_time_t(
+        std::chrono::system_clock::now());
+    std::tm localTime = *std::localtime(&now);
+    return localTime.tm_min;
+}
+
+int Date::getLocalSecondAsValue() {
+    std::time_t now = std::chrono::system_clock::to_time_t(
+        std::chrono::system_clock::now());
+    std::tm localTime = *std::localtime(&now);
+    return localTime.tm_sec;
+}
+
 Date Date::parseStringToDate(const std::string &date) {
     std::regex date_regex(R"((\d{4})[./\-](\d{1,2})[./\-](\d{1,2}))");
     std::smatch matches;
@@ -115,8 +136,87 @@ Date Date::parseStringToDate(const std::string &date) {
 
 std::string Date::parseDateToString(const Date &date) {
     return std::to_string(date.getYearAsValue())
-                          + '/' + std::to_string(date.getMonthAsValue())
-                          + '/' + std::to_string(date.getDayAsValue());
+           + '/' + std::to_string(date.getMonthAsValue())
+           + '/' + std::to_string(date.getDayAsValue());
+}
+
+std::string Date::parseTimePointToString(const std::chrono::system_clock::time_point &tp) {
+    std::chrono::year_month_day ymdTemp = std::chrono::floor<std::chrono::days>(tp);
+    std::string str = "Today is: " + std::to_string(static_cast<unsigned>(ymdTemp.day()));
+    switch (static_cast<unsigned>(ymdTemp.day())) {
+        case 1:
+            str += "st ";
+            break;
+        case 2:
+            str += "nd ";
+            break;
+        case 3:
+            str += "rd ";
+            break;
+        case 21:
+            str += "st ";
+            break;
+        case 22:
+            str += "nd ";
+            break;
+        case 23:
+            str += "rd ";
+            break;
+        default:
+            str += "th ";
+            break;
+    }
+    str += "of ";
+    switch (static_cast<unsigned>(ymdTemp.month())) {
+        case 1:
+            str += "January ";
+            break;
+        case 2:
+            str += "February ";
+            break;
+        case 3:
+            str += "March ";
+            break;
+        case 4:
+            str += "April ";
+            break;
+        case 5:
+            str += "May ";
+            break;
+        case 6:
+            str += "June ";
+            break;
+        case 7:
+            str += "July ";
+            break;
+        case 8:
+            str += "August ";
+            break;
+        case 9:
+            str += "September ";
+            break;
+        case 10:
+            str += "October ";
+            break;
+        case 11:
+            str += "November ";
+            break;
+        case 12:
+            str += "December ";
+            break;
+        default:
+            str += "Some another month ";
+            break;
+    }
+    str += std::to_string(static_cast<int>(ymdTemp.year()));
+    return str;
+}
+
+std::string Date::getLocalTimeOfTheDayAsString() {
+    std::string str = std::to_string(getLocalHourAsValue()) +
+                      ":" + std::to_string(getLocalMinuteAsValue()) +
+                      ":" + std::to_string(getLocalSecondAsValue());
+    return str;
 }
 
 void Date::validateYear(int &year) {
@@ -137,7 +237,7 @@ void Date::validateDay(int year, unsigned month, unsigned &day) {
     } else if (day > 30 && (month == 4 || month == 6 || month == 9 || month == 11)) {
         day = 30;
     } else if (day > 31 && (month == 1 || month == 3 || month == 5 || month == 7
-               || month == 8 || month == 10 || month == 12)) {
+                            || month == 8 || month == 10 || month == 12)) {
         day = 31;
     } else if (day > 29 && month == 2 && year % 4 == 0) {
         day = 29;

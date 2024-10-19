@@ -39,9 +39,19 @@ public:
 
     static unsigned getLocalDayAsValue();
 
+    static int getLocalHourAsValue();
+
+    static int getLocalMinuteAsValue();
+
+    static int getLocalSecondAsValue();
+
     static Date parseStringToDate(const std::string &date);
 
     static std::string parseDateToString(const Date &date);
+
+    static std::string parseTimePointToString(const std::chrono::system_clock::time_point &tp);
+
+    static std::string getLocalTimeOfTheDayAsString();
 
     static void validateYear(int &year);
 
