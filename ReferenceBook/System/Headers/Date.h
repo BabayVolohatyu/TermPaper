@@ -13,15 +13,15 @@ public:
 
     explicit Date(std::chrono::year_month_day &&date);
 
-    Date(int year, int month, int day);
+    Date(int year, unsigned month, unsigned day);
 
-    void set_date(const std::chrono::year_month_day& date);
+    void set_date(const std::chrono::year_month_day &date);
 
     void setYear(int year);
 
-    void setMonth(int month);
+    void setMonth(unsigned month);
 
-    void setDay(int day);
+    void setDay(unsigned day);
 
     std::chrono::year_month_day getDate() const;
 
@@ -39,6 +39,25 @@ public:
 
     static unsigned getLocalDayAsValue();
 
+    static Date parseStringToDate(const std::string &date);
 
+    static std::string parseDateToString(const Date &date);
 
+    static void validateYear(int &year);
+
+    static void validateMonth(unsigned &month);
+
+    static void validateDay(int year, unsigned month, unsigned &day);
+
+    bool operator==(const Date &other) const;
+
+    bool operator!=(const Date &other) const;
+
+    bool operator<=(const Date &other) const = delete;
+
+    bool operator>=(const Date &other) const = delete;
+
+    bool operator<(const Date &other) const;
+
+    bool operator>(const Date &other) const;
 };
