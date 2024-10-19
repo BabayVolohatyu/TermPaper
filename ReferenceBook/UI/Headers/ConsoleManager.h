@@ -14,7 +14,7 @@ public:
 
     static void display(const Visual &visualObject);
 
-    static void refresh(Visual &visualObject);
+    static void clear();
 
     static void setColorToObject(Visual &visualObject, Color color);
 
