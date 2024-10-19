@@ -3,6 +3,10 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+if (NOT WIN32)
+  message(FATAL_ERROR "This project can only be compiled on Windows.")
+endif()
+
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
