@@ -24,6 +24,8 @@ add_executable (ReferenceBook
         System/Source/FileManager.cpp
         System/Headers/Serializable.h
         System/Source/Serializable.cpp
+        System/Headers/Date.h
+        System/Source/Date.cpp
         UI/Headers/Button.h
         UI/Source/Button.cpp
         UI/Headers/Menu.h
@@ -34,7 +36,8 @@ add_executable (ReferenceBook
         UI/Source/Visual.cpp
         UI/Headers/ConsoleManager.h
         UI/Source/ConsoleManager.cpp
-        UI/Color.h
+        Enums/Color.h
+        Enums/Month.h
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

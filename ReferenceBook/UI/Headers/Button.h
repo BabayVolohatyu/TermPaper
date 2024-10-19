@@ -4,7 +4,6 @@
 
 #include "Visual.h"
 #include "Object.h"
-#include "../Color.h"
 
 class Button : public Visual, public Object {
 private:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Color.h"
+#include "../../Enums/Color.h"
 
 class Visual {
 protected:
