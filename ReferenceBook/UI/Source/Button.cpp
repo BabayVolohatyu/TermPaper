@@ -1,5 +1,4 @@
 #include "../Headers/Button.h"
-
 #include "../Headers/ConsoleManager.h"
 
 Button::Button(const std::string &name, int height, int width)
@@ -50,4 +49,3 @@ void Button::print() const {
     }
     std::cout << std::endl;
 }
-
