@@ -10,6 +10,15 @@ void ConsoleManager::changeTextColor(Color color) {
     SetConsoleTextAttribute(hConsole, static_cast<int>(color));
 }
 
+void ConsoleManager::hideCursor() {
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    GetConsoleCursorInfo(consoleHandle, &cursorInfo);
+    cursorInfo.bVisible = false;
+    SetConsoleCursorInfo(consoleHandle, &cursorInfo);
+}
+
 void ConsoleManager::display(const Visual &visualObject) {
     visualObject.print();
 }

@@ -10,6 +10,8 @@ public:
 
     static void changeTextColor(Color color);
 
+    static void hideCursor();
+
     static void display(const Visual &visualObject);
 
     static void refresh(Visual &visualObject);
