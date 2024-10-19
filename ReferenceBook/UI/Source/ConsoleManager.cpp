@@ -1,17 +1,16 @@
 #include "../Headers/ConsoleManager.h"
 
 
-
 void ConsoleManager::setColorToObject(Visual& visualObject, Color color) {
     visualObject.setColor(color);
 }
 
 void ConsoleManager::changeTextColor(Color color) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, color);
+    SetConsoleTextAttribute(hConsole, static_cast<int>(color));
 }
 
-void ConsoleManager::display(Visual &visualObject) {
+void ConsoleManager::display(const Visual &visualObject) {
     visualObject.print();
 }
 

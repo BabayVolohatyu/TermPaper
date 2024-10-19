@@ -10,7 +10,7 @@ public:
 
     static void changeTextColor(Color color);
 
-    static void display(Visual &visualObject);
+    static void display(const Visual &visualObject);
 
     static void refresh(Visual &visualObject);
 

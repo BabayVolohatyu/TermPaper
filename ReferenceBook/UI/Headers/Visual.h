@@ -4,7 +4,7 @@
 
 class Visual {
 protected:
-    Color currentColor = MAGENTA;
+    Color currentColor = Color::MAGENTA;
 
 public:
     static Color selectedColor;
