@@ -9,43 +9,38 @@ class Contact;
 
 class ContactBook : public Serializable {
 private:
-	std::pmr::list<Contact> contacts;
+    std::list<Contact *> contacts;
 
-	static ContactBook* contactBook;
+    static ContactBook *contactBook;
 
-	ContactBook();
+    ContactBook();
 
 public:
+    ContactBook(const ContactBook &other) = delete;
 
-	ContactBook(const ContactBook& other) = delete;
+    ~ContactBook();
 
-	~ContactBook();
+    static ContactBook *getInstance();
 
-	static ContactBook* getInstance();
+    void deleteInstance();
 
-	void deleteInstance();
+    void emplace_front(Contact *contact);
 
-	void emplace_front(Contact&& contact);
+    void emplace_back(Contact *contact);
 
-	void emplace_front(const Contact& contact);
+    void pop_front();
 
-	void emplace_back(Contact&& contact);
+    void pop_back();
 
-	void emplace_back(const Contact& contact);
+    void insert(int id, Contact *contact);
 
-	void pop_front();
+    void erase(int id);
 
-	void pop_back();
+    int getSize() const;
 
-	void insert(int id, Contact&& contact);
+    Contact *getContactById(int id);
 
-	void erase(int id);
+    void getDataFromObject(std::ostream &os) const override;
 
-	int getSize() const;
-
-	Contact getContactById(int id);
-
-	void getDataFromObject(std::ostream& os) const override;
-
-	void setDataToObject(std::istream& is) override;
+    void setDataToObject(std::istream &is) override;
 };
