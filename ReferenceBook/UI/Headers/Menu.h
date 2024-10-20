@@ -8,7 +8,7 @@
 #include "Button.h"
 
 class Menu : public Visual, public Object {
-private:
+protected:
     std::vector<Button*> buttons;
     static int selectedIndex;
 
