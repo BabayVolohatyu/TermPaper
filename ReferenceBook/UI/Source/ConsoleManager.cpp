@@ -57,8 +57,11 @@ void ConsoleManager::selectPreviousButton(Menu &menu) {
         menu.getButton(menu.getSelectedIndex())->setColor(Visual::standardColor);
         menu.selectIndex(menu.getSize() - 1);
         menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
+    } else if(menu.getSelectedIndex() == -1) {
+            menu.selectIndex(menu.getSize() - 1);
+            menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
     }else {
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
+        menu.getButton(menu.getSelectedIndex())->setColor(Visual::standardColor);
         menu.selectIndex(menu.getSelectedIndex() - 1);
         menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
     }
