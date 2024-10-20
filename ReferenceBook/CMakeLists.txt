@@ -45,6 +45,10 @@ add_executable (ReferenceBook
         UI/Headers/TimeButton.h
         UI/Source/TimeButton.cpp
         Enums/Color.h
+        UI/Headers/ContactButton.h
+        UI/Source/ContactButton.cpp
+        UI/Headers/ContactMenu.h
+        UI/Source/ContactMenu.cpp
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
