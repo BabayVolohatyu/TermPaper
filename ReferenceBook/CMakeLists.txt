@@ -32,6 +32,10 @@ add_executable (ReferenceBook
         System/Source/Date.cpp
         System/Headers/TimeManager.h
         System/Source/TimeManager.cpp
+        System/Headers/KeyReader.h
+        System/Source/KeyReader.cpp
+        System/Headers/KeySettings.h
+        System/Source/KeySettings.cpp
         UI/Headers/Button.h
         UI/Source/Button.cpp
         UI/Headers/Menu.h
@@ -44,11 +48,12 @@ add_executable (ReferenceBook
         UI/Source/ConsoleManager.cpp
         UI/Headers/TimeButton.h
         UI/Source/TimeButton.cpp
-        Enums/Color.h
         UI/Headers/ContactButton.h
         UI/Source/ContactButton.cpp
         UI/Headers/ContactMenu.h
         UI/Source/ContactMenu.cpp
+        Enums/Color.h
+        Enums/KeyCode.h
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
