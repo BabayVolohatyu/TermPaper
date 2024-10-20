@@ -2,8 +2,21 @@
 #include "../Headers/ConsoleManager.h"
 
 Button::Button(const std::string &name, int height, int width)
-    : Object{name, height, width} {
+    : Object{name, height, width}, menuItRefersTo {nullptr}{
 }
+
+Button::~Button() {
+    delete menuItRefersTo;
+}
+
+void Button::setMenuToRefer(Menu *menuToRefer) {
+    menuItRefersTo = menuToRefer;
+}
+
+Menu *Button::getMenuItRefersTo() {
+    return menuItRefersTo;
+}
+
 
 void Button::print() const {
     ConsoleManager::changeTextColor(currentColor);

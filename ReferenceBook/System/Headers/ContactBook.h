@@ -9,7 +9,7 @@ class Contact;
 
 class ContactBook : public Serializable {
 private:
-	std::list<Contact> contacts;
+	std::pmr::list<Contact> contacts;
 
 	static ContactBook* contactBook;
 
@@ -42,6 +42,8 @@ public:
 	void erase(int id);
 
 	int getSize() const;
+
+	Contact getContactById(int id);
 
 	void getDataFromObject(std::ostream& os) const override;
 

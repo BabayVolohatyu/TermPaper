@@ -1,12 +1,13 @@
 #pragma once
 
-#include <windows.h>
-
 #include "Menu.h"
 
 class ConsoleManager {
+    static Menu *currentMenu;
 public:
-    ConsoleManager();
+    ConsoleManager() = default;
+
+    ~ConsoleManager();
 
     static void changeTextColor(Color color);
 
@@ -20,5 +21,13 @@ public:
 
     static void delay(int milliseconds);
 
-    static void selectNext(Menu &menu);
+    static void selectNextButton(Menu &menu);
+
+    static void selectPreviousButton(Menu &menu);
+
+    static void setCurrentMenu(Menu *menu);
+
+    static Menu* getCurrentMenu();
+
+
 };

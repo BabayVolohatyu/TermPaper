@@ -28,7 +28,7 @@ void ContactBook::emplace_front(Contact&& contact) {
 }
 
 void ContactBook::emplace_front(const Contact& contact){
-	contacts.emplace_front(std::move(contact));
+	contacts.emplace_front(contact);
 }
 
 void ContactBook::emplace_back(Contact&& contact) {
@@ -36,7 +36,7 @@ void ContactBook::emplace_back(Contact&& contact) {
 }
 
 void ContactBook::emplace_back(const Contact& contact){
-	contacts.emplace_back(std::move(contact));
+	contacts.emplace_back(contact);
 }
 
 void ContactBook::pop_front() {
@@ -73,6 +73,17 @@ void ContactBook::erase(int id) {
 int ContactBook::getSize() const {
 	return contacts.size();
 }
+
+Contact ContactBook::getContactById(int id) {
+	if (id < 0 || id >= contacts.size()) {
+		throw std::out_of_range("Invalid index");
+	}
+
+	std::list<Contact>::iterator it = contacts.begin();
+	std::advance(it, id);
+	return *it;
+}
+
 
 void ContactBook::getDataFromObject(std::ostream& os) const{
 	os << contacts.size() << std::endl;

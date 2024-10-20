@@ -9,7 +9,7 @@
 
 class Menu : public Visual, public Object {
 private:
-    std::vector<Button *> buttons;
+    std::vector<Button*> buttons;
     static int selectedIndex;
 
     Menu() = delete;
