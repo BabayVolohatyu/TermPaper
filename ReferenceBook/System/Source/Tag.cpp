@@ -1,5 +1,7 @@
 #include "../Headers/Tag.h"
 
+#include "../../UI/Headers/ConsoleManager.h"
+
 Tag::Tag(const std::string &tagName, Color color)
     : tagName{tagName} {
     currentColor = color;
@@ -14,7 +16,9 @@ void Tag::setTagName(const std::string &tagName) {
 }
 
 void Tag::print() const {
+    ConsoleManager::changeTextColor(this->getColor());
     std::cout << '[' << tagName << ']';
+    ConsoleManager::changeTextColor(ConsoleManager::getCurrentMenu()->getColor());
 }
 
 bool Tag::operator==(const Tag &other) const {
@@ -29,7 +33,7 @@ bool Tag::operator!=(const Tag &other) const {
 
 void Tag::getDataFromObject(std::ostream &os) const {
     os << this->tagName << std::endl
-    << static_cast<int>(this->currentColor)<< std::endl;
+            << static_cast<int>(this->currentColor) << std::endl;
 }
 
 void Tag::setDataToObject(std::istream &is) {

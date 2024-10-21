@@ -76,4 +76,31 @@ void ContactInfoMenu::print() const {
         std::cout << '~';
     }
     std::cout << '|' << std::endl;
+
+    int maxTagSize = 0;
+    for (const Tag &tag: this->contact->getTags()) {
+        if (tag.getTagName().size() > maxTagSize) {
+            maxTagSize = static_cast<int>(tag.getTagName().size());
+        }
+    }
+    tempWidth = maxTagSize + 2;
+
+    for (const Tag &tag : this->contact->getTags()) {
+        std::cout << '|';
+
+        int offsetForTag = (tempWidth - static_cast<int>(tag.getTagName().size())) / 2;
+
+        for (int i = 0; i < offsetForTag; i++) {
+            std::cout << ' ';
+        }
+
+        tag.print();
+
+
+        for (int i = 0; i < (tempWidth - static_cast<int>(tag.getTagName().size()) - offsetForTag); i++) {
+            std::cout << ' ';
+        }
+
+        std::cout << '|' << std::endl;
+    }
 }

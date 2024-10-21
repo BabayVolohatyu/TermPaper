@@ -7,7 +7,7 @@
 void FileManager::uploadToFile(const std::string& path, const Serializable& object) {
 
 	std::filesystem::path dirPath = std::filesystem::path(path).parent_path();
-	if (!exists(dirPath)) create_directories(dirPath);
+	if (!exists(dirPath)&&!dirPath.empty()) create_directories(dirPath);
 
 	std::ofstream ofs{ path, std::ofstream::out };
 
@@ -18,7 +18,7 @@ void FileManager::uploadToFile(const std::string& path, const Serializable& obje
 void FileManager::downloadFromFile(const std::string& path, Serializable& object){
 
 	std::filesystem::path dirPath = std::filesystem::path(path).parent_path();
-	if (!exists(dirPath)) create_directories(dirPath);
+	if (!exists(dirPath)&& !dirPath.empty()) create_directories(dirPath);
 
 	std::ifstream ifs{ path, std::ifstream::in };
 

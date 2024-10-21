@@ -20,6 +20,8 @@ public:
 
     static void clear();
 
+    static void refreshButtonBuffer();
+
     static void setColorToObject(Visual *visualObject, Color color);
 
     static void delay(int milliseconds);

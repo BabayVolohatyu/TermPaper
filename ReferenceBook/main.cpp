@@ -32,15 +32,19 @@ void displayMainMenu(const Menu *mainMenu,
 }
 
 int main() {
+    Account *sampleAccount = Account::getInstance("sample@example.com", "Nazar");
+    FileManager::downloadFromFile(
+        "../../SampleProject/SampleDatabase/Accounts/"
+        + sampleAccount->getName()
+        + '/'+sampleAccount->getName() +"_data.txt",
+                              *sampleAccount);
     KeySettings keySettings;
-    FileManager::downloadFromFile("properties", keySettings);
-    Account *account = Account::getInstance("", "Nazar");
-    FileManager::downloadFromFile("Accounts/" + account->getName() + ".txt", *account);
+    FileManager::downloadFromFile("properties.txt", keySettings);
 
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
 
-    Button *nameButton = new Button{"Welcome, " + account->getName() + '!', 1, 50};
+    Button *nameButton = new Button{"Welcome, " + sampleAccount->getName() + '!', 1, 50};
 
     mainMenu->emplace_back(new Button{"Contacts", 1, 1});
     mainMenu->emplace_back(new Button{"Settings", 1, 2});
@@ -60,18 +64,19 @@ int main() {
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
     for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
         contactsMenu->emplace_back(new Button{
-            ContactBook::getInstance()->getContactById(i)->getName(),
+            ContactBook::getInstance()->getContact(i)->getName(),
             1, 1
         });
     }
     for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
-        Contact *contactToRefer = ContactBook::getInstance()->getContactById(i);
+        Contact *contactToRefer = ContactBook::getInstance()->getContact(i);
         contactsMenu->getButton(i)->setMenuToRefer(new ContactInfoMenu("", 1, contactToRefer));
         ConsoleManager::setColorToObject(contactsMenu->getButton(i)->getMenuItRefersTo(), Color::YELLOW);
     }
 
     Button quitButton{"Quit", 1, 50};
     ConsoleManager::setCurrentMenu(mainMenu);
+    ConsoleManager::refreshButtonBuffer();
     while (true) {
         if (GetAsyncKeyState(keySettings.getNextButton())) {
             ConsoleManager::selectNextButton(ConsoleManager::getCurrentMenu());
@@ -123,82 +128,17 @@ int main() {
             delete timeButton;
             delete contactsMenu;
             delete userManual;
-            FileManager::uploadToFile("Accounts/" + account->getName() + ".txt", *account);
+            FileManager::uploadToFile(
+        "../../SampleProject/SampleDatabase/Accounts/"
+        + sampleAccount->getName()
+        + '/'+sampleAccount->getName() +"_data.txt",
+                              *sampleAccount);
             Account::deleteInstance();
             return 0;
         } else {
             ConsoleManager::delay(1000);
+            if (ConsoleManager::getCurrentMenu() == mainMenu) displayMainMenu(mainMenu, nameButton, timeButton);
         }
     }
-    // ConsoleManager::hideCursor();
-    // ConsoleManager::display(menu1);
-    // ConsoleManager::display(clockButton);
     return 0;
 }
-
-// Account *sampleAccount = Account::getInstance("sample@example.com", "Nazar");
-// Account::contactBook->emplace_back(Contact{
-//     "John",
-//     "+380687895245",
-//     "2005/12/06"
-// });
-// Account::contactBook->emplace_back(Contact{
-//     "Mark",
-//     "+388978567789",
-//     "2015/10/09"
-// });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Anna",
-//         "+380501234567",
-//         "1999/03/15"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Oleg",
-//         "+380671112233",
-//         "1987/07/22"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Marta",
-//         "+380662223344",
-//         "2000/01/30"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Ivan",
-//         "+380931234567",
-//         "1992/11/10"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Olena",
-//         "+380503334455",
-//         "2003/05/25"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Taras",
-//         "+380632345678",
-//         "1995/02/18"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Svitlana",
-//         "+380673456789",
-//         "1984/09/09"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Mykola",
-//         "+380951234567",
-//         "1978/12/01"
-//     });
-//
-// Account::contactBook->emplace_back(Contact{
-//         "Nadiya",
-//         "+380686789012",
-//         "1990/04/07"
-//     });
-// FileManager::uploadToFile("Accounts/"+sampleAccount->getName()+".txt", *sampleAccount);
