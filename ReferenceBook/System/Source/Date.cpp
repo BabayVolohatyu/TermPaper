@@ -213,13 +213,16 @@ std::string Date::parseTimePointToString(const std::chrono::system_clock::time_p
 }
 
 std::string Date::getLocalTimeOfTheDayAsString() {
-    std::string str = std::to_string(getLocalHourAsValue()) +
-                      ":" + ((getLocalMinuteAsValue() < 10)
-                                 ? '0' + std::to_string(getLocalMinuteAsValue())
-                                 : std::to_string(getLocalMinuteAsValue())) +
-                      ":" + ((getLocalSecondAsValue() < 10)
-                                 ? '0' + std::to_string(getLocalSecondAsValue())
-                                 : std::to_string(getLocalSecondAsValue()));
+    std::string str =
+            ((getLocalHourAsValue() < 10)
+                 ? '0' + std::to_string(getLocalHourAsValue())
+                 : std::to_string(getLocalDayAsValue())) +
+            ":" + ((getLocalMinuteAsValue() < 10)
+                       ? '0' + std::to_string(getLocalMinuteAsValue())
+                       : std::to_string(getLocalMinuteAsValue())) +
+            ":" + ((getLocalSecondAsValue() < 10)
+                       ? '0' + std::to_string(getLocalSecondAsValue())
+                       : std::to_string(getLocalSecondAsValue()));
     return str;
 }
 
