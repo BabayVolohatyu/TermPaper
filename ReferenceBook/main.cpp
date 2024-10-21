@@ -14,6 +14,7 @@
 #include "UI/Headers/Menu.h"
 #include "UI/Headers/ContactMenu.h"
 #include "UI/Headers/ContactInfoMenu.h"
+#include "UI/Headers/UserManualMenu.h"
 #include "UI/Headers/ConsoleManager.h"
 #include "Enums/Color.h"
 
@@ -39,15 +40,15 @@ int main() {
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
 
-    Button *nameButton = new Button{"Welcome " + account->getName() + '!', 1, 50};
+    Button *nameButton = new Button{"Welcome, " + account->getName() + '!', 1, 50};
 
     mainMenu->emplace_back(new Button{"Contacts", 1, 1});
     mainMenu->emplace_back(new Button{"Settings", 1, 2});
-    mainMenu->emplace_back(new Button{"Quit", 1, 4});
+    mainMenu->emplace_back(new Button{"Open User Manual(F1)", 1, 4});
 
     mainMenu->getButton(1)->setMenuToRefer(mainMenu);
-    mainMenu->getButton(2)->setMenuToRefer(mainMenu);
-
+    UserManualMenu* userManual = new UserManualMenu("User Manual", 1, "UserManual.txt");
+    mainMenu->getButton(2)->setMenuToRefer(userManual);
     TimeButton *timeButton = new TimeButton{Date::parseTimePointToString(Date::getLocalTime()), 5, 5};
     TimeManager::startClockUpdateThread(timeButton);
     ConsoleManager::setColorToObject(timeButton, Color::CYAN);
@@ -121,6 +122,7 @@ int main() {
             delete nameButton;
             delete timeButton;
             delete contactsMenu;
+            delete userManual;
             FileManager::uploadToFile("Accounts/" + account->getName() + ".txt", *account);
             Account::deleteInstance();
             return 0;
