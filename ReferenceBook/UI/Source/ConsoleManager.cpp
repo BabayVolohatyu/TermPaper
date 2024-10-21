@@ -3,14 +3,25 @@
 #include "../Headers/ConsoleManager.h"
 
 Menu* ConsoleManager::currentMenu = nullptr;
+std::stack<Menu*> ConsoleManager::menuStack{};
 
 ConsoleManager::~ConsoleManager() {
-    delete currentMenu;
+    if (currentMenu != nullptr) {
+        delete currentMenu;
+        currentMenu = nullptr;
+    }
+
+    while (!menuStack.empty()) {
+        if (menuStack.top() != nullptr) {
+            delete menuStack.top();
+        }
+        menuStack.pop();
+    }
 }
 
 
-void ConsoleManager::setColorToObject(Visual &visualObject, Color color) {
-    visualObject.setColor(color);
+void ConsoleManager::setColorToObject(Visual *visualObject, Color color) {
+    visualObject->setColor(color);
 }
 
 void ConsoleManager::changeTextColor(Color color) {
@@ -27,8 +38,8 @@ void ConsoleManager::hideCursor() {
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void ConsoleManager::display(const Visual &visualObject) {
-    visualObject.print();
+void ConsoleManager::display(const Visual *visualObject) {
+    visualObject->print();
 }
 
 void ConsoleManager::clear() {
@@ -40,30 +51,37 @@ void ConsoleManager::delay(int milliseconds) {
     Sleep(milliseconds);
 }
 
-void ConsoleManager::selectNextButton(Menu &menu) {
-    if (menu.getSelectedIndex() >= menu.getSize() - 1) {
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::standardColor);
-        menu.selectIndex(0);
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
+void ConsoleManager::selectNextButton(Menu *menu) {
+    if (menu->getSelectedIndex() >= menu->getSize() - 1) {
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
+        menu->selectIndex(0);
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
     } else {
-        if (menu.getSelectedIndex() >= 0) menu.getButton(menu.getSelectedIndex())->setColor(Visual::standardColor);
-        menu.selectIndex(menu.getSelectedIndex() + 1);
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
+        if (menu->getSelectedIndex() >= 0) menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
+        menu->selectIndex(menu->getSelectedIndex() + 1);
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
     }
 }
 
-void ConsoleManager::selectPreviousButton(Menu &menu) {
-    if (menu.getSelectedIndex() == 0) {
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::standardColor);
-        menu.selectIndex(menu.getSize() - 1);
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
-    } else if(menu.getSelectedIndex() == -1) {
-            menu.selectIndex(menu.getSize() - 1);
-            menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
+void ConsoleManager::selectPreviousButton(Menu *menu) {
+    if (menu->getSelectedIndex() == 0) {
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
+        menu->selectIndex(menu->getSize() - 1);
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
+    } else if(menu->getSelectedIndex() == -1) {
+            menu->selectIndex(menu->getSize() - 1);
+            menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
     }else {
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::standardColor);
-        menu.selectIndex(menu.getSelectedIndex() - 1);
-        menu.getButton(menu.getSelectedIndex())->setColor(Visual::selectedColor);
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
+        menu->selectIndex(menu->getSelectedIndex() - 1);
+        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
+    }
+}
+
+void ConsoleManager::returnToPreviousMenu() {
+    if(!menuStack.empty()) {
+        currentMenu = menuStack.top();
+        menuStack.pop();
     }
 }
 
@@ -75,3 +93,8 @@ Menu* ConsoleManager::getCurrentMenu() {
     return currentMenu;
 
 }
+
+void ConsoleManager::pushMenu(Menu *menu) {
+    menuStack.push(menu);
+}
+

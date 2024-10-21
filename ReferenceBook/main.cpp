@@ -17,74 +17,81 @@
 #include "UI/Headers/ConsoleManager.h"
 #include "Enums/Color.h"
 
+
+void displayMainMenu(const Menu *mainMenu,
+                     const Button *nameButton,
+                     const Button *timeButton) {
+    if (ConsoleManager::getCurrentMenu() == mainMenu) {
+        ConsoleManager::clear();
+        ConsoleManager::hideCursor();
+        ConsoleManager::display(nameButton);
+        ConsoleManager::display(ConsoleManager::getCurrentMenu());
+        ConsoleManager::display(timeButton);
+    }
+}
+
 int main() {
     KeySettings keySettings;
     FileManager::downloadFromFile("properties", keySettings);
     Account *account = Account::getInstance("", "Nazar");
     FileManager::downloadFromFile("Accounts/" + account->getName() + ".txt", *account);
 
-    Menu mainMenu{"Main menu", 20};
+    Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
 
-    Button nameButton{account->getName(), 1, 50};
+    Button *nameButton = new Button{"Welcome " + account->getName() + '!', 1, 50};
 
-    mainMenu.emplace_back(new Button{"Contacts", 1, 1});
-    mainMenu.emplace_back(new Button{"Settings", 1, 2});
-    mainMenu.emplace_back(new Button{"Quit", 1, 4});
+    mainMenu->emplace_back(new Button{"Contacts", 1, 1});
+    mainMenu->emplace_back(new Button{"Settings", 1, 2});
+    mainMenu->emplace_back(new Button{"Quit", 1, 4});
 
-    mainMenu.getButton(1)->setMenuToRefer(&mainMenu);
-    mainMenu.getButton(2)->setMenuToRefer(&mainMenu);
+    mainMenu->getButton(1)->setMenuToRefer(mainMenu);
+    mainMenu->getButton(2)->setMenuToRefer(mainMenu);
 
-    TimeButton clockButton(Date::parseTimePointToString(Date::getLocalTime()), 5, 5);
-    TimeManager::startClockUpdateThread(clockButton);
-    ConsoleManager::setColorToObject(clockButton, Color::CYAN);
+    TimeButton *timeButton = new TimeButton{Date::parseTimePointToString(Date::getLocalTime()), 5, 5};
+    TimeManager::startClockUpdateThread(timeButton);
+    ConsoleManager::setColorToObject(timeButton, Color::CYAN);
 
-    ContactMenu contactsMenu{"Contacts menu", 20};
-    contactsMenu.setOffset(3);
-    mainMenu.getButton(0)->setMenuToRefer(&contactsMenu);
+    ContactMenu *contactsMenu = new ContactMenu{"Contacts menu", 20};
+    contactsMenu->setOffset(3);
+    mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
     for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
-        contactsMenu.emplace_back(new Button{
+        contactsMenu->emplace_back(new Button{
             ContactBook::getInstance()->getContactById(i)->getName(),
             1, 1
         });
     }
     for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
         Contact *contactToRefer = ContactBook::getInstance()->getContactById(i);
-        contactsMenu.getButton(i)->setMenuToRefer(new ContactInfoMenu("", 1, contactToRefer));
-        ConsoleManager::setColorToObject(*contactsMenu.getButton(i)->getMenuItRefersTo(), Color::YELLOW);
+        contactsMenu->getButton(i)->setMenuToRefer(new ContactInfoMenu("", 1, contactToRefer));
+        ConsoleManager::setColorToObject(contactsMenu->getButton(i)->getMenuItRefersTo(), Color::YELLOW);
     }
 
     Button quitButton{"Quit", 1, 50};
-    ConsoleManager::setCurrentMenu(&mainMenu);
+    ConsoleManager::setCurrentMenu(mainMenu);
     while (true) {
         if (GetAsyncKeyState(keySettings.getNextButton())) {
-            ConsoleManager::selectNextButton(*ConsoleManager::getCurrentMenu());
-            if (ConsoleManager::getCurrentMenu() == &mainMenu) {
-                ConsoleManager::clear();
-                ConsoleManager::hideCursor();
-                ConsoleManager::display(nameButton);
-                ConsoleManager::display(*ConsoleManager::getCurrentMenu());
-                ConsoleManager::display(clockButton);
+            ConsoleManager::selectNextButton(ConsoleManager::getCurrentMenu());
+            if (ConsoleManager::getCurrentMenu() == mainMenu) {
+                displayMainMenu(mainMenu, nameButton, timeButton);
             } else {
+                ConsoleManager::hideCursor();
                 ConsoleManager::clear();
-                ConsoleManager::display(*ConsoleManager::getCurrentMenu());
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
         } else if (GetAsyncKeyState(keySettings.getPreviousButton())) {
-            ConsoleManager::selectPreviousButton(*ConsoleManager::getCurrentMenu());
-            if (ConsoleManager::getCurrentMenu() == &mainMenu) {
-                ConsoleManager::clear();
+            ConsoleManager::selectPreviousButton(ConsoleManager::getCurrentMenu());
+            if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
+            else {
                 ConsoleManager::hideCursor();
-                ConsoleManager::display(nameButton);
-                ConsoleManager::display(*ConsoleManager::getCurrentMenu());
-                ConsoleManager::display(clockButton);
-            } else {
                 ConsoleManager::clear();
-                ConsoleManager::display(*ConsoleManager::getCurrentMenu());
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
         } else if (GetAsyncKeyState(keySettings.getConfirmButton())) {
             if (ConsoleManager::getCurrentMenu()->getSelectedIndex() != -1) {
+                ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
                 ConsoleManager::getCurrentMenu()->
                         getButton(ConsoleManager::getCurrentMenu()->
                             getSelectedIndex())->setColor(Visual::standardColor);
@@ -92,38 +99,33 @@ int main() {
                     ConsoleManager::getCurrentMenu()->getSelectedIndex())->getMenuItRefersTo();
                 ConsoleManager::setCurrentMenu(newMenu);
                 ConsoleManager::getCurrentMenu()->selectIndex(-1);
-                if (ConsoleManager::getCurrentMenu() == &mainMenu) {
-                    ConsoleManager::clear();
+                if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
+                else {
                     ConsoleManager::hideCursor();
-                    ConsoleManager::display(nameButton);
-                    ConsoleManager::display(*ConsoleManager::getCurrentMenu());
-                    ConsoleManager::display(clockButton);
-                } else {
                     ConsoleManager::clear();
-                    ConsoleManager::display(*ConsoleManager::getCurrentMenu());
+                    ConsoleManager::display(ConsoleManager::getCurrentMenu());
                 }
             }
-        } else {
-            if (ConsoleManager::getCurrentMenu() == &mainMenu) {
-                ConsoleManager::clear();
+        } else if (GetAsyncKeyState(keySettings.getBackButton())) {
+            ConsoleManager::returnToPreviousMenu();
+            if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
+            else {
                 ConsoleManager::hideCursor();
-                ConsoleManager::display(nameButton);
-                ConsoleManager::display(*ConsoleManager::getCurrentMenu());
-                ConsoleManager::display(clockButton);
+                ConsoleManager::clear();
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        }
-        // } else if (GetAsyncKeyState(keySettings.getQuitButton())) {
-        //     ConsoleManager::clear();
-        //     ConsoleManager::changeTextColor(Color::WHITE);
-        //     return 0;
-        // }
-        ConsoleManager::delay(1000);
-        if (ConsoleManager::getCurrentMenu() == &mainMenu) {
+        } else if (GetAsyncKeyState(keySettings.getQuitButton())) {
             ConsoleManager::clear();
-            ConsoleManager::hideCursor();
-            ConsoleManager::display(nameButton);
-            ConsoleManager::display(*ConsoleManager::getCurrentMenu());
-            ConsoleManager::display(clockButton);
+            ConsoleManager::changeTextColor(Color::WHITE);
+            delete mainMenu;
+            delete nameButton;
+            delete timeButton;
+            delete contactsMenu;
+            FileManager::uploadToFile("Accounts/" + account->getName() + ".txt", *account);
+            Account::deleteInstance();
+            return 0;
+        } else {
+            ConsoleManager::delay(1000);
         }
     }
     // ConsoleManager::hideCursor();

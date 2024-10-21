@@ -12,6 +12,6 @@ class TimeManager {
     TimeManager() = delete;
     public:
 
-    static void startClockUpdateThread(TimeButton& clockButton);
+    static void startClockUpdateThread(TimeButton* clockButton);
 };
 
