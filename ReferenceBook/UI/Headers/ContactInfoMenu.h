@@ -1,15 +1,17 @@
 #pragma once
-#include "Button.h"
+#include "Menu.h"
 
 class Contact;
 
-class ContactInfoButton : public Button {
+class ContactInfoMenu : public Menu {
     Contact *contact;
 
-    ContactInfoButton() = delete;
+    ContactInfoMenu() = delete;
 
 public:
-    ContactInfoButton(const std::string &name, int height, int width);
+    ContactInfoMenu(const std::string &name, int width, Contact *contact);
+
+    ~ContactInfoMenu() override;
 
     Contact *getContact() const;
 

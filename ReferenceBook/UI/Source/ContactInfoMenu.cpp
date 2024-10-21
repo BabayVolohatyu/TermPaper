@@ -1,68 +1,79 @@
-#include "../Headers/ContactInfoButton.h"
+#include "../Headers/ContactInfoMenu.h"
 #include "../../System/Headers/Contact.h"
 #include "../Headers/ConsoleManager.h"
 
-ContactInfoButton::ContactInfoButton(const std::string &name, int height, int width): Button{name, height, width},
-    contact{nullptr} {
+ContactInfoMenu::ContactInfoMenu(const std::string &name, int width, Contact *contact): Menu{name, width},
+    contact{contact} {
 }
 
-Contact *ContactInfoButton::getContact() const {
+ContactInfoMenu::~ContactInfoMenu() {
+    delete contact;
+}
+
+Contact *ContactInfoMenu::getContact() const {
     return this->contact;
 }
 
-void ContactInfoButton::setContact(Contact *contact) {
+void ContactInfoMenu::setContact(Contact *contact) {
     this->contact = contact;
 }
 
-void ContactInfoButton::print() const {
+void ContactInfoMenu::print() const {
     ConsoleManager::changeTextColor(currentColor);
+    std::string fieldOfName = this->contact->getName(),
+            fieldOfNumber = "Number:" + contact->getNumber(),
+            fieldOfDateOfBirth = "Date of birth:" + Date::parseDateToString(contact->getDateOfBirth());
+
+    int tempWidth = static_cast<int>(std::max(fieldOfName.size(),
+                                              std::max(fieldOfNumber.size(), fieldOfDateOfBirth.size()))) + 2;
+    tempWidth += (tempWidth % 2 == 1) ? 1 : 0;
+    int offsetForName = (tempWidth - static_cast<int>(fieldOfName.size())) / 2;
+    int offsetForNumber = (tempWidth - static_cast<int>(fieldOfNumber.size())) / 2;
+    int offsetForDate = (tempWidth - static_cast<int>(fieldOfDateOfBirth.size())) / 2;
+
     std::cout << std::endl;
     std::cout << '|';
-    int offsetForName = (width - contact->getName().size()) / 2;
     for (int i = 0; i < offsetForName; i++) {
         std::cout << '~';
     }
-    std::cout << contact->getName();
+    std::cout << fieldOfName;
+    offsetForName += (fieldOfName.size() % 2 == 1) ? 1 : 0;
     for (int i = 0; i < offsetForName; i++) {
         std::cout << '~';
     }
+    offsetForName -= (fieldOfName.size() % 2 == 1) ? 1 : 0;
     std::cout << '|' << std::endl;
 
-
-    std::cout << '|';
-    for (int i = 0; i < width; i++) {
-        std::cout << ' ';
-    }
-    std::cout << '|' << std::endl;
-
-    int offsetForNumber = (width - contact->getNumber().size()) / 2;
     std::cout << '|';
     for (int i = 0; i < offsetForNumber; i++) {
         std::cout << ' ';
     }
-    std::cout <<"Number:"<< contact->getNumber();
+    std::cout << fieldOfNumber;
+    offsetForNumber += (fieldOfNumber.size() % 2 == 1) ? 1 : 0;
     for (int i = 0; i < offsetForNumber; i++) {
         std::cout << ' ';
     }
     std::cout << '|' << std::endl;
 
-    int offsetForDate = (width - Date::parseDateToString(contact->getDateOfBirth()).size())/2;
     std::cout << '|';
     for (int i = 0; i < offsetForDate; i++) {
         std::cout << ' ';
     }
-    std::cout << "Date of birth:"<< Date::parseDateToString(contact->getDateOfBirth());
+    std::cout << fieldOfDateOfBirth;
+    offsetForDate += (fieldOfDateOfBirth.size() % 2 == 1) ? 1 : 0;
     for (int i = 0; i < offsetForDate; i++) {
         std::cout << ' ';
     }
     std::cout << '|' << std::endl;
+
+    std::cout << '|';
     for (int i = 0; i < offsetForName; i++) {
         std::cout << '~';
     }
-    std::cout << contact->getName();
+    std::cout << fieldOfName;
+    offsetForName += (fieldOfName.size() % 2 == 1) ? 1 : 0;
     for (int i = 0; i < offsetForName; i++) {
         std::cout << '~';
     }
     std::cout << '|' << std::endl;
-
 }

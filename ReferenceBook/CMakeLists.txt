@@ -48,8 +48,8 @@ add_executable (ReferenceBook
         UI/Source/ConsoleManager.cpp
         UI/Headers/TimeButton.h
         UI/Source/TimeButton.cpp
-        UI/Headers/ContactButton.h
-        UI/Source/ContactButton.cpp
+        UI/Headers/ContactInfoMenu.h
+        UI/Source/ContactInfoMenu.cpp
         UI/Headers/ContactMenu.h
         UI/Source/ContactMenu.cpp
         Enums/Color.h
