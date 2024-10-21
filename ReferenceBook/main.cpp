@@ -13,6 +13,7 @@
 #include "UI/Headers/Button.h"
 #include "UI/Headers/Menu.h"
 #include "UI/Headers/ContactMenu.h"
+#include "UI/Headers/ContactInfoMenu.h"
 #include "UI/Headers/ConsoleManager.h"
 #include "Enums/Color.h"
 
@@ -45,21 +46,19 @@ int main() {
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
     for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
         contactsMenu.emplace_back(new Button{
-            ContactBook::getInstance()->getContactById(i).getName(),
+            ContactBook::getInstance()->getContactById(i)->getName(),
             1, 1
         });
-        ConsoleManager::setColorToObject(*contactsMenu.getButton(i), Color::MAGENTA);
     }
+    for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
+        Contact *contactToRefer = ContactBook::getInstance()->getContactById(i);
+        contactsMenu.getButton(i)->setMenuToRefer(new ContactInfoMenu("", 1, contactToRefer));
+        ConsoleManager::setColorToObject(*contactsMenu.getButton(i)->getMenuItRefersTo(), Color::YELLOW);
+    }
+
     Button quitButton{"Quit", 1, 50};
     ConsoleManager::setCurrentMenu(&mainMenu);
     while (true) {
-        if (ConsoleManager::getCurrentMenu() == &mainMenu) {
-            ConsoleManager::clear();
-            ConsoleManager::hideCursor();
-            ConsoleManager::display(nameButton);
-            ConsoleManager::display(*ConsoleManager::getCurrentMenu());
-            ConsoleManager::display(clockButton);
-        }
         if (GetAsyncKeyState(keySettings.getNextButton())) {
             ConsoleManager::selectNextButton(*ConsoleManager::getCurrentMenu());
             if (ConsoleManager::getCurrentMenu() == &mainMenu) {
@@ -119,6 +118,13 @@ int main() {
         //     return 0;
         // }
         ConsoleManager::delay(1000);
+        if (ConsoleManager::getCurrentMenu() == &mainMenu) {
+            ConsoleManager::clear();
+            ConsoleManager::hideCursor();
+            ConsoleManager::display(nameButton);
+            ConsoleManager::display(*ConsoleManager::getCurrentMenu());
+            ConsoleManager::display(clockButton);
+        }
     }
     // ConsoleManager::hideCursor();
     // ConsoleManager::display(menu1);
