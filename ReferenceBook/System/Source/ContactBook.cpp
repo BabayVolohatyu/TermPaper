@@ -19,11 +19,11 @@ ContactBook* ContactBook::getInstance() {
 }
 
 void ContactBook::deleteInstance() {
-	delete contactBook;
-	contactBook = nullptr;
 	for (Contact* contact: contacts) {
 		delete contact;
 	}
+	delete contactBook;
+	contactBook = nullptr;
 }
 
 void ContactBook::emplace_front(Contact* contact){
