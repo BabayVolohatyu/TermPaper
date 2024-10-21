@@ -9,7 +9,6 @@ KeySettings::KeySettings()
       cancelButton{KeyCode::X},
       editButton{KeyCode::E} {
 }
-
 int KeySettings::getQuitButton() {
     return static_cast<int>(quitButton);
 }
