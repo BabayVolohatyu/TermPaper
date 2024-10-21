@@ -3,6 +3,7 @@
 KeySettings::KeySettings()
     : quitButton{KeyCode::ESC},
       backButton{KeyCode::DOWN_ARROW},
+      nextButton{KeyCode::DOWN_ARROW},
       previousButton{KeyCode::UP_ARROW},
       confirmButton{KeyCode::C},
       cancelButton{KeyCode::X},
