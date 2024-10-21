@@ -34,6 +34,8 @@ add_executable (ReferenceBook
         System/Source/TimeManager.cpp
         System/Headers/KeySettings.h
         System/Source/KeySettings.cpp
+        System/Headers/Tag.h
+        System/Source/Tag.cpp
         UI/Headers/Button.h
         UI/Source/Button.cpp
         UI/Headers/Menu.h

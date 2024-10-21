@@ -2,15 +2,17 @@
 
 #include <iostream>
 #include <list>
+#include <vector>
 
 #include "Serializable.h"
+#include "Tag.h"
 
 class Contact;
 
 class ContactBook : public Serializable {
 private:
-    std::list<Contact *> contacts;
-
+    std::vector<Contact *> contacts;
+    std::vector<Tag> tags;
     static ContactBook *contactBook;
 
     ContactBook();
@@ -24,21 +26,19 @@ public:
 
     void deleteInstance();
 
-    void emplace_front(Contact *contact);
-
     void emplace_back(Contact *contact);
-
-    void pop_front();
-
-    void pop_back();
-
-    void insert(int id, Contact *contact);
 
     void erase(int id);
 
     int getSize() const;
 
-    Contact *getContactById(int id);
+    Tag getTag(int id) const;
+
+    Contact *getContact(int id);
+
+    void addTag(const Tag &tag);
+
+    void removeTag(const std::string &tagName);
 
     void getDataFromObject(std::ostream &os) const override;
 

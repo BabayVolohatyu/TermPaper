@@ -4,64 +4,79 @@
 
 #include "Serializable.h"
 #include "Date.h"
+#include "Tag.h"
 
 class ContactBook;
 
 class Contact : public Serializable {
 private:
-	ContactBook* contactBook;
-	std::string name;
-	std::string number;
-	Date dateOfBirth;
-
+    ContactBook *contactBook;
+    std::string name;
+    std::string number;
+    Date dateOfBirth;
+    std::vector<Tag> tags;
 
 public:
+    Contact();
 
-	Contact();
+    Contact(const std::string &name);
 
-	Contact(const std::string& name);
+    Contact(const std::string &name,
+            const std::string &number);
 
-	Contact(const std::string& name, const std::string& number);
+    Contact(const std::string &name,
+            const std::string &number,
+            const std::string &dateOfBirth);
 
-	Contact(const std::string& name, const std::string& number, const std::string& dateOfBirth);
+    Contact(const std::string &name,
+            const std::string &number,
+            const std::string &dateOfBirth,
+            const std::vector<Tag> &tags);
 
-	Contact(const Contact& other);
+    Contact(const Contact &other);
 
-	Contact(Contact&& other) noexcept;
+    Contact(Contact &&other) noexcept;
 
-	~Contact();
+    ~Contact();
 
-	std::string getName() const;
+    std::string getName() const;
 
-	std::string getNumber() const;
+    std::string getNumber() const;
 
-	Date getDateOfBirth() const;
+    Date getDateOfBirth() const;
 
-	ContactBook* getContactBookByReference() const;
+    std::vector<Tag> getTags() const;
 
-	ContactBook& getContactBookByValue() const;
-	
-	void setName(const std::string& newName);
+    Tag getTag(int id) const;
 
-	void setNumber(const std::string& newNumber);
+    void addTag(const Tag &tag);
 
-	void setContactBook(ContactBook* newContactBook);
+    void removeTag(const std::string& tagName);
 
-	void setDateOfBirth(const Date& newDateOfBirth);
+    ContactBook *getContactBook() const;
 
-	bool operator==(const Contact& other) const;
+    void setName(const std::string &newName);
 
-	bool operator!=(const Contact& other) const;
+    void setNumber(const std::string &newNumber);
 
-	bool operator<=(const Contact& other) const = delete;
+    void setContactBook(ContactBook *newContactBook);
 
-	bool operator>=(const Contact& other) const = delete;
+    void setDateOfBirth(const Date &newDateOfBirth);
 
-	bool operator<(const Contact& other) const = delete;
 
-	bool operator>(const Contact& other) const = delete;
+    bool operator==(const Contact &other) const;
 
-	void getDataFromObject(std::ostream& os) const override;
+    bool operator!=(const Contact &other) const;
 
-	void setDataToObject(std::istream& is) override;
+    bool operator<=(const Contact &other) const = delete;
+
+    bool operator>=(const Contact &other) const = delete;
+
+    bool operator<(const Contact &other) const = delete;
+
+    bool operator>(const Contact &other) const = delete;
+
+    void getDataFromObject(std::ostream &os) const override;
+
+    void setDataToObject(std::istream &is) override;
 };
