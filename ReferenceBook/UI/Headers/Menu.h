@@ -17,7 +17,7 @@ protected:
 public:
     Menu(const std::string &name, int width);
 
-    ~Menu();
+    ~Menu() override;
 
     void emplace_back(Button *button);
 

@@ -2,11 +2,14 @@
 #include "../Headers/ConsoleManager.h"
 
 Button::Button(const std::string &name, int height, int width)
-    : Object{name, height, width}, menuItRefersTo {nullptr}{
+    : Object{name, height, width}, menuItRefersTo{nullptr} {
 }
 
 Button::~Button() {
-    delete menuItRefersTo;
+    if(menuItRefersTo != nullptr) {
+        delete menuItRefersTo;
+        menuItRefersTo = nullptr;
+    }
 }
 
 void Button::setMenuToRefer(Menu *menuToRefer) {

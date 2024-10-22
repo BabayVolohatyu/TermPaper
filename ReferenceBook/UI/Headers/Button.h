@@ -16,7 +16,7 @@ private:
 public:
     Button(const std::string &name, int height, int width);
 
-    ~Button();
+    ~Button() override;
 
     void setMenuToRefer(Menu *menuToRefer);
 

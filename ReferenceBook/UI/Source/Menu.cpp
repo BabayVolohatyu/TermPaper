@@ -7,10 +7,14 @@ Menu::Menu(const std::string &name, int width)
     : Object{name, 1, width}, buttons{}{
 }
 Menu::~Menu() {
-    for (Button* button : buttons) {
-        delete button;
+    if(!buttons.empty()) {
+        for (Button* button : buttons) {
+            if(button != nullptr) {
+            delete button;
+                button = nullptr;
+            }
+        }
     }
-    buttons.clear();
 }
 
 void Menu::emplace_back(Button* button) {

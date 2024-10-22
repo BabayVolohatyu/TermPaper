@@ -4,10 +4,21 @@
 
 class ContactMenu : public Menu {
 private:
-    int offsetToShow;
-public:
+    static ContactMenu *instance;
+    static int offsetToShow;
+
     ContactMenu(const std::string &name, int width);
-    void setOffset(int offset);
-    int getOffset();
+
+public:
+
+    ~ContactMenu() override;
+    static ContactMenu *getInstance(const std::string &name = "Contacts", int width = 20);
+
+    static void deleteInstance();
+
+    static void setOffset(int offset);
+
+    static int getOffset();
+
     void print() const override;
 };

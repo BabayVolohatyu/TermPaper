@@ -4,6 +4,7 @@
 
 Menu *ConsoleManager::currentMenu = nullptr;
 std::stack<Menu *> ConsoleManager::menuStack{};
+bool ConsoleManager::ignoreInputStatus = false;
 
 ConsoleManager::~ConsoleManager() {
     if (currentMenu != nullptr) {
@@ -22,6 +23,14 @@ ConsoleManager::~ConsoleManager() {
 
 void ConsoleManager::setColorToObject(Visual *visualObject, Color color) {
     visualObject->setColor(color);
+}
+
+void ConsoleManager::setIgnoreInputStatus(bool status) {
+    ignoreInputStatus = status;
+}
+
+bool ConsoleManager::getIgnoreInputStatus() {
+    return ignoreInputStatus;
 }
 
 void ConsoleManager::changeTextColor(Color color) {

@@ -7,6 +7,7 @@
 class ConsoleManager {
     static std::stack<Menu*> menuStack;
     static Menu *currentMenu;
+    static bool ignoreInputStatus;
 public:
     ConsoleManager() = default;
 
@@ -24,6 +25,8 @@ public:
 
     static void setColorToObject(Visual *visualObject, Color color);
 
+    static void setIgnoreInputStatus(bool status);
+
     static void delay(int milliseconds);
 
     static void selectNextButton(Menu *menu);
@@ -35,6 +38,8 @@ public:
     static void setCurrentMenu(Menu *menu);
 
     static Menu* getCurrentMenu();
+
+    static bool getIgnoreInputStatus();
 
     static void pushMenu(Menu *menu);
 

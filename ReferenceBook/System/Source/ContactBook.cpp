@@ -13,7 +13,7 @@ ContactBook::~ContactBook() = default;
 
 ContactBook *ContactBook::getInstance() {
     if (!contactBook) {
-        contactBook = new ContactBook();
+        contactBook = new ContactBook{};
         return contactBook;
     } else return contactBook;
 }
@@ -41,7 +41,7 @@ void ContactBook::erase(int id) {
 }
 
 int ContactBook::getSize() const {
-    return contacts.size();
+    return static_cast<int>(contacts.size());
 }
 
 Tag ContactBook::getTag(int id) const {

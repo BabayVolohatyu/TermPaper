@@ -7,7 +7,7 @@ ContactInfoMenu::ContactInfoMenu(const std::string &name, int width, Contact *co
 }
 
 ContactInfoMenu::~ContactInfoMenu() {
-    delete contact;
+    contact = nullptr;
 }
 
 Contact *ContactInfoMenu::getContact() const {

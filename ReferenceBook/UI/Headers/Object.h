@@ -14,6 +14,8 @@ public:
     Object(const std::string &name,
            int height, int width);
 
+    virtual ~Object() = default;
+
     void setWidth(int width);
 
     void setHeight(int height);

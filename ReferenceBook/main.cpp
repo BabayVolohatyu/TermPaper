@@ -16,6 +16,7 @@
 #include "UI/Headers/ContactInfoMenu.h"
 #include "UI/Headers/UserManualMenu.h"
 #include "UI/Headers/ConsoleManager.h"
+#include "UI/Headers/AddContactMenu.h"
 #include "Enums/Color.h"
 
 
@@ -33,11 +34,6 @@ void displayMainMenu(const Menu *mainMenu,
 
 int main() {
     Account *sampleAccount = Account::getInstance("sample@example.com", "Nazar");
-    FileManager::downloadFromFile(
-        "../../SampleProject/SampleDatabase/Accounts/"
-        + sampleAccount->getName()
-        + '/'+sampleAccount->getName() +"_data.txt",
-                              *sampleAccount);
     KeySettings keySettings;
     FileManager::downloadFromFile("properties.txt", keySettings);
 
@@ -47,18 +43,18 @@ int main() {
     Button *nameButton = new Button{"Welcome, " + sampleAccount->getName() + '!', 1, 50};
 
     mainMenu->emplace_back(new Button{"Contacts", 1, 1});
-    mainMenu->emplace_back(new Button{"Settings", 1, 2});
     mainMenu->emplace_back(new Button{"Open User Manual(F1)", 1, 4});
-
-    mainMenu->getButton(1)->setMenuToRefer(mainMenu);
     UserManualMenu* userManual = new UserManualMenu("User Manual", 1, "UserManual.txt");
-    mainMenu->getButton(2)->setMenuToRefer(userManual);
+    mainMenu->getButton(1)->setMenuToRefer(userManual);
     TimeButton *timeButton = new TimeButton{Date::parseTimePointToString(Date::getLocalTime()), 5, 5};
     TimeManager::startClockUpdateThread(timeButton);
     ConsoleManager::setColorToObject(timeButton, Color::CYAN);
 
-    ContactMenu *contactsMenu = new ContactMenu{"Contacts menu", 20};
-    contactsMenu->setOffset(3);
+    ContactMenu *contactsMenu = ContactMenu::getInstance("Contacts menu", 20);
+    contactsMenu->emplace_back(new Button{"Add Contact", 1, 1});
+    contactsMenu->getButton(0)->setMenuToRefer(new AddContactMenu{});
+    contactsMenu->getButton(0)->setColor(Color::RED);
+    ContactMenu::setOffset(3);
     mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
@@ -71,14 +67,13 @@ int main() {
     for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
         Contact *contactToRefer = ContactBook::getInstance()->getContact(i);
         contactsMenu->getButton(i)->setMenuToRefer(new ContactInfoMenu("", 1, contactToRefer));
-        ConsoleManager::setColorToObject(contactsMenu->getButton(i)->getMenuItRefersTo(), Color::YELLOW);
     }
-
-    Button quitButton{"Quit", 1, 50};
     ConsoleManager::setCurrentMenu(mainMenu);
     ConsoleManager::refreshButtonBuffer();
+    ConsoleManager::setIgnoreInputStatus(false);
     while (true) {
-        if (GetAsyncKeyState(keySettings.getNextButton())) {
+        if (GetAsyncKeyState(keySettings.getNextButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+            ConsoleManager::refreshButtonBuffer();
             ConsoleManager::selectNextButton(ConsoleManager::getCurrentMenu());
             if (ConsoleManager::getCurrentMenu() == mainMenu) {
                 displayMainMenu(mainMenu, nameButton, timeButton);
@@ -87,7 +82,8 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        } else if (GetAsyncKeyState(keySettings.getPreviousButton())) {
+        } else if (GetAsyncKeyState(keySettings.getPreviousButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+            ConsoleManager::refreshButtonBuffer();
             ConsoleManager::selectPreviousButton(ConsoleManager::getCurrentMenu());
             if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
             else {
@@ -95,8 +91,9 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        } else if (GetAsyncKeyState(keySettings.getConfirmButton())) {
+        } else if (GetAsyncKeyState(keySettings.getConfirmButton())&&!ConsoleManager::getIgnoreInputStatus()) {
             if (ConsoleManager::getCurrentMenu()->getSelectedIndex() != -1) {
+                ConsoleManager::refreshButtonBuffer();
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
                 ConsoleManager::getCurrentMenu()->
                         getButton(ConsoleManager::getCurrentMenu()->
@@ -112,7 +109,7 @@ int main() {
                     ConsoleManager::display(ConsoleManager::getCurrentMenu());
                 }
             }
-        } else if (GetAsyncKeyState(keySettings.getBackButton())) {
+        } else if (GetAsyncKeyState(keySettings.getBackButton())&&!ConsoleManager::getIgnoreInputStatus()) {
             ConsoleManager::returnToPreviousMenu();
             if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
             else {
@@ -120,19 +117,13 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        } else if (GetAsyncKeyState(keySettings.getQuitButton())) {
+        } else if (GetAsyncKeyState(keySettings.getQuitButton())&&!ConsoleManager::getIgnoreInputStatus()) {
             ConsoleManager::clear();
             ConsoleManager::changeTextColor(Color::WHITE);
-            delete mainMenu;
-            delete nameButton;
-            delete timeButton;
-            delete contactsMenu;
-            delete userManual;
-            FileManager::uploadToFile(
-        "../../SampleProject/SampleDatabase/Accounts/"
-        + sampleAccount->getName()
-        + '/'+sampleAccount->getName() +"_data.txt",
-                              *sampleAccount);
+            if(mainMenu)delete mainMenu;
+            if(nameButton)delete nameButton;
+            if(timeButton)delete timeButton;
+            if(contactsMenu!=nullptr)ContactMenu::deleteInstance();
             Account::deleteInstance();
             return 0;
         } else {
