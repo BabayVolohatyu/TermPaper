@@ -71,6 +71,10 @@ Contact *ContactBook::getContact(int id) {
     return *it;
 }
 
+std::vector<Contact *> ContactBook::getContacts() const {
+    return contacts;
+}
+
 
 void ContactBook::getDataFromObject(std::ostream &os) const {
     os << contacts.size() << std::endl;

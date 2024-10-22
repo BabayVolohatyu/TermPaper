@@ -36,6 +36,8 @@ public:
 
     Contact *getContact(int id);
 
+    std::vector<Contact *> getContacts() const;
+
     void addTag(const Tag &tag);
 
     void removeTag(const std::string &tagName);
