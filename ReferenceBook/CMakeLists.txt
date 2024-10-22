@@ -56,6 +56,11 @@ add_executable (ReferenceBook
         UI/Source/UserManualMenu.cpp
         Enums/Color.h
         Enums/KeyCode.h
+        UI/Headers/AddContactMenu.h
+        UI/Source/AddContactMenu.cpp
+        UI/Headers/EditContactMenu.h
+        UI/Headers/DeleteContactMenu.h
+        System/Headers/ContactSorter.h
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
