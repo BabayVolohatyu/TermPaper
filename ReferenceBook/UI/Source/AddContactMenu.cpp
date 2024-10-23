@@ -13,7 +13,7 @@ void AddContactMenu::print() const {
     ConsoleManager::setIgnoreInputStatus(true);
     Contact *newContact = new Contact{};
     std::cout << '|' << name << '|' << std::endl;
-    std::cin.ignore();
+    FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
     std::string userEnter;
     std::cout << '|' << "Enter new contact name:";
     std::getline(std::cin, userEnter);
