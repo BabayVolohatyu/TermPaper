@@ -29,6 +29,16 @@ void Menu::emplace_back(Button* button) {
     this->buttons.emplace_back(button);
 }
 
+void Menu::erase(int id) {
+    std::vector<Button *>::iterator it = buttons.begin();
+    std::advance(it, id);
+    try {
+        buttons.erase(it);
+    } catch (...) {
+        return;
+    }
+}
+
 Button* Menu::getButton(int index) {
     return buttons[index];
 }

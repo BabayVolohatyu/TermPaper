@@ -17,6 +17,7 @@
 #include "UI/Headers/ConsoleManager.h"
 #include "UI/Headers/AddContactMenu.h"
 #include "Enums/Color.h"
+#include "UI/Headers/DeleteContactMenu.h"
 
 
 void displayMainMenu(const Menu *mainMenu,
@@ -49,8 +50,12 @@ int main() {
 
     ContactMenu *contactsMenu = ContactMenu::getInstance("Contacts menu", 20);
     contactsMenu->emplace_back(new Button{"Add Contact", 1, 1});
+    contactsMenu->emplace_back(new Button{"Delete Contact", 1, 2});
     contactsMenu->getButton(0)->setMenuToRefer(new AddContactMenu{});
     contactsMenu->getButton(0)->setColor(Color::RED);
+    contactsMenu->getButton(1)->setMenuToRefer(new DeleteContactMenu{});
+    contactsMenu->getButton(1)->setColor(Color::RED);
+
     ContactMenu::setOffset(3);
     mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 

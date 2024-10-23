@@ -10,21 +10,21 @@ AddContactMenu::AddContactMenu(): Menu{"New contact", 0} {}
 
 void AddContactMenu::print() const {
     ConsoleManager::setIgnoreInputStatus(true);
-    Contact *newContact = new Contact{};
-    std::cout << '|' << name << '|' << std::endl;
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-    std::string userEnter;
+    Contact *newContact = new Contact{};
+    std::string userInput;
+    std::cout << '|' << name << '|' << std::endl;
     std::cout << '|' << "Enter new contact name:";
-    std::getline(std::cin, userEnter);
-    newContact->setName(userEnter);
+    std::getline(std::cin, userInput);
+    newContact->setName(userInput);
     std::cout << std::endl;
     std::cout << '|' << "Enter new contact number:";
-    std::getline(std::cin, userEnter);
-    newContact->setNumber(userEnter);
+    std::getline(std::cin, userInput);
+    newContact->setNumber(userInput);
     std::cout << std::endl;
     std::cout << '|' << "Enter new contact birthday(yyyy/mm/dd):";
-    std::getline(std::cin, userEnter);
-    newContact->setDateOfBirth(Date::parseStringToDate(userEnter));
+    std::getline(std::cin, userInput);
+    newContact->setDateOfBirth(Date::parseStringToDate(userInput));
     std::cout << std::endl;
     ContactBook::getInstance()->emplace_back(newContact);
     ConsoleManager::returnToPreviousMenu();

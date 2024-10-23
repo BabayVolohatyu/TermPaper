@@ -5,8 +5,6 @@
 #include "Menu.h"
 
 class AddContactMenu : public Menu {
-private:
-
 public:
     AddContactMenu();
 

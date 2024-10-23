@@ -62,7 +62,7 @@ void ContactMenu::print() const {
         }
     }
     for (int i = indexToShowStart; i < indexToShowEnd; i++) {
-        buttons[i]->print();
+       buttons[i]->print();
     }
 
     ConsoleManager::changeTextColor(currentColor);

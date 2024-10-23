@@ -21,6 +21,8 @@ public:
 
     void emplace_back(Button *button);
 
+    void erase(int index);
+
     Button *getButton(int index);
 
     int getSelectedIndex() const;
