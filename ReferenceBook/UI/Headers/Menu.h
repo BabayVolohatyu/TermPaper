@@ -15,7 +15,7 @@ protected:
     Menu() = delete;
 
 public:
-    Menu(const std::string &name, int width);
+    Menu(const std::string &name = "New menu", int width = 10);
 
     ~Menu() override;
 
@@ -31,5 +31,5 @@ public:
 
     static void selectIndex(int index);
 
-    void print() const override;
+    void print() override;
 };

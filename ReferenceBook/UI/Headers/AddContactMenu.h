@@ -1,7 +1,5 @@
 #pragma once
 
-#include <windows.h>
-
 #include "Menu.h"
 
 class AddContactMenu : public Menu {
@@ -10,5 +8,5 @@ public:
 
     ~AddContactMenu() = default;
 
-    void print() const override;
+    void print() override;
 };

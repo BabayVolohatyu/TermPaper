@@ -56,7 +56,7 @@ void Menu::selectIndex(int index) {
 }
 
 
-void Menu::print() const {
+void Menu::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << std::endl;
     std::cout << '|';

@@ -10,7 +10,7 @@ class UserManualMenu : public Menu, public Serializable{
 
     UserManualMenu(const std::string &name, int width, const std::string& path);
 
-    void print() const override;
+    void print() override;
 
     void getDataFromObject(std::ostream& os) const override;
 

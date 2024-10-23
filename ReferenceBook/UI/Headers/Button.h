@@ -22,7 +22,7 @@ public:
 
     Menu *getMenuItRefersTo();
 
-    void print() const override;
+    void print() override;
 };
 
 

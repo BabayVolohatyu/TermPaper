@@ -21,7 +21,7 @@ Menu *Button::getMenuItRefersTo() {
 }
 
 
-void Button::print() const {
+void Button::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << ' ';
     for (int i = 0; i < width; i++) {

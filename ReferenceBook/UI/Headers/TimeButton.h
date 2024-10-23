@@ -13,5 +13,5 @@ public:
 
     void setPreciseTime(const std::string &preciseTime);
 
-    void print() const override;
+    void print() override;
 };

@@ -1,3 +1,4 @@
+#include <windows.h>
 #include "../Headers/AddContactMenu.h"
 
 #include "../../System/Headers/ContactBook.h"
@@ -8,7 +9,7 @@
 
 AddContactMenu::AddContactMenu(): Menu{"New contact", 0} {}
 
-void AddContactMenu::print() const {
+void AddContactMenu::print() {
     ConsoleManager::setIgnoreInputStatus(true);
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
     Contact *newContact = new Contact{};

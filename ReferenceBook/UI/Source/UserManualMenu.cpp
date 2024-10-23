@@ -5,7 +5,7 @@ UserManualMenu::UserManualMenu(const std::string &name, int width, const std::st
 :Menu{name, width}{
     FileManager::downloadFromFile(path, *this);
 }
-void UserManualMenu::print() const {
+void UserManualMenu::print() {
     std::cout << "|";
     for(const char &c : manual) {
         if(c == '\n') std::cout << std::endl <<'|';

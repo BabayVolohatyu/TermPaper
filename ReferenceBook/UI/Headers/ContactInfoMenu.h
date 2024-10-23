@@ -17,5 +17,5 @@ public:
 
     void setContact(Contact *contact);
 
-    void print() const override;
+    void print() override;
 };

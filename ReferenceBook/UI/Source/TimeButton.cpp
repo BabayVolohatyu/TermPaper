@@ -3,7 +3,7 @@
 TimeButton::TimeButton(const std::string &name, int height, int width) :
 Button{name, height, width}{}
 
-void TimeButton::print() const {
+void TimeButton::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << ' ';
     for (int i = 0; i < width; i++) {

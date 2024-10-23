@@ -10,7 +10,7 @@ public:
     static Color selectedColor;
     static Color standardColor;
 
-    virtual void print() const = 0;
+    virtual void print() = 0;
 
     virtual ~Visual() = default;
 

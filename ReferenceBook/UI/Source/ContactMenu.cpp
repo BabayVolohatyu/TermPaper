@@ -34,7 +34,7 @@ int ContactMenu::getOffset() {
     return offsetToShow;
 }
 
-void ContactMenu::print() const {
+void ContactMenu::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << std::endl;
     std::cout << '|';

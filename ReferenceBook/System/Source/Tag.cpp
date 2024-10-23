@@ -15,7 +15,7 @@ void Tag::setTagName(const std::string &tagName) {
     this->tagName = tagName;
 }
 
-void Tag::print() const {
+void Tag::print() {
     ConsoleManager::changeTextColor(this->getColor());
     std::cout << '[' << tagName << ']';
     ConsoleManager::changeTextColor(ConsoleManager::getCurrentMenu()->getColor());

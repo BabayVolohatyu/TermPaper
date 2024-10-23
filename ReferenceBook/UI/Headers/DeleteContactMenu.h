@@ -7,5 +7,5 @@ public:
 
     ~DeleteContactMenu() = default;
 
-    void print() const override;
+    void print() override;
 };

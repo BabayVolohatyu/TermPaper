@@ -18,7 +18,7 @@ void ContactInfoMenu::setContact(Contact *contact) {
     this->contact = contact;
 }
 
-void ContactInfoMenu::print() const {
+void ContactInfoMenu::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::string fieldOfName = this->contact->getName(),
             fieldOfNumber = "Number:" + contact->getNumber(),

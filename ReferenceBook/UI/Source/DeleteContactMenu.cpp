@@ -8,7 +8,7 @@
 
 DeleteContactMenu::DeleteContactMenu(): Menu{"Deleting contact", 0} {}
 
-void DeleteContactMenu::print() const {
+void DeleteContactMenu::print() {
     ConsoleManager::setIgnoreInputStatus(true);
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
     std::string userInput;

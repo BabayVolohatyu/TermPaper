@@ -14,7 +14,7 @@ class Tag : public Serializable, public Visual {
 
     void setTagName(const std::string& tagName);
 
-    void print() const override;
+    void print() override;
 
     bool operator==(const Tag &other) const;
 
