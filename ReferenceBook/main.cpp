@@ -8,7 +8,6 @@
 #include "System/Headers/FileManager.h"
 #include "System/Headers/TimeManager.h"
 #include "System/Headers/Date.h"
-#include "System/Headers/KeySettings.h"
 
 #include "UI/Headers/Button.h"
 #include "UI/Headers/Menu.h"
@@ -34,8 +33,6 @@ void displayMainMenu(const Menu *mainMenu,
 
 int main() {
     Account *sampleAccount = Account::getInstance("sample@example.com", "Nazar");
-    KeySettings keySettings;
-    FileManager::downloadFromFile("properties.txt", keySettings);
 
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
@@ -72,7 +69,8 @@ int main() {
     ConsoleManager::refreshButtonBuffer();
     ConsoleManager::setIgnoreInputStatus(false);
     while (true) {
-        if (GetAsyncKeyState(keySettings.getNextButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+        if(!ConsoleManager::getIgnoreInputStatus()) {
+            if (GetAsyncKeyState(VK_TAB)||GetAsyncKeyState(VK_DOWN)) {
             ConsoleManager::refreshButtonBuffer();
             ConsoleManager::selectNextButton(ConsoleManager::getCurrentMenu());
             if (ConsoleManager::getCurrentMenu() == mainMenu) {
@@ -82,7 +80,7 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        } else if (GetAsyncKeyState(keySettings.getPreviousButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+        } else if (GetAsyncKeyState(VK_UP)&&!ConsoleManager::getIgnoreInputStatus()) {
             ConsoleManager::refreshButtonBuffer();
             ConsoleManager::selectPreviousButton(ConsoleManager::getCurrentMenu());
             if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
@@ -91,7 +89,7 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        } else if (GetAsyncKeyState(keySettings.getConfirmButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+        } else if (GetAsyncKeyState(VK_RETURN)) {
             if (ConsoleManager::getCurrentMenu()->getSelectedIndex() != -1) {
                 ConsoleManager::refreshButtonBuffer();
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
@@ -109,7 +107,7 @@ int main() {
                     ConsoleManager::display(ConsoleManager::getCurrentMenu());
                 }
             }
-        } else if (GetAsyncKeyState(keySettings.getBackButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+        } else if (GetAsyncKeyState(VK_BACK)) {
             ConsoleManager::returnToPreviousMenu();
             if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
             else {
@@ -117,7 +115,7 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }
-        } else if (GetAsyncKeyState(keySettings.getQuitButton())&&!ConsoleManager::getIgnoreInputStatus()) {
+        } else if (GetAsyncKeyState(VK_ESCAPE)) {
             ConsoleManager::clear();
             ConsoleManager::changeTextColor(Color::WHITE);
             if(mainMenu)delete mainMenu;
@@ -126,9 +124,10 @@ int main() {
             if(contactsMenu!=nullptr)ContactMenu::deleteInstance();
             Account::deleteInstance();
             return 0;
-        } else {
+        } else{
             ConsoleManager::delay(1000);
             if (ConsoleManager::getCurrentMenu() == mainMenu) displayMainMenu(mainMenu, nameButton, timeButton);
+        }
         }
     }
     return 0;

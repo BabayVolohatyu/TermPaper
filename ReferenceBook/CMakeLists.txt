@@ -32,8 +32,6 @@ add_executable (ReferenceBook
         System/Source/Date.cpp
         System/Headers/TimeManager.h
         System/Source/TimeManager.cpp
-        System/Headers/KeySettings.h
-        System/Source/KeySettings.cpp
         System/Headers/Tag.h
         System/Source/Tag.cpp
         UI/Headers/Button.h
@@ -55,7 +53,6 @@ add_executable (ReferenceBook
         UI/Headers/UserManualMenu.h
         UI/Source/UserManualMenu.cpp
         Enums/Color.h
-        Enums/KeyCode.h
         UI/Headers/AddContactMenu.h
         UI/Source/AddContactMenu.cpp
         UI/Headers/EditContactMenu.h

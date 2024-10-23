@@ -6,8 +6,7 @@
 #include "../Headers/ContactInfoMenu.h"
 #include "../Headers/ContactMenu.h"
 
-AddContactMenu::AddContactMenu(): Menu{"New contact", 0} {
-}
+AddContactMenu::AddContactMenu(): Menu{"New contact", 0} {}
 
 void AddContactMenu::print() const {
     ConsoleManager::setIgnoreInputStatus(true);
