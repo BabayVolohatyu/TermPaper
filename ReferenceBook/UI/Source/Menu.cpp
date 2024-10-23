@@ -39,11 +39,11 @@ void Menu::erase(int id) {
     }
 }
 
-Button* Menu::getButton(int index) {
+Button* Menu::getButton(int index) const{
     return buttons[index];
 }
 
-int Menu::getSelectedIndex() const {
+int Menu::getSelectedIndex() {
     return selectedIndex;
 }
 

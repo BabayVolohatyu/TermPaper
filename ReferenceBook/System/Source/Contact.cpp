@@ -158,6 +158,6 @@ void Contact::setDataToObject(std::istream &is) {
         Tag newTag = Tag{currentLine};
         newTag.setDataToObject(is);
         tags.emplace_back(newTag);
-        ContactBook::getInstance()->addTag(newTag);
+        ContactBook::addTag(newTag);
     }
 }

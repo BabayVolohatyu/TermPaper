@@ -23,13 +23,13 @@ public:
 
     void erase(int index);
 
-    Button *getButton(int index);
+    Button *getButton(int index) const;
 
-    int getSelectedIndex() const;
+    static int getSelectedIndex() ;
 
     int getSize() const;
 
-    void selectIndex(int index);
+    static void selectIndex(int index);
 
     void print() const override;
 };

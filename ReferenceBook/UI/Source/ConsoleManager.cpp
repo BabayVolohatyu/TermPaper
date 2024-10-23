@@ -67,29 +67,29 @@ void ConsoleManager::delay(int milliseconds) {
 }
 
 void ConsoleManager::selectNextButton(Menu *menu) {
-    if (menu->getSelectedIndex() >= menu->getSize() - 1) {
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
-        menu->selectIndex(0);
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
+    if (Menu::getSelectedIndex() >= menu->getSize() - 1) {
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+        Menu::selectIndex(0);
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
     } else {
-        if (menu->getSelectedIndex() >= 0) menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
-        menu->selectIndex(menu->getSelectedIndex() + 1);
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
+        if (Menu::getSelectedIndex() >= 0) menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+        Menu::selectIndex(Menu::getSelectedIndex() + 1);
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
     }
 }
 
 void ConsoleManager::selectPreviousButton(Menu *menu) {
-    if (menu->getSelectedIndex() == 0) {
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
-        menu->selectIndex(menu->getSize() - 1);
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
-    } else if (menu->getSelectedIndex() == -1) {
-        menu->selectIndex(menu->getSize() - 1);
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
+    if (Menu::getSelectedIndex() == 0) {
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+        Menu::selectIndex(menu->getSize() - 1);
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
+    } else if (Menu::getSelectedIndex() == -1) {
+        Menu::selectIndex(menu->getSize() - 1);
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
     } else {
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::standardColor);
-        menu->selectIndex(menu->getSelectedIndex() - 1);
-        menu->getButton(menu->getSelectedIndex())->setColor(Visual::selectedColor);
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+        Menu::selectIndex(Menu::getSelectedIndex() - 1);
+        menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
     }
 }
 

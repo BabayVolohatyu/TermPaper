@@ -3,47 +3,49 @@
 #include "../Headers/Account.h"
 #include "../Headers/ContactBook.h"
 
-Account* Account::account = nullptr;
-
+Account* Account::instance = nullptr;
+std::string Account::email;
+std::string Account::name;
 ContactBook* Account::contactBook = nullptr;
 
 Account::Account(const std::string& email)
 	:Account{ email, "Username"} {}
 
-Account::Account(const std::string& email, const std::string& name)
-	:email{email}, name{name} {
+Account::Account(const std::string& email, const std::string& name){
+	Account::email = email;
+	Account::name = name;
 	contactBook =  ContactBook::getInstance();
 }
 
 Account::~Account() = default;
 
 Account* Account::getInstance(const std::string& email){
-	if (!account) {
-		account = new Account(email);
-		return account;
+	if (!instance) {
+		instance = new Account(email);
+		return instance;
 	}
-	else return account;
+	else return instance;
 }
 
 Account* Account::getInstance(const std::string& email, const std::string& name){
-	if (!account) {
-		account = new Account(email, name);
-		return account;
+	if (!instance) {
+		instance = new Account(email, name);
+		return instance;
 	}
-	else return account;
+	else return instance;
 }
 
 void Account::deleteInstance() {
 	contactBook->deleteInstance();
 	contactBook = nullptr;
-	delete account;
-	account = nullptr;
+	delete instance;
+	instance = nullptr;
 }
-std::string Account::getEmail() const{
+std::string Account::getEmail(){
 	return email;
 }
 
-std::string Account::getName() const{
+std::string Account::getName(){
 	return name;
 }
 

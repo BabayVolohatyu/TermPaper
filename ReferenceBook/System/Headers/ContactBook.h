@@ -11,36 +11,36 @@ class Contact;
 
 class ContactBook : public Serializable {
 private:
-    std::vector<Contact *> contacts;
-    std::vector<Tag> tags;
-    static ContactBook *contactBook;
+    static std::vector<Contact *> contacts;
+    static std::vector<Tag> tags;
+    static ContactBook *instance;
 
-    ContactBook();
+    ContactBook() = default;
 
 public:
     ContactBook(const ContactBook &other) = delete;
 
-    ~ContactBook();
+    ~ContactBook() override;
 
     static ContactBook *getInstance();
 
     void deleteInstance();
 
-    void emplace_back(Contact *contact);
+    static void emplace_back(Contact *contact);
 
-    void erase(int id);
+    static void erase(int id);
 
-    int getSize() const;
+    static int getSize();
 
-    Tag getTag(int id) const;
+    static Tag getTag(int id);
 
-    Contact *getContact(int id);
+    static Contact *getContact(int id);
 
-    std::vector<Contact *> getContacts() const;
+    static std::vector<Contact *> getContacts();
 
-    void addTag(const Tag &tag);
+    static void addTag(const Tag &tag);
 
-    void removeTag(const std::string &tagName);
+    static void removeTag(const std::string &tagName);
 
     void getDataFromObject(std::ostream &os) const override;
 

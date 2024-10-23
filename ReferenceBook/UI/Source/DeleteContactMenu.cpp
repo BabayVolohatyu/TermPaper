@@ -15,10 +15,10 @@ void DeleteContactMenu::print() const {
     std::cout << '|' << name << '|' << std::endl;
     std::cout << '|' << "Enter the name of contact you want to delete:";
     std::getline(std::cin, userInput);
-    int sizeOfBook = ContactBook::getInstance()->getSize();
+    int sizeOfBook = ContactBook::getSize();
     for(int i = 0; i < sizeOfBook ; i++) {
-        if(userInput == ContactBook::getInstance()->getContact(i)->getName()) {
-            ContactBook::getInstance()->erase(i);
+        if(userInput == ContactBook::getContact(i)->getName()) {
+            ContactBook::erase(i);
         }
     }
     int sizeOfContactBookMenu = ContactMenu::getInstance()->getSize();

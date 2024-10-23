@@ -3,27 +3,25 @@
 #include "../Headers/ContactBook.h"
 #include "../Headers/Contact.h"
 
-ContactBook *ContactBook::contactBook = nullptr;
-
-ContactBook::ContactBook()
-    : contacts{} {
-}
+ContactBook *ContactBook::instance = nullptr;
+std::vector<Contact *> ContactBook::contacts = std::vector<Contact *>{};
+std::vector<Tag> ContactBook::tags = std::vector<Tag>{};
 
 ContactBook::~ContactBook() = default;
 
 ContactBook *ContactBook::getInstance() {
-    if (!contactBook) {
-        contactBook = new ContactBook{};
-        return contactBook;
-    } else return contactBook;
+    if (!instance) {
+        instance = new ContactBook{};
+        return instance;
+    } else return instance;
 }
 
 void ContactBook::deleteInstance() {
     for (Contact *contact: contacts) {
         delete contact;
     }
-    delete contactBook;
-    contactBook = nullptr;
+    delete instance;
+    instance = nullptr;
 }
 
 void ContactBook::emplace_back(Contact *contact) {
@@ -40,11 +38,11 @@ void ContactBook::erase(int id) {
     }
 }
 
-int ContactBook::getSize() const {
+int ContactBook::getSize() {
     return static_cast<int>(contacts.size());
 }
 
-Tag ContactBook::getTag(int id) const {
+Tag ContactBook::getTag(int id) {
     return tags[id];
 }
 
@@ -71,7 +69,7 @@ Contact *ContactBook::getContact(int id) {
     return *it;
 }
 
-std::vector<Contact *> ContactBook::getContacts() const {
+std::vector<Contact *> ContactBook::getContacts(){
     return contacts;
 }
 
@@ -95,6 +93,6 @@ void ContactBook::setDataToObject(std::istream &is) {
     for (int i = 0; i < numberOfContacts; i++) {
         Contact *newContact = new Contact();
         newContact->setDataToObject(is);
-        contactBook->emplace_back(newContact);
+        emplace_back(newContact);
     }
 }

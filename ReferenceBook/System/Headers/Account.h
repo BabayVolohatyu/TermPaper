@@ -8,9 +8,9 @@ class ContactBook;
 
 class Account : public Serializable {
 private:
-	std::string email;
-	std::string name;
-	static Account* account;
+	static std::string email;
+	static std::string name;
+	static Account* instance;
 
 	Account() = delete;
 
@@ -23,7 +23,7 @@ public:
 
 	Account(const Account& other) = delete;
 
-	~Account();
+	~Account() override;
 
 	static Account* getInstance(const std::string& email);
 
@@ -31,13 +31,13 @@ public:
 
 	static void deleteInstance();
 
-	std::string getEmail() const;
+	static std::string getEmail();
 
-	std::string getName() const;
+	static std::string getName();
 
-	void setName(const std::string& newName);
+	static void setName(const std::string& newName);
 
-	void setEmail(const std::string& newEmail);
+	static void setEmail(const std::string& newEmail);
 
 	void getDataFromObject(std::ostream& os) const override;
 

@@ -38,7 +38,7 @@ int main() {
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
 
-    Button *nameButton = new Button{"Welcome, " + sampleAccount->getName() + '!', 1, 50};
+    Button *nameButton = new Button{"Welcome, " + Account::getName() + '!', 1, 50};
 
     mainMenu->emplace_back(new Button{"Contacts", 1, 1});
     mainMenu->emplace_back(new Button{"Open User Manual(F1)", 1, 4});
@@ -60,14 +60,14 @@ int main() {
     mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
-    for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
+    for (int i = 0; i < ContactBook::getSize(); i++) {
         contactsMenu->emplace_back(new Button{
-            ContactBook::getInstance()->getContact(i)->getName(),
+            ContactBook::getContact(i)->getName(),
             1, 1
         });
     }
-    for (int i = 0; i < ContactBook::getInstance()->getSize(); i++) {
-        Contact *contactToRefer = ContactBook::getInstance()->getContact(i);
+    for (int i = 0; i < ContactBook::getSize(); i++) {
+        Contact *contactToRefer = ContactBook::getContact(i);
         contactsMenu->getButton(i)->setMenuToRefer(new ContactInfoMenu("", 1, contactToRefer));
     }
     ConsoleManager::setCurrentMenu(mainMenu);
