@@ -85,7 +85,7 @@ void ContactInfoMenu::print() {
     }
     tempWidth = maxTagSize + 2;
 
-    for (const Tag &tag : this->contact->getTags()) {
+    for (Tag &tag : this->contact->getTags()) {
         std::cout << '|';
 
         int offsetForTag = (tempWidth - static_cast<int>(tag.getTagName().size())) / 2;
@@ -102,5 +102,8 @@ void ContactInfoMenu::print() {
         }
 
         std::cout << '|' << std::endl;
+    }
+    for(Button *button : buttons) {
+        button->print();
     }
 }

@@ -17,7 +17,7 @@ public:
 
     static void hideCursor();
 
-    static void display(const Visual *visualObject);
+    static void display(Visual *visualObject);
 
     static void clear();
 

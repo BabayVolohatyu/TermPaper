@@ -47,7 +47,7 @@ void ConsoleManager::hideCursor() {
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void ConsoleManager::display(const Visual *visualObject) {
+void ConsoleManager::display(Visual *visualObject) {
     visualObject->print();
 }
 

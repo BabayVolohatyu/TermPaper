@@ -6,6 +6,7 @@
 #include "../Headers/ConsoleManager.h"
 #include "../Headers/ContactInfoMenu.h"
 #include "../Headers/ContactMenu.h"
+#include "../Headers/EditContactMenu.h"
 
 AddContactMenu::AddContactMenu(): Menu{"New contact", 0} {}
 
@@ -28,14 +29,21 @@ void AddContactMenu::print() {
     newContact->setDateOfBirth(Date::parseStringToDate(userInput));
     std::cout << std::endl;
     ContactBook::emplace_back(newContact);
-    ConsoleManager::returnToPreviousMenu();
     Button *newButton = new Button{
         newContact->getName(),
         ContactMenu::getInstance()->getHeight(),
         ContactMenu::getInstance()->getWidth()};
-    newButton->setMenuToRefer(new ContactInfoMenu{newContact->getName(),1,newContact});
+    ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{newContact->getName(),1,newContact};
+    newButton->setMenuToRefer(newContactInfoMenu);
+    newContactInfoMenu->emplace_back(new Button{
+            "Edit",
+            newContactInfoMenu->getHeight(),
+            newContactInfoMenu->getWidth()
+        });
+    newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{newContact});
     ContactMenu::getInstance()->emplace_back(newButton);
     ConsoleManager::clear();
+    ConsoleManager::returnToPreviousMenu();
     ConsoleManager::display(ConsoleManager::getCurrentMenu());
     ConsoleManager::setIgnoreInputStatus(false);
 }

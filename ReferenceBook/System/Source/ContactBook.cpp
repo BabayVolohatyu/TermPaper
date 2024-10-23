@@ -4,8 +4,8 @@
 #include "../Headers/Contact.h"
 
 ContactBook *ContactBook::instance = nullptr;
-std::vector<Contact *> ContactBook::contacts = std::vector<Contact *>{};
-std::vector<Tag> ContactBook::tags = std::vector<Tag>{};
+std::vector<Contact *> ContactBook::contacts;
+std::vector<Tag> ContactBook::tags;
 
 ContactBook::~ContactBook() = default;
 
