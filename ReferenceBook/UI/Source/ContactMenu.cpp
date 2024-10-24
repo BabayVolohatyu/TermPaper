@@ -1,7 +1,12 @@
 #include "../Headers/ContactMenu.h"
-#include "../Headers/ConsoleManager.h"
 
-ContactMenu* ContactMenu::instance = nullptr;
+#include <algorithm>
+
+#include "../Headers/AddContactMenu.h"
+#include "../Headers/ConsoleManager.h"
+#include "../Headers/DeleteContactMenu.h"
+
+ContactMenu *ContactMenu::instance = nullptr;
 int ContactMenu::offsetToShow = 3;
 
 ContactMenu::ContactMenu(const std::string &name, int width)
@@ -16,11 +21,36 @@ ContactMenu *ContactMenu::getInstance(const std::string &name, int width) {
     if (!instance) {
         instance = new ContactMenu{name, width};
         return instance;
-    }else return instance;
+    } else return instance;
+}
+
+void ContactMenu::insert(Button *newButton) {
+    if (getInstance()->buttons.empty()) getInstance()->buttons.emplace_back(newButton);
+    else {
+        std::string newButtonName = newButton->getName();
+        std::transform(newButtonName.begin(),
+                       newButtonName.end(),
+                       newButtonName.begin(),
+                       tolower);
+        std::string buttonToCompareName;
+        std::vector<Button *>::iterator it = getInstance()->buttons.begin();
+        for (; it < getInstance()->buttons.end(); it++) {
+            buttonToCompareName = (*it)->getName();
+            std::transform(buttonToCompareName.begin(),
+                           buttonToCompareName.end(),
+                           buttonToCompareName.begin(),
+                           tolower);
+            if (newButtonName <= buttonToCompareName) {
+                getInstance()->buttons.insert(it, newButton);
+                return;
+            }
+        }
+        getInstance()->buttons.emplace_back(newButton);
+    }
 }
 
 void ContactMenu::deleteInstance() {
-    if(instance!=nullptr) {
+    if (instance != nullptr) {
         delete instance;
         instance = nullptr;
     }
@@ -62,7 +92,7 @@ void ContactMenu::print() {
         }
     }
     for (int i = indexToShowStart; i < indexToShowEnd; i++) {
-       buttons[i]->print();
+        buttons[i]->print();
     }
 
     ConsoleManager::changeTextColor(currentColor);

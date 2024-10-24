@@ -9,10 +9,14 @@ private:
 
     ContactMenu(const std::string &name, int width);
 
-public:
+    void emplace_back(Button *button) override{}
 
+public:
     ~ContactMenu() override;
+
     static ContactMenu *getInstance(const std::string &name = "Contacts", int width = 20);
+
+    static void insert(Button *newButton);
 
     static void deleteInstance();
 

@@ -134,6 +134,20 @@ bool Contact::operator!=(const Contact &other) const {
     return false;
 }
 
+bool Contact::operator<(const Contact &other) const {
+    std::string lowerName = name;
+    std::string lowerNameOther = other.name;
+    return std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), tolower) <
+        std::transform(lowerNameOther.begin(), lowerNameOther.end(), lowerNameOther.begin(), tolower);
+}
+
+bool Contact::operator>(const Contact &other) const {
+    std::string lowerName = name;
+    std::string lowerNameOther = other.name;
+    return std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), tolower) >
+        std::transform(lowerNameOther.begin(), lowerNameOther.end(), lowerNameOther.begin(), tolower);
+}
+
 void Contact::getDataFromObject(std::ostream &os) const {
     os << name << std::endl
             << number << std::endl

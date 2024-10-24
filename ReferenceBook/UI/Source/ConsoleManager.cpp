@@ -94,9 +94,15 @@ void ConsoleManager::selectPreviousButton(Menu *menu) {
 }
 
 void ConsoleManager::returnToPreviousMenu() {
-    if (!menuStack.empty()) {
-        currentMenu = menuStack.top();
-        menuStack.pop();
+    try {
+        while (!menuStack.empty()) {
+            currentMenu = menuStack.top();
+            menuStack.pop();
+            if (currentMenu != nullptr) {
+                return;
+        }
+        }
+    }catch (...) {
     }
 }
 

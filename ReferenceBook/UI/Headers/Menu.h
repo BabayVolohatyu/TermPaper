@@ -19,11 +19,13 @@ public:
 
     ~Menu() override;
 
-    void emplace_back(Button *button);
+    virtual void emplace_back(Button *button);
 
     void erase(int index);
 
     Button *getButton(int index) const;
+
+    std::vector<Button *>* getButtons() ;
 
     static int getSelectedIndex() ;
 

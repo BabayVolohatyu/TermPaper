@@ -28,21 +28,22 @@ void AddContactMenu::print() {
     std::getline(std::cin, userInput);
     newContact->setDateOfBirth(Date::parseStringToDate(userInput));
     std::cout << std::endl;
-    ContactBook::emplace_back(newContact);
+    ContactBook::insert(newContact);
     Button *newButton = new Button{
         newContact->getName(),
         ContactMenu::getInstance()->getHeight(),
         ContactMenu::getInstance()->getWidth()};
-    ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{newContact->getName(),1,newContact};
+    ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{newContact->getName(),5,newContact};
     newButton->setMenuToRefer(newContactInfoMenu);
     newContactInfoMenu->emplace_back(new Button{
             "Edit",
             newContactInfoMenu->getHeight(),
-            newContactInfoMenu->getWidth()
+            5
         });
     newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{newContact});
-    ContactMenu::getInstance()->emplace_back(newButton);
+    ContactMenu::insert(newButton);
     ConsoleManager::clear();
+    ConsoleManager::refreshButtonBuffer();
     ConsoleManager::returnToPreviousMenu();
     ConsoleManager::display(ConsoleManager::getCurrentMenu());
     ConsoleManager::setIgnoreInputStatus(false);

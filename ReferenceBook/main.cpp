@@ -50,19 +50,14 @@ int main() {
     ConsoleManager::setColorToObject(timeButton, Color::CYAN);
 
     ContactMenu *contactsMenu = ContactMenu::getInstance("Contacts menu", 20);
-    contactsMenu->emplace_back(new Button{"Add Contact", 1, 1});
-    contactsMenu->emplace_back(new Button{"Delete Contact", 1, 2});
-    contactsMenu->getButton(0)->setMenuToRefer(new AddContactMenu{});
-    contactsMenu->getButton(0)->setColor(Color::RED);
-    contactsMenu->getButton(1)->setMenuToRefer(new DeleteContactMenu{});
-    contactsMenu->getButton(1)->setColor(Color::RED);
-
+    AddContactMenu *addContactMenu = new AddContactMenu{};
+    DeleteContactMenu *deleteContactMenu = new DeleteContactMenu{};
     ContactMenu::setOffset(3);
     mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
     for (int i = 0; i < ContactBook::getSize(); i++) {
-        contactsMenu->emplace_back(new Button{
+        ContactMenu::insert(new Button{
             ContactBook::getContact(i)->getName(),
             1, 1
         });
@@ -74,11 +69,12 @@ int main() {
         newContactInfoMenu->emplace_back(new Button{
             "Edit",
             newContactInfoMenu->getHeight(),
-            newContactInfoMenu->getWidth()
+            6
         });
         newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{contactToRefer});
     }
     ConsoleManager::setCurrentMenu(mainMenu);
+    ConsoleManager::pushMenu(mainMenu);
     ConsoleManager::refreshButtonBuffer();
     ConsoleManager::setIgnoreInputStatus(false);
     while (true) {
@@ -128,12 +124,26 @@ int main() {
                     ConsoleManager::clear();
                     ConsoleManager::display(ConsoleManager::getCurrentMenu());
                 }
+            }else if(GetAsyncKeyState('d')||GetAsyncKeyState('D')) {
+                ConsoleManager::clear();
+                ConsoleManager::hideCursor();
+                ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
+                ConsoleManager::setCurrentMenu(deleteContactMenu);
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
+            }else if(GetAsyncKeyState('c')||GetAsyncKeyState('C')) {
+                ConsoleManager::clear();
+                ConsoleManager::hideCursor();
+                ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
+                ConsoleManager::setCurrentMenu(addContactMenu);
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
             } else if (GetAsyncKeyState(VK_ESCAPE)) {
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);
                 if (mainMenu)delete mainMenu;
                 if (nameButton)delete nameButton;
                 if (timeButton)delete timeButton;
+                delete deleteContactMenu;
+                delete addContactMenu;
                 if (contactsMenu != nullptr)ContactMenu::deleteInstance();
                 Account::deleteInstance();
                 return 0;

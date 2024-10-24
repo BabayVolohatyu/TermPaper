@@ -57,7 +57,6 @@ add_executable (ReferenceBook
         UI/Source/AddContactMenu.cpp
         UI/Headers/EditContactMenu.h
         UI/Headers/DeleteContactMenu.h
-        System/Headers/ContactSorter.h
         UI/Source/DeleteContactMenu.cpp
         UI/Source/EditContactMenu.cpp
 )

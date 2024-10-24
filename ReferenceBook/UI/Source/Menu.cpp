@@ -43,6 +43,10 @@ Button* Menu::getButton(int index) const{
     return buttons[index];
 }
 
+std::vector<Button *>* Menu::getButtons(){
+    return &buttons;
+}
+
 int Menu::getSelectedIndex() {
     return selectedIndex;
 }

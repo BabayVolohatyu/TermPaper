@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <list>
 #include <vector>
 
 #include "Serializable.h"
@@ -26,7 +25,7 @@ public:
 
     void deleteInstance();
 
-    static void emplace_back(Contact *contact);
+    static void insert(Contact *newContact);
 
     static void erase(int id);
 

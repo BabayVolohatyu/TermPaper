@@ -72,9 +72,9 @@ public:
 
     bool operator>=(const Contact &other) const = delete;
 
-    bool operator<(const Contact &other) const = delete;
+    bool operator<(const Contact &other) const;
 
-    bool operator>(const Contact &other) const = delete;
+    bool operator>(const Contact &other) const;
 
     void getDataFromObject(std::ostream &os) const override;
 

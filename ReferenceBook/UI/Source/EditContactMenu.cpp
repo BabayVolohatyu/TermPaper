@@ -1,14 +1,17 @@
 #include "../Headers/EditContactMenu.h"
 #include <windows.h>
 
+#include "../../System/Headers/ContactBook.h"
 #include "../Headers/ConsoleManager.h"
+#include "../Headers/ContactInfoMenu.h"
+#include "../Headers/ContactMenu.h"
 
 EditContactMenu::EditContactMenu(Contact *contactToEdit): Menu{"Editing " + contactToEdit->getName()},
                                                           contact{contactToEdit} {
 }
 
 EditContactMenu::~EditContactMenu() {
-    delete contact;
+    contact = nullptr;
 }
 
 void EditContactMenu::editName() {
@@ -19,7 +22,23 @@ void EditContactMenu::editName() {
         std::cout << "Enter correct new name: ";
         std::getline(std::cin, newName);
     }
-    contact->setName(newName);
+    for (int i = 0;i<ContactMenu::getInstance()->getButtons()->size();i++) {
+        if (ContactMenu::getInstance()->getButton(i)->getName() == contact->getName()) {
+            ContactMenu::getInstance()->getButtons()->erase(ContactMenu::getInstance()->getButtons()->begin() + i);
+            contact->setName(newName);
+            Button *newButton = new Button{newName,1,ContactMenu::getInstance()->getWidth()};
+            ContactInfoMenu* newContactInfoMenu = new ContactInfoMenu{contact->getName(),5,contact};
+            newContactInfoMenu->emplace_back(new Button{
+            "Edit",
+            newContactInfoMenu->getHeight(),
+            5
+        });
+            newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{contact});
+            newButton->setMenuToRefer(newContactInfoMenu);
+            ContactMenu::insert(newButton);
+            return;
+        }
+    }
 }
 
 void EditContactMenu::editNumber() {
@@ -190,10 +209,12 @@ void EditContactMenu::print() {
             ConsoleManager::refreshButtonBuffer();
             ConsoleManager::clear();
             ConsoleManager::returnToPreviousMenu();
+            ConsoleManager::hideCursor();
             ConsoleManager::display(ConsoleManager::getCurrentMenu());
             break;
         }
-        ConsoleManager::delay(500);
+        ConsoleManager::hideCursor();
+        ConsoleManager::delay(100);
         ConsoleManager::clear();
         ConsoleManager::refreshButtonBuffer();
     }

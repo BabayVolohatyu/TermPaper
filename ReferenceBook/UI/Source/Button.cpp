@@ -64,4 +64,5 @@ void Button::print() {
         std::cout << '~';
     }
     std::cout << std::endl;
+    ConsoleManager::changeTextColor(standardColor);
 }
