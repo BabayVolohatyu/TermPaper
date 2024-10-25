@@ -54,9 +54,16 @@ Tag ContactBook::getTag(int id) {
     return tags[id];
 }
 
+Tag ContactBook::getTag(const std::string &tagName) {
+    for(Tag &tag: tags) {
+        if(tag.getTagName() == tagName) return tag;
+    }
+    return {""};
+}
+
 void ContactBook::addTag(const Tag &tag) {
     for (const Tag &i: tags) {
-        if (i == tag) return;
+        if (i.getTagName() == tag.getTagName()) return;
     }
     tags.emplace_back(tag);
 }
@@ -79,6 +86,14 @@ Contact *ContactBook::getContact(int id) {
 
 std::vector<Contact *> ContactBook::getContacts(){
     return contacts;
+}
+
+std::vector<Contact *> ContactBook::getContactsWithTag(const std::string &tagName) {
+    std::vector<Contact *> result;
+    for (Contact *contact: contacts) {
+        if(contact->isPresentTag(tagName)) result.emplace_back(contact);
+    }
+    return result;
 }
 
 

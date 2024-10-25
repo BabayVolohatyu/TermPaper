@@ -63,6 +63,7 @@ public:
 
     void setDateOfBirth(const Date &newDateOfBirth);
 
+    bool isPresentTag(const Tag &tag) const;
 
     bool operator==(const Contact &other) const;
 

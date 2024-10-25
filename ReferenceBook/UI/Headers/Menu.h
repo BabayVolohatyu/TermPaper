@@ -23,13 +23,13 @@ public:
 
     void erase(int index);
 
-    Button *getButton(int index) const;
+    virtual Button *getButton(int index) const;
 
     std::vector<Button *>* getButtons() ;
 
     static int getSelectedIndex() ;
 
-    int getSize() const;
+    virtual int getSize() const;
 
     static void selectIndex(int index);
 

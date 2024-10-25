@@ -59,6 +59,8 @@ add_executable (ReferenceBook
         UI/Headers/DeleteContactMenu.h
         UI/Source/DeleteContactMenu.cpp
         UI/Source/EditContactMenu.cpp
+        UI/Source/SortedContactMenu.cpp
+        UI/Headers/SortedContactMenu.h
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

@@ -1,10 +1,12 @@
 #include "../Headers/ContactMenu.h"
 
 #include <algorithm>
+#include <windows.h>
 
+#include "../../System/Headers/Contact.h"
 #include "../Headers/AddContactMenu.h"
 #include "../Headers/ConsoleManager.h"
-#include "../Headers/DeleteContactMenu.h"
+#include "../../System/Headers/ContactBook.h"
 
 ContactMenu *ContactMenu::instance = nullptr;
 int ContactMenu::offsetToShow = 3;
@@ -106,3 +108,4 @@ void ContactMenu::print() {
     }
     std::cout << '|' << std::endl;
 }
+

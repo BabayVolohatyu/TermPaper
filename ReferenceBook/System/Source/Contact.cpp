@@ -114,6 +114,13 @@ void Contact::setDateOfBirth(const Date &newDateOfBirth) {
     dateOfBirth = newDateOfBirth;
 }
 
+bool Contact::isPresentTag(const Tag &tag) const {
+    for(Tag tag : tags) {
+        if(tag.getTagName() == tag.getTagName()) return true;
+    }
+    return false;
+}
+
 void Contact::setContactBook(ContactBook *newContactBook) {
     contactBook = newContactBook;
 }

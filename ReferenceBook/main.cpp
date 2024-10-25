@@ -19,11 +19,12 @@
 #include "Enums/Color.h"
 #include "UI/Headers/DeleteContactMenu.h"
 #include "UI/Headers/EditContactMenu.h"
+#include "UI/Headers/SortedContactMenu.h"
 
 
 void displayMainMenu(Menu *mainMenu,
-                      Button *nameButton,
-                      Button *timeButton) {
+                     Button *nameButton,
+                     Button *timeButton) {
     if (ConsoleManager::getCurrentMenu() == mainMenu) {
         ConsoleManager::clear();
         ConsoleManager::hideCursor();
@@ -35,6 +36,7 @@ void displayMainMenu(Menu *mainMenu,
 
 int main() {
     Account *sampleAccount = Account::getInstance("sample@example.com", "Nazar");
+    FileManager::downloadFromFile("test.txt", *sampleAccount);
 
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
@@ -59,12 +61,12 @@ int main() {
     for (int i = 0; i < ContactBook::getSize(); i++) {
         ContactMenu::insert(new Button{
             ContactBook::getContact(i)->getName(),
-            1, 1
+            1, 10
         });
     }
     for (int i = 0; i < ContactBook::getSize(); i++) {
         Contact *contactToRefer = ContactBook::getContact(i);
-        ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{"", 1, contactToRefer};
+        ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{"", 10, contactToRefer};
         contactsMenu->getButton(i)->setMenuToRefer(newContactInfoMenu);
         newContactInfoMenu->emplace_back(new Button{
             "Edit",
@@ -73,6 +75,7 @@ int main() {
         });
         newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{contactToRefer});
     }
+    SortedContactMenu *sortedContactMenu = new SortedContactMenu{};
     ConsoleManager::setCurrentMenu(mainMenu);
     ConsoleManager::pushMenu(mainMenu);
     ConsoleManager::refreshButtonBuffer();
@@ -80,7 +83,6 @@ int main() {
     while (true) {
         if (!ConsoleManager::getIgnoreInputStatus()) {
             if (GetAsyncKeyState(VK_TAB) || GetAsyncKeyState(VK_DOWN)) {
-                ConsoleManager::refreshButtonBuffer();
                 ConsoleManager::selectNextButton(ConsoleManager::getCurrentMenu());
                 if (ConsoleManager::getCurrentMenu() == mainMenu) {
                     displayMainMenu(mainMenu, nameButton, timeButton);
@@ -89,7 +91,7 @@ int main() {
                     ConsoleManager::clear();
                     ConsoleManager::display(ConsoleManager::getCurrentMenu());
                 }
-            } else if (GetAsyncKeyState(VK_UP) && !ConsoleManager::getIgnoreInputStatus()) {
+            } else if (GetAsyncKeyState(VK_UP) ) {
                 ConsoleManager::refreshButtonBuffer();
                 ConsoleManager::selectPreviousButton(ConsoleManager::getCurrentMenu());
                 if (ConsoleManager::getCurrentMenu() == mainMenu)displayMainMenu(mainMenu, nameButton, timeButton);
@@ -124,6 +126,10 @@ int main() {
                     ConsoleManager::clear();
                     ConsoleManager::display(ConsoleManager::getCurrentMenu());
                 }
+                if(ConsoleManager::getCurrentMenu() != sortedContactMenu) {
+                    sortedContactMenu->setTagName("");
+                    sortedContactMenu->clear();
+                }
             }else if(GetAsyncKeyState('d')||GetAsyncKeyState('D')) {
                 ConsoleManager::clear();
                 ConsoleManager::hideCursor();
@@ -136,19 +142,28 @@ int main() {
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
                 ConsoleManager::setCurrentMenu(addContactMenu);
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
-            } else if (GetAsyncKeyState(VK_ESCAPE)) {
+            } else if(GetAsyncKeyState('s')||GetAsyncKeyState('S')) {
+                ConsoleManager::clear();
+                ConsoleManager::hideCursor();
+                ConsoleManager::pushMenu(sortedContactMenu);
+                ConsoleManager::setCurrentMenu(sortedContactMenu);
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
+            }else if (GetAsyncKeyState(VK_ESCAPE)) {
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);
+                FileManager::uploadToFile("test.txt", *sampleAccount);
                 if (mainMenu)delete mainMenu;
                 if (nameButton)delete nameButton;
                 if (timeButton)delete timeButton;
                 delete deleteContactMenu;
                 delete addContactMenu;
+                delete sortedContactMenu;
                 if (contactsMenu != nullptr)ContactMenu::deleteInstance();
                 Account::deleteInstance();
                 return 0;
             } else {
                 ConsoleManager::delay(1000);
+                std::cout << "Current tagName: " << sortedContactMenu->getTagName() << std::endl;
                 if (ConsoleManager::getCurrentMenu() == mainMenu) displayMainMenu(mainMenu, nameButton, timeButton);
             }
         }

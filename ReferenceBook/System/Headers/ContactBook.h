@@ -33,9 +33,13 @@ public:
 
     static Tag getTag(int id);
 
+    static Tag getTag(const std::string& tagName);
+
     static Contact *getContact(int id);
 
     static std::vector<Contact *> getContacts();
+
+    static std::vector<Contact*> getContactsWithTag(const std::string& tagName);
 
     static void addTag(const Tag &tag);
 
