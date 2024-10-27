@@ -21,10 +21,6 @@ Date::Date(int year, unsigned month, unsigned day) {
         std::chrono::day(day));
 }
 
-Date::Date(Date &&other) noexcept:
-date{std::move(other.date)}{
-}
-
 void Date::set_date(const std::chrono::year_month_day &newDate) {
     date = newDate;
 }

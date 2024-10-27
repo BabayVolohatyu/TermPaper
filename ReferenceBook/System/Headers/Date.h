@@ -15,10 +15,6 @@ public:
 
     Date(int year, unsigned month, unsigned day);
 
-    Date(const Date &other) = default;
-
-    Date(Date &&other) noexcept;
-
     ~Date() = default;
 
     void set_date(const std::chrono::year_month_day &newDate);
