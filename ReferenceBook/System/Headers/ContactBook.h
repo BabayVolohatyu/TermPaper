@@ -19,7 +19,9 @@ private:
 public:
     ContactBook(const ContactBook &other) = delete;
 
-    ~ContactBook() override;
+    ContactBook (ContactBook &&other) = delete;
+
+    ~ContactBook() override = default;
 
     static ContactBook *getInstance();
 

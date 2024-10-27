@@ -15,21 +15,27 @@ public:
 
     Date(int year, unsigned month, unsigned day);
 
-    void set_date(const std::chrono::year_month_day &date);
+    Date(const Date &other) = default;
 
-    void setYear(int year);
+    Date(Date &&other) noexcept;
 
-    void setMonth(unsigned month);
+    ~Date() = default;
 
-    void setDay(unsigned day);
+    void set_date(const std::chrono::year_month_day &newDate);
 
-    std::chrono::year_month_day getDate() const;
+    void setYear(int newYear);
 
-    int getYearAsValue() const;
+    void setMonth(unsigned newMonth);
 
-    unsigned getMonthAsValue() const;
+    void setDay(unsigned newDay);
 
-    unsigned getDayAsValue() const;
+    [[nodiscard]] std::chrono::year_month_day getDate() const;
+
+    [[nodiscard]] int getYearAsValue() const;
+
+    [[nodiscard]] unsigned getMonthAsValue() const;
+
+    [[nodiscard]] unsigned getDayAsValue() const;
 
     static std::chrono::time_point<std::chrono::system_clock> getLocalTime();
 

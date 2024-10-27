@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include "Serializable.h"
 #include "Date.h"
 #include "Tag.h"
@@ -19,7 +17,7 @@ private:
 public:
     Contact();
 
-    Contact(const std::string &name);
+    explicit Contact(const std::string &name);
 
     Contact(const std::string &name,
             const std::string &number);
@@ -37,23 +35,23 @@ public:
 
     Contact(Contact &&other) noexcept;
 
-    ~Contact();
+    ~Contact() override;
 
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
 
-    std::string getNumber() const;
+    [[nodiscard]] std::string getNumber() const;
 
-    Date getDateOfBirth() const;
+    [[nodiscard]] Date getDateOfBirth() const;
 
-    std::vector<Tag> getTags() const;
+    [[nodiscard]] std::vector<Tag> getTags() const;
 
-    Tag getTag(int id) const;
+    [[nodiscard]] Tag getTag(int id) const;
 
     void addTag(const Tag &tag);
 
     void removeTag(const std::string& tagName);
 
-    ContactBook *getContactBook() const;
+    [[nodiscard]] ContactBook *getContactBook() const;
 
     void setName(const std::string &newName);
 
@@ -63,7 +61,7 @@ public:
 
     void setDateOfBirth(const Date &newDateOfBirth);
 
-    bool isPresentTag(const Tag &tag) const;
+    [[nodiscard]] bool isPresentTag(const Tag &tag) const;
 
     bool operator==(const Contact &other) const;
 

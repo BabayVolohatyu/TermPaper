@@ -7,13 +7,12 @@ ContactBook *ContactBook::instance = nullptr;
 std::vector<Contact *> ContactBook::contacts;
 std::vector<Tag> ContactBook::tags;
 
-ContactBook::~ContactBook() = default;
-
 ContactBook *ContactBook::getInstance() {
     if (!instance) {
         instance = new ContactBook{};
         return instance;
-    } else return instance;
+    }
+    return instance;
 }
 
 void ContactBook::deleteInstance() {
@@ -26,13 +25,14 @@ void ContactBook::deleteInstance() {
 }
 
 void ContactBook::emplace_back(Contact *newContact) {
+    if(newContact == nullptr) return;
     contacts.emplace_back(newContact);
 }
 
 void ContactBook::erase(int id) {
-    std::vector<Contact *>::iterator it = contacts.begin();
-    std::advance(it, id);
     try {
+        std::vector<Contact *>::iterator it = contacts.begin();
+        std::advance(it, id);
         contacts.erase(it);
     } catch (...) {
         return;
@@ -69,7 +69,7 @@ void ContactBook::removeTag(const std::string &tagName) {
 
 Contact *ContactBook::getContact(int id) {
     if (id < 0 || id >= contacts.size()) {
-        throw std::out_of_range("Invalid index");
+        id = 0;
     }
 
     std::vector<Contact *>::iterator it = contacts.begin();

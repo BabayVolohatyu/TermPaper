@@ -115,7 +115,8 @@ void Contact::setDateOfBirth(const Date &newDateOfBirth) {
 }
 
 bool Contact::isPresentTag(const Tag &tag) const {
-    for(Tag t : tags) {
+    if(tags.empty()) return false;
+    for(const Tag &t : tags) {
         if(t.getTagName() == tag.getTagName()) return true;
     }
     return false;
@@ -166,14 +167,20 @@ void Contact::getDataFromObject(std::ostream &os) const {
 }
 
 void Contact::setDataToObject(std::istream &is) {
-    std::string currentLine;
-    std::getline(is, currentLine);
-    name = currentLine;
-    std::getline(is, currentLine);
-    number = currentLine;
-    std::getline(is, currentLine);
-    dateOfBirth = Date::parseStringToDate(currentLine);
-    std::getline(is, currentLine);
+        std::string currentLine;
+    try {
+        std::getline(is, currentLine);
+        name = currentLine;
+        std::getline(is, currentLine);
+        number = currentLine;
+        std::getline(is, currentLine);
+        dateOfBirth = Date::parseStringToDate(currentLine);
+        std::getline(is, currentLine);
+    }catch (...) {
+        name = "New Contact";
+        number = "";
+        dateOfBirth = Date{2000,1,1};
+    }
     int numberOfTags = std::stoi(currentLine);
     for (int i = 0; i < numberOfTags; i++) {
         Tag newTag = Tag{currentLine};

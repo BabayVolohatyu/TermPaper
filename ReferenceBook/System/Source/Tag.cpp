@@ -1,5 +1,4 @@
 #include "../Headers/Tag.h"
-
 #include "../../UI/Headers/ConsoleManager.h"
 
 Tag::Tag(const std::string &tagName, Color color)
@@ -8,11 +7,11 @@ Tag::Tag(const std::string &tagName, Color color)
 }
 
 std::string Tag::getTagName() const {
-    return this->tagName;
+    return tagName;
 }
 
-void Tag::setTagName(const std::string &tagName) {
-    this->tagName = tagName;
+void Tag::setTagName(const std::string &newTagName) {
+    tagName = newTagName;
 }
 
 void Tag::print() {

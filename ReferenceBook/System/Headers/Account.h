@@ -10,19 +10,16 @@ class Account : public Serializable {
 private:
 	static std::string name;
 	static Account* instance;
-
+	static ContactBook* contactBook;
 	Account();
 
-	Account(const std::string& name);
+	explicit Account(const std::string& name);
 
 public:
-	static ContactBook* contactBook;
 
 	Account(const Account& other) = delete;
 
 	~Account() override;
-
-	static Account* getInstance();
 
 	static Account* getInstance(const std::string& name);
 
@@ -31,8 +28,6 @@ public:
 	static std::string getName();
 
 	static void setName(const std::string& newName);
-
-	static void setEmail(const std::string& newEmail);
 
 	void getDataFromObject(std::ostream& os) const override;
 

@@ -21,42 +21,46 @@ Date::Date(int year, unsigned month, unsigned day) {
         std::chrono::day(day));
 }
 
-void Date::set_date(const std::chrono::year_month_day &date) {
-    this->date = date;
+Date::Date(Date &&other) noexcept:
+date{std::move(other.date)}{
 }
 
-void Date::setYear(int year) {
-    validateYear(year);
+void Date::set_date(const std::chrono::year_month_day &newDate) {
+    date = newDate;
+}
+
+void Date::setYear(int newYear) {
+    validateYear(newYear);
     std::chrono::year_month_day newDate{
-        std::chrono::year(year),
+        std::chrono::year(newYear),
         date.month(),
         date.day(),
     };
-    this->date = newDate;
+    date = newDate;
 }
 
-void Date::setMonth(unsigned month) {
-    validateMonth(month);
+void Date::setMonth(unsigned newMonth) {
+    validateMonth(newMonth);
     std::chrono::year_month_day newDate{
         date.year(),
-        std::chrono::month(month),
+        std::chrono::month(newMonth),
         date.day(),
     };
-    this->date = newDate;
+    date = newDate;
 }
 
-void Date::setDay(unsigned day) {
-    validateDay(getYearAsValue(), getMonthAsValue(), day);
+void Date::setDay(unsigned newDay) {
+    validateDay(getYearAsValue(), getMonthAsValue(), newDay);
     std::chrono::year_month_day newDate{
         date.year(),
         date.month(),
-        std::chrono::day(day)
+        std::chrono::day(newDay)
     };
-    this->date = newDate;
+    date = newDate;
 }
 
 std::chrono::year_month_day Date::getDate() const {
-    return this->date;
+    return date;
 }
 
 int Date::getYearAsValue() const {
@@ -229,6 +233,8 @@ std::string Date::getLocalTimeOfTheDayAsString() {
 void Date::validateYear(int &year) {
     if (year < 0) {
         year = 2000;
+    }else if(year > 9999) {
+        year = 9999;
     }
 }
 

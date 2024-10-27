@@ -4,6 +4,7 @@
 
 class Serializable {
 public:
+	virtual ~Serializable() = default;
 
 	virtual void getDataFromObject(std::ostream& os) const = 0;
 
@@ -13,5 +14,4 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const Serializable& object);
 
-	virtual ~Serializable() = default;
 };

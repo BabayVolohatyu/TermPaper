@@ -22,7 +22,7 @@ Account* Account::getInstance(const std::string& name){
 		instance = new Account(name);
 		return instance;
 	}
-	else return instance;
+	return instance;
 }
 
 void Account::deleteInstance() {
@@ -46,8 +46,12 @@ void Account::getDataFromObject(std::ostream& os) const{
 }
 
 void Account::setDataToObject(std::istream& is){
-	std::string currentLine;
-	std::getline(is, currentLine);
-	name = currentLine;
+	try {
+		std::string currentLine;
+		std::getline(is, currentLine);
+		name = currentLine;
+	}catch(...) {
+		name = "Guest";
+	}
 	contactBook->setDataToObject(is);
 }

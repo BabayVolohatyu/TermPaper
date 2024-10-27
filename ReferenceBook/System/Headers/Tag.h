@@ -6,11 +6,14 @@ class Tag : public Serializable, public Visual {
     private:
     std::string tagName;
 
-    Tag() = delete;
     public:
+    Tag() = delete;
+
     Tag(const std::string& tagName = "New Tag", Color color = Color::LIGHT_RED);
 
-    std::string getTagName() const;
+    ~Tag() override = default;
+
+    [[nodiscard]] std::string getTagName() const;
 
     void setTagName(const std::string& tagName);
 

@@ -11,8 +11,8 @@ class TimeManager {
     static std::mutex mutex;
     static std::chrono::time_point<std::chrono::system_clock> currentTime;
     static Contact* contactToGreet;
-    TimeManager() = delete;
     public:
+    TimeManager() = delete;
     static void getClosestBirthday(const std::vector<Contact*>& birthday);
     static Contact* getContact();
     static void startClockUpdateThread(TimeButton* clockButton);
