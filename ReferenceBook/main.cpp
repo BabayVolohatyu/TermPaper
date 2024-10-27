@@ -145,8 +145,14 @@ int main() {
             } else if(GetAsyncKeyState('s')||GetAsyncKeyState('S')) {
                 ConsoleManager::clear();
                 ConsoleManager::hideCursor();
-                ConsoleManager::pushMenu(sortedContactMenu);
+                ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
                 ConsoleManager::setCurrentMenu(sortedContactMenu);
+                ConsoleManager::display(ConsoleManager::getCurrentMenu());
+            }else if(GetAsyncKeyState(VK_F1)) {
+                ConsoleManager::clear();
+                ConsoleManager::hideCursor();
+                ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
+                ConsoleManager::setCurrentMenu(userManual);
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }else if (GetAsyncKeyState(VK_ESCAPE)) {
                 ConsoleManager::clear();
@@ -163,7 +169,6 @@ int main() {
                 return 0;
             } else {
                 ConsoleManager::delay(1000);
-                std::cout << "Current tagName: " << sortedContactMenu->getTagName() << std::endl;
                 if (ConsoleManager::getCurrentMenu() == mainMenu) displayMainMenu(mainMenu, nameButton, timeButton);
             }
         }

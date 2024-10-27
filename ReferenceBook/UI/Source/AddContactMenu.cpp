@@ -28,7 +28,7 @@ void AddContactMenu::print() {
     std::getline(std::cin, userInput);
     newContact->setDateOfBirth(Date::parseStringToDate(userInput));
     std::cout << std::endl;
-    ContactBook::insert(newContact);
+    ContactBook::emplace_back(newContact);
     Button *newButton = new Button{
         newContact->getName(),
         ContactMenu::getInstance()->getHeight(),

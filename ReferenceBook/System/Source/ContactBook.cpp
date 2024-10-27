@@ -24,16 +24,8 @@ void ContactBook::deleteInstance() {
     instance = nullptr;
 }
 
-void ContactBook::insert(Contact *newContact) {
-    if(contacts.empty()) contacts.emplace_back(newContact);
-    else {
-        std::vector<Contact*>::iterator it = contacts.begin();
-        for (Contact *contact: contacts) {
-            if(newContact < contact) {
-                contacts.insert(it, newContact);
-            }else it++;
-        }
-    }
+void ContactBook::emplace_back(Contact *newContact) {
+    contacts.emplace_back(newContact);
 }
 
 void ContactBook::erase(int id) {
@@ -116,6 +108,6 @@ void ContactBook::setDataToObject(std::istream &is) {
     for (int i = 0; i < numberOfContacts; i++) {
         Contact *newContact = new Contact();
         newContact->setDataToObject(is);
-        insert(newContact);
+        emplace_back(newContact);
     }
 }

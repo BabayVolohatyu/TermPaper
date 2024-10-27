@@ -37,22 +37,14 @@ void SortedContactMenu::print() {
         ConsoleManager::setIgnoreInputStatus(true);
         ConsoleManager::refreshButtonBuffer();
         FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+        sortedButtons.clear();
         std::cout << "|Enter the name of tag, please: ";
-        std::string input;
-        std::cin.ignore();
-        std::getline(std::cin, input);
-        tagName = input;
-        std::cout << "Current tagName: " << tagName << std::endl;
+        std::getline(std::cin, tagName);
         std::vector<Contact *> sortedContacts = ContactBook::getContactsWithTag(tagName);
+
         std::vector<Button*> buttons = *getInstance()->getButtons();
         for(Button *button : buttons) {
-            std::vector<std::pair<Button*, bool>>::iterator it = std::find_if(sortedButtons.begin(), sortedButtons.end(),
-        [button](const std::pair<Button*, bool>& p) {
-            return p.first == button;
-        });
-            if (it == sortedButtons.end()) {
-                sortedButtons.emplace_back(button, false);
-            }
+            sortedButtons.emplace_back(button, false);
         }
         for(const Contact *contact : sortedContacts) {
             for (std::pair<Button*, bool> &button : sortedButtons) {

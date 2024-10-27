@@ -115,8 +115,8 @@ void Contact::setDateOfBirth(const Date &newDateOfBirth) {
 }
 
 bool Contact::isPresentTag(const Tag &tag) const {
-    for(Tag tag : tags) {
-        if(tag.getTagName() == tag.getTagName()) return true;
+    for(Tag t : tags) {
+        if(t.getTagName() == tag.getTagName()) return true;
     }
     return false;
 }
