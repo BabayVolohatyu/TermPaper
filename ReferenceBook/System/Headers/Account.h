@@ -8,15 +8,12 @@ class ContactBook;
 
 class Account : public Serializable {
 private:
-	static std::string email;
 	static std::string name;
 	static Account* instance;
 
-	Account() = delete;
+	Account();
 
-	Account(const std::string& email);
-
-	Account(const std::string& email, const std::string& name); 
+	Account(const std::string& name);
 
 public:
 	static ContactBook* contactBook;
@@ -25,13 +22,11 @@ public:
 
 	~Account() override;
 
-	static Account* getInstance(const std::string& email);
+	static Account* getInstance();
 
-	static Account* getInstance(const std::string& email, const std::string& name);
+	static Account* getInstance(const std::string& name);
 
 	static void deleteInstance();
-
-	static std::string getEmail();
 
 	static std::string getName();
 

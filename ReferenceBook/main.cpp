@@ -35,7 +35,7 @@ void displayMainMenu(Menu *mainMenu,
 }
 
 int main() {
-    Account *sampleAccount = Account::getInstance("sample@example.com", "Nazar");
+    Account *sampleAccount = Account::getInstance("SampleAccount");
     FileManager::downloadFromFile("test.txt", *sampleAccount);
 
     Menu *mainMenu = new Menu{"Main menu", 20};
@@ -59,7 +59,7 @@ int main() {
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
     for (Contact *contact : ContactBook::getContacts()) {
-        Button *contactButton = new Button{contact->getName(), 1, 1};
+        Button *contactButton = new Button{contact->getName(), 1, contactsMenu->getWidth()};
         Contact *contactToRefer = contact;
         ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{"", 10, contactToRefer};
         contactButton->setMenuToRefer(newContactInfoMenu);

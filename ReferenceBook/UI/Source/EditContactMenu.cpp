@@ -192,18 +192,23 @@ void EditContactMenu::print() {
         if (GetAsyncKeyState(VK_NUMPAD1) || GetAsyncKeyState('1')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             editName();
+            ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_NUMPAD2) || GetAsyncKeyState('2')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             editNumber();
+            ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_NUMPAD3) || GetAsyncKeyState('3')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             editDate();
+            ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_NUMPAD4) || GetAsyncKeyState('4')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             addTag();
+            ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_NUMPAD5) || GetAsyncKeyState('5')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             deleteTag();
+            ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_BACK)) {
             ConsoleManager::setIgnoreInputStatus(false);
             ConsoleManager::refreshButtonBuffer();
