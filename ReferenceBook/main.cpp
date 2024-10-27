@@ -76,6 +76,7 @@ int main() {
     ConsoleManager::pushMenu(mainMenu);
     ConsoleManager::refreshButtonBuffer();
     ConsoleManager::setIgnoreInputStatus(false);
+    TimeManager::getClosestBirthday(ContactBook::getContacts());
     while (true) {
         if (!ConsoleManager::getIgnoreInputStatus()) {
             if (GetAsyncKeyState(VK_TAB) || GetAsyncKeyState(VK_DOWN)) {
@@ -154,9 +155,9 @@ int main() {
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);
                 FileManager::uploadToFile("test.txt", *sampleAccount);
-                if (mainMenu)delete mainMenu;
-                if (nameButton)delete nameButton;
-                if (timeButton)delete timeButton;
+                delete mainMenu;
+                delete nameButton;
+                delete timeButton;
                 delete deleteContactMenu;
                 delete addContactMenu;
                 delete sortedContactMenu;

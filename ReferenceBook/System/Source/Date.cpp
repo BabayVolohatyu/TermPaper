@@ -254,17 +254,25 @@ void Date::validateDay(int year, unsigned month, unsigned &day) {
 }
 
 bool Date::operator==(const Date &other) const {
-    return date == other.date;
+    return date.month() == other.date.month() && date.day() == other.date.day();
 }
 
 bool Date::operator!=(const Date &other) const {
-    return date != other.date;
+    return date.month() != other.date.month() || date.day() != other.date.day();
+}
+
+bool Date::operator<=(const Date &other) const {
+    return (date.month() == other.date.month()) ? date.day() <= other.date.day() : date.month() <= other.date.month();
+}
+
+bool Date::operator>=(const Date &other) const {
+    return (date.month() == other.date.month()) ? date.day() >= other.date.day() : date.month() >= other.date.month();
 }
 
 bool Date::operator<(const Date &other) const {
-    return date < other.date;
+    return (date.month() == other.date.month()) ? date.day() < other.date.day() : date.month() < other.date.month();;
 }
 
 bool Date::operator>(const Date &other) const {
-    return date > other.date;
+    return (date.month() == other.date.month()) ? date.day() > other.date.day() : date.month() > other.date.month();;
 }

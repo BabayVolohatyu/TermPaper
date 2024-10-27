@@ -1,10 +1,10 @@
 #include <windows.h>
 #include "../Headers/DeleteContactMenu.h"
-
 #include "../../System/Headers/Contact.h"
 #include "../../System/Headers/ContactBook.h"
 #include "../Headers/ConsoleManager.h"
 #include "../Headers/ContactMenu.h"
+#include "../../System/Headers/TimeManager.h"
 
 DeleteContactMenu::DeleteContactMenu(): Menu{"Deleting contact", 0} {}
 
@@ -27,6 +27,7 @@ void DeleteContactMenu::print() {
             ContactMenu::getInstance()->erase(i);
         }
     }
+    TimeManager::getClosestBirthday(ContactBook::getContacts());
     ConsoleManager::returnToPreviousMenu();
     ConsoleManager::clear();
     ConsoleManager::display(ConsoleManager::getCurrentMenu());

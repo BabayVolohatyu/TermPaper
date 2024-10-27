@@ -63,9 +63,9 @@ public:
 
     bool operator!=(const Date &other) const;
 
-    bool operator<=(const Date &other) const = delete;
+    bool operator<=(const Date &other) const;
 
-    bool operator>=(const Date &other) const = delete;
+    bool operator>=(const Date &other) const;
 
     bool operator<(const Date &other) const;
 

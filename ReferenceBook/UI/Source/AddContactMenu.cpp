@@ -3,6 +3,7 @@
 
 #include "../../System/Headers/ContactBook.h"
 #include "../../System/Headers/Contact.h"
+#include "../../System/Headers/TimeManager.h"
 #include "../Headers/ConsoleManager.h"
 #include "../Headers/ContactInfoMenu.h"
 #include "../Headers/ContactMenu.h"
@@ -29,6 +30,7 @@ void AddContactMenu::print() {
     newContact->setDateOfBirth(Date::parseStringToDate(userInput));
     std::cout << std::endl;
     ContactBook::emplace_back(newContact);
+    TimeManager::getClosestBirthday(ContactBook::getContacts());
     Button *newButton = new Button{
         newContact->getName(),
         ContactMenu::getInstance()->getHeight(),

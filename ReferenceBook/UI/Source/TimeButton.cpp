@@ -1,4 +1,7 @@
 #include "../Headers/TimeButton.h"
+
+#include "../../System/Headers/Contact.h"
+#include "../../System/Headers/TimeManager.h"
 #include "../Headers/ConsoleManager.h"
 TimeButton::TimeButton(const std::string &name, int height, int width) :
 Button{name, height, width}{}
@@ -59,6 +62,8 @@ void TimeButton::print() {
         std::cout << '~';
     }
     std::cout << std::endl;
+    std::cout <<"|You should call " << TimeManager::getContact()->getName()
+    << " ,their birthday on " << Date::parseDateToString(TimeManager::getContact()->getDateOfBirth());
 }
 
 void TimeButton::setPreciseTime(const std::string &preciseTime) {

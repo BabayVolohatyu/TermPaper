@@ -19,6 +19,7 @@ ContactBook *ContactBook::getInstance() {
 void ContactBook::deleteInstance() {
     for (Contact *contact: contacts) {
         delete contact;
+        contact = nullptr;
     }
     delete instance;
     instance = nullptr;

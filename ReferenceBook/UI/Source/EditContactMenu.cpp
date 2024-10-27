@@ -5,6 +5,7 @@
 #include "../Headers/ConsoleManager.h"
 #include "../Headers/ContactInfoMenu.h"
 #include "../Headers/ContactMenu.h"
+#include "../../System/Headers/TimeManager.h"
 
 EditContactMenu::EditContactMenu(Contact *contactToEdit): Menu{"Editing " + contactToEdit->getName()},
                                                           contact{contactToEdit} {
@@ -210,6 +211,7 @@ void EditContactMenu::print() {
             deleteTag();
             ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_BACK)) {
+            TimeManager::getClosestBirthday(ContactBook::getContacts());
             ConsoleManager::setIgnoreInputStatus(false);
             ConsoleManager::refreshButtonBuffer();
             ConsoleManager::clear();
