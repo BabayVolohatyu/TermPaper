@@ -6,7 +6,7 @@ class AddContactMenu : public Menu {
 public:
     AddContactMenu();
 
-    ~AddContactMenu() = default;
+    ~AddContactMenu() override = default;
 
     void print() override;
 };

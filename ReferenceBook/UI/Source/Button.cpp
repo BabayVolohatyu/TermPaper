@@ -37,7 +37,7 @@ void Button::print() {
         std::cout << std::endl;
     }
 
-    int offset = (width - name.size()) / 2;
+    int offset = (width - static_cast<int>(name.size())) / 2;
     if (offset == 0) offset++;
     std::cout << '|';
     for (int i = 0; i < offset; i++) {

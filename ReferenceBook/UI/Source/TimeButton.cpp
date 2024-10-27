@@ -22,7 +22,7 @@ void TimeButton::print() {
         std::cout << std::endl;
     }
 
-    int offset = (width - name.size()) / 2;
+    int offset = (width - static_cast<int>(name.size())) / 2;
     if (offset == 0) offset++;
     std::cout << '|';
     for (int i = 0; i < offset; i++) {
@@ -35,7 +35,7 @@ void TimeButton::print() {
     std::cout << '|';
     std::cout << std::endl;
 
-    offset = (width - preciseTime.size()) / 2;
+    offset = (width - static_cast<int>(preciseTime.size())) / 2;
     if (offset == 0) offset++;
     std::cout << '|';
     for (int i = 0; i < offset; i++) {
@@ -66,7 +66,7 @@ void TimeButton::print() {
     << " ,their birthday on " << Date::parseDateToString(TimeManager::getContact()->getDateOfBirth());
 }
 
-void TimeButton::setPreciseTime(const std::string &preciseTime) {
-    this->preciseTime = preciseTime;
+void TimeButton::setPreciseTime(const std::string &newPreciseTime) {
+    preciseTime = newPreciseTime;
 }
 

@@ -6,30 +6,30 @@ Object::Object(const std::string &name, int height, int width)
     setHeight(height);
 }
 
-void Object::setWidth(int width) {
-    if (width < name.size() + 2) width = name.size() + 2;
-    if((width-name.size())%2 == 1) width++;
-    this->width = width;
+void Object::setWidth(int newWidth) {
+    if (newWidth < name.size() + 2) newWidth = name.size() + 2;
+    if((newWidth-name.size())%2 == 1) newWidth++;
+    this->width = newWidth;
 }
 
-void Object::setHeight(int height) {
-    if (height < 3) height = 3;
-    this->height = height;
+void Object::setHeight(int newHeight) {
+    if (newHeight < 3) newHeight = 3;
+    this->height = newHeight;
 }
 
-void Object::setName(const std::string &name) {
-    this->name = name;
+void Object::setName(const std::string &newName) {
+    name = newName;
 }
 int Object::getWidth() const {
-    return this->width;
+    return width;
 }
 
 int Object::getHeight() const {
-    return this->height;
+    return height;
 }
 
 std::string Object::getName() const {
-    return this->name;
+    return name;
 }
 
 

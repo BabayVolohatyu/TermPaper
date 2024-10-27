@@ -1,6 +1,6 @@
 #include <windows.h>
-#include "../Headers/AddContactMenu.h"
 
+#include "../Headers/AddContactMenu.h"
 #include "../../System/Headers/ContactBook.h"
 #include "../../System/Headers/Contact.h"
 #include "../../System/Headers/TimeManager.h"

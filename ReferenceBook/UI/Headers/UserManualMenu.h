@@ -5,8 +5,8 @@
 class UserManualMenu : public Menu, public Serializable{
     private:
     std::string manual;
-    UserManualMenu();
     public:
+    UserManualMenu() = delete;
 
     UserManualMenu(const std::string &name, int width, const std::string& path);
 

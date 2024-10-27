@@ -7,24 +7,21 @@ protected:
     std::string name;
     int width;
     int height;
-
-    Object() = delete;
-
 public:
-    Object(const std::string &name,
-           int height, int width);
+    Object() = delete;
+    Object(const std::string &name, int height, int width);
 
     virtual ~Object() = default;
 
-    void setWidth(int width);
+    void setWidth(int newWidth);
 
-    void setHeight(int height);
+    void setHeight(int newHeight);
 
-    void setName(const std::string &name);
+    void setName(const std::string &newName);
 
-    int getWidth() const;
+    [[nodiscard]] int getWidth() const;
 
-    int getHeight() const;
+    [[nodiscard]] int getHeight() const;
 
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
 };

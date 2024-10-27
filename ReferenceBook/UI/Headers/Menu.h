@@ -12,9 +12,10 @@ protected:
     std::vector<Button*> buttons;
     static int selectedIndex;
 
-    Menu() = delete;
 
 public:
+    Menu() = delete;
+
     Menu(const std::string &name = "New menu", int width = 10);
 
     ~Menu() override;
@@ -23,13 +24,13 @@ public:
 
     void erase(int index);
 
-    virtual Button *getButton(int index) const;
+    [[nodiscard]] virtual Button *getButton(int index) const;
 
     std::vector<Button *>* getButtons() ;
 
     static int getSelectedIndex() ;
 
-    virtual int getSize() const;
+    [[nodiscard]] virtual int getSize() const;
 
     static void selectIndex(int index);
 

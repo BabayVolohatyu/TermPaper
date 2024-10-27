@@ -10,10 +10,9 @@ class Menu;
 class Button : public Visual, public Object {
 private:
     Menu *menuItRefersTo;
-
+public:
     Button() = delete;
 
-public:
     Button(const std::string &name, int height, int width);
 
     ~Button() override;

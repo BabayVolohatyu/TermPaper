@@ -7,13 +7,15 @@ class SortedContactMenu: public ContactMenu{
     public:
     SortedContactMenu();
 
+    ~SortedContactMenu() override = default;
+
     std::string getTagName();
 
-    Button* getButton(int index) const override;
+    [[nodiscard]] Button* getButton(int index) const override;
 
-    int getSize() const override;
+    [[nodiscard]] int getSize() const override;
 
-    void setTagName(const std::string& tagName);
+    void setTagName(const std::string& newTagName);
 
     void clear();
 

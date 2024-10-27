@@ -23,8 +23,8 @@ int SortedContactMenu::getSize() const {
     return static_cast<int>(sortedButtons.size());
 }
 
-void SortedContactMenu::setTagName(const std::string &tagName) {
-    this->tagName = tagName;
+void SortedContactMenu::setTagName(const std::string &newTagName) {
+    tagName = newTagName;
 }
 
 void SortedContactMenu::clear() {
@@ -59,7 +59,7 @@ void SortedContactMenu::print() {
     }
     std::cout << std::endl;
     std::cout << '|';
-    int offset = (width - name.size()) / 2;
+    int offset = (width - static_cast<int>(name.size())) / 2;
     for (int i = 0; i < offset; i++) {
         std::cout << '-';
     }

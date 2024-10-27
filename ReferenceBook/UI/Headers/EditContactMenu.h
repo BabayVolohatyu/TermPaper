@@ -16,7 +16,7 @@ private:
 
     void deleteTag();
 public:
-    EditContactMenu(Contact *contactToEdit);
+    explicit EditContactMenu(Contact *contactToEdit);
 
     ~EditContactMenu() override;
 

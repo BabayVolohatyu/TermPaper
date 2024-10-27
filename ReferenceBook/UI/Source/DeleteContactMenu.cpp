@@ -1,4 +1,5 @@
 #include <windows.h>
+
 #include "../Headers/DeleteContactMenu.h"
 #include "../../System/Headers/Contact.h"
 #include "../../System/Headers/ContactBook.h"

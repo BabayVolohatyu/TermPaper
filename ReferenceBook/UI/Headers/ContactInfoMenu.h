@@ -5,17 +5,15 @@ class Contact;
 
 class ContactInfoMenu : public Menu {
     Contact *contact;
-
-    ContactInfoMenu() = delete;
-
 public:
+    ContactInfoMenu() = delete;
     ContactInfoMenu(const std::string &name, int width, Contact *contact);
 
     ~ContactInfoMenu() override;
 
-    Contact *getContact() const;
+    [[nodiscard]] Contact *getContact() const;
 
-    void setContact(Contact *contact);
+    void setContact(Contact *newContact);
 
     void print() override;
 };

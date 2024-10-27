@@ -52,7 +52,7 @@ int Menu::getSelectedIndex() {
 }
 
 int Menu::getSize() const {
-    return buttons.size();
+    return static_cast<int>(buttons.size());
 }
 
 void Menu::selectIndex(int index) {
@@ -64,7 +64,7 @@ void Menu::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << std::endl;
     std::cout << '|';
-    int offset = (width - name.size()) / 2;
+    int offset = (width - static_cast<int>(name.size())) / 2;
     for (int i = 0; i < offset; i++) {
         std::cout << '-';
     }

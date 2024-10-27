@@ -16,5 +16,5 @@ public:
 
     void setColor(Color color);
 
-    Color getColor() const;
+    [[nodiscard]] Color getColor() const;
 };

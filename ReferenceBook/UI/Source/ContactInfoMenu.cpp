@@ -11,11 +11,11 @@ ContactInfoMenu::~ContactInfoMenu() {
 }
 
 Contact *ContactInfoMenu::getContact() const {
-    return this->contact;
+    return contact;
 }
 
-void ContactInfoMenu::setContact(Contact *contact) {
-    this->contact = contact;
+void ContactInfoMenu::setContact(Contact *newContact) {
+   contact = newContact;
 }
 
 void ContactInfoMenu::print() {
@@ -78,14 +78,14 @@ void ContactInfoMenu::print() {
     std::cout << '|' << std::endl;
 
     int maxTagSize = 0;
-    for (const Tag &tag: this->contact->getTags()) {
+    for (const Tag &tag:contact->getTags()) {
         if (tag.getTagName().size() > maxTagSize) {
             maxTagSize = static_cast<int>(tag.getTagName().size());
         }
     }
     tempWidth = maxTagSize + 2;
 
-    for (Tag &tag : this->contact->getTags()) {
+    for (Tag &tag : contact->getTags()) {
         std::cout << '|';
 
         int offsetForTag = (tempWidth - static_cast<int>(tag.getTagName().size())) / 2;

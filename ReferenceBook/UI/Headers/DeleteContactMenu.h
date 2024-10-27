@@ -5,7 +5,7 @@ class DeleteContactMenu : public Menu {
 public:
     DeleteContactMenu();
 
-    ~DeleteContactMenu() = default;
+    ~DeleteContactMenu() override = default;
 
     void print() override;
 };
