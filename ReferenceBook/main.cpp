@@ -37,6 +37,7 @@ void displayMainMenu(Menu *mainMenu,
 int main() {
     Account *sampleAccount = Account::getInstance("SampleAccount");
     FileManager::downloadFromFile("test.txt", *sampleAccount);
+    sampleAccount->setName("User");
 
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);

@@ -62,8 +62,10 @@ void TimeButton::print() {
         std::cout << '~';
     }
     std::cout << std::endl;
-    std::cout <<"|You should call " << TimeManager::getContact()->getName()
-    << " ,their birthday on " << Date::parseDateToString(TimeManager::getContact()->getDateOfBirth());
+   if(!ContactBook::getContacts().empty()) {
+       std::cout <<"|You should call " << TimeManager::getContact()->getName()
+    << ", their birthday on " << Date::parseDateToString(TimeManager::getContact()->getDateOfBirth());
+   }else std::cout <<"|You have no one to call ";
 }
 
 void TimeButton::setPreciseTime(const std::string &newPreciseTime) {

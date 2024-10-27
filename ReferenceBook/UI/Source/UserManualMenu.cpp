@@ -18,7 +18,7 @@ void UserManualMenu::setDataToObject(std::istream &is) {
     std::string line;
     while (!is.eof()) {
         std::getline(is, line);
-        this->manual +=line+'\n';
+        manual +=line+'\n';
     };
 }
 

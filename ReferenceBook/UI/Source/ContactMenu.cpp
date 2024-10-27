@@ -70,7 +70,7 @@ void ContactMenu::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << std::endl;
     std::cout << '|';
-    int offset = (width - name.size()) / 2;
+    int offset = (width - static_cast<int>(name.size())) / 2;
     for (int i = 0; i < offset; i++) {
         std::cout << '-';
     }
@@ -93,8 +93,10 @@ void ContactMenu::print() {
             indexToShowEnd = std::min(selectedIndex + offsetToShow + 1, static_cast<int>(buttons.size()));
         }
     }
+    if(static_cast<int>(buttons.size()) > 0) {
     for (int i = indexToShowStart; i < indexToShowEnd; i++) {
         buttons[i]->print();
+    }
     }
 
     ConsoleManager::changeTextColor(currentColor);
