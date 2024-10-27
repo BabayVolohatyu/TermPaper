@@ -58,22 +58,18 @@ int main() {
     mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
-    for (int i = 0; i < ContactBook::getSize(); i++) {
-        ContactMenu::insert(new Button{
-            ContactBook::getContact(i)->getName(),
-            1, 10
-        });
-    }
-    for (int i = 0; i < ContactBook::getSize(); i++) {
-        Contact *contactToRefer = ContactBook::getContact(i);
+    for (Contact *contact : ContactBook::getContacts()) {
+        Button *contactButton = new Button{contact->getName(), 1, 1};
+        Contact *contactToRefer = contact;
         ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{"", 10, contactToRefer};
-        contactsMenu->getButton(i)->setMenuToRefer(newContactInfoMenu);
+        contactButton->setMenuToRefer(newContactInfoMenu);
         newContactInfoMenu->emplace_back(new Button{
             "Edit",
             newContactInfoMenu->getHeight(),
             6
         });
         newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{contactToRefer});
+        ContactMenu::insert(contactButton);
     }
     SortedContactMenu *sortedContactMenu = new SortedContactMenu{};
     ConsoleManager::setCurrentMenu(mainMenu);

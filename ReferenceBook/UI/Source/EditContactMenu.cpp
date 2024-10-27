@@ -183,12 +183,12 @@ void EditContactMenu::print() {
     std::cout << '|' << name << '|' << std::endl;
     ConsoleManager::setIgnoreInputStatus(true);
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+    std::cout << "What would you like to do?" << std::endl;
+    std::cout << "Press 1 to edit name" << std::endl;
+    std::cout << "Press 2 to edit number" << std::endl;
+    std::cout << "Press 3 to edit date" << std::endl;
+    std::cout << "Press 4 to add tag or 5 to delete" << std::endl;
     while (true) {
-        std::cout << "What would you like to do?" << std::endl;
-        std::cout << "Press 1 to edit name" << std::endl;
-        std::cout << "Press 2 to edit number" << std::endl;
-        std::cout << "Press 3 to edit date" << std::endl;
-        std::cout << "Press 4 to add tag or 5 to delete" << std::endl;
         if (GetAsyncKeyState(VK_NUMPAD1) || GetAsyncKeyState('1')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             editName();
@@ -213,9 +213,6 @@ void EditContactMenu::print() {
             ConsoleManager::display(ConsoleManager::getCurrentMenu());
             break;
         }
-        ConsoleManager::hideCursor();
         ConsoleManager::delay(100);
-        ConsoleManager::clear();
-        ConsoleManager::refreshButtonBuffer();
     }
 }
