@@ -63,7 +63,7 @@ void SortedContactMenu::print() {
     int indexToShowStart, indexToShowEnd;
     if (selectedIndex < offsetToShow) {
         indexToShowStart = 0;
-        indexToShowEnd = std::min(offset- 1, static_cast<int>(sortedButtons.size()));
+        indexToShowEnd = std::min(offset*2- 1, static_cast<int>(sortedButtons.size()));
     } else {
         if (selectedIndex <= 0) {
             indexToShowStart = 0;
