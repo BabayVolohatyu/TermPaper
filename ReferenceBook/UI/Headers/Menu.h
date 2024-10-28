@@ -26,9 +26,9 @@ public:
 
     [[nodiscard]] virtual Button *getButton(int index) const;
 
-    std::vector<Button *>* getButtons() ;
+    virtual std::vector<Button *>* getButtons();
 
-    static int getSelectedIndex() ;
+    static int getSelectedIndex();
 
     [[nodiscard]] virtual int getSize() const;
 

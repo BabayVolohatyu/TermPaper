@@ -2,7 +2,7 @@
 #include "ContactMenu.h"
 
 class SortedContactMenu: public ContactMenu{
-    std::vector<std::pair<Button*, bool>> sortedButtons;
+    std::vector<Button*> sortedButtons;
     std::string tagName;
     public:
     SortedContactMenu();

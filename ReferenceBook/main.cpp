@@ -36,8 +36,7 @@ void displayMainMenu(Menu *mainMenu,
 
 int main() {
     Account *sampleAccount = Account::getInstance("SampleAccount");
-    FileManager::downloadFromFile("test.txt", *sampleAccount);
-    sampleAccount->setName("User");
+    FileManager::downloadFromFile("../../SampleProject/Accounts/User.txt", *sampleAccount);
 
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
@@ -155,14 +154,14 @@ int main() {
             }else if (GetAsyncKeyState(VK_ESCAPE)) {
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);
-                FileManager::uploadToFile("test.txt", *sampleAccount);
+                FileManager::uploadToFile("../../SampleProject/Accounts/User.txt", *sampleAccount);
                 delete mainMenu;
                 delete nameButton;
                 delete timeButton;
                 delete deleteContactMenu;
                 delete addContactMenu;
                 delete sortedContactMenu;
-                if (contactsMenu != nullptr)ContactMenu::deleteInstance();
+                ContactMenu::deleteInstance();
                 Account::deleteInstance();
                 return 0;
             } else {

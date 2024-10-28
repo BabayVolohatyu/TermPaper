@@ -16,7 +16,7 @@ std::string SortedContactMenu::getTagName() {
 }
 
 Button * SortedContactMenu::getButton(int index) const {
-    return sortedButtons[index].first;
+    return sortedButtons[index];
 }
 
 int SortedContactMenu::getSize() const {
@@ -40,13 +40,10 @@ void SortedContactMenu::print() {
         sortedButtons.clear();
         std::cout << "|Enter the name of tag, please: ";
         std::getline(std::cin, tagName);
-        std::vector<Contact *> sortedContacts = ContactBook::getContactsWithTag(tagName);
-
-        std::vector<Button*> buttons = *getInstance()->getButtons();
-        for(Button *button : buttons) {
-            sortedButtons.emplace_back(button, false);
-        }
-        for(const Contact *contact : sortedContacts) {
+        for(int i = 0; i < ContactBook::getSize(); i++) {
+            if(ContactBook::getContact(i)->isPresentTag(tagName)) {
+                sortedButtons.emplace_back(getInstance()->getButton(i));
+            }
         }
         ConsoleManager::refreshButtonBuffer();
         FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
@@ -66,7 +63,7 @@ void SortedContactMenu::print() {
     int indexToShowStart, indexToShowEnd;
     if (selectedIndex < offsetToShow) {
         indexToShowStart = 0;
-        indexToShowEnd = std::min(offset * 2 - 1, static_cast<int>(sortedButtons.size()));
+        indexToShowEnd = std::min(offset- 1, static_cast<int>(sortedButtons.size()));
     } else {
         if (selectedIndex <= 0) {
             indexToShowStart = 0;
@@ -76,9 +73,10 @@ void SortedContactMenu::print() {
             indexToShowEnd = std::min(selectedIndex + offsetToShow + 1, static_cast<int>(sortedButtons.size()));
         }
     }
-    for (int i = indexToShowStart; i < indexToShowEnd; i++) {
-
-        if(sortedButtons[i].second)sortedButtons[i].first->print();
+    if(!sortedButtons.empty()) {
+        for (int i = indexToShowStart; i < indexToShowEnd; i++) {
+            sortedButtons[i]->print();
+        }
     }
     ConsoleManager::changeTextColor(currentColor);
     std::cout << '|';
