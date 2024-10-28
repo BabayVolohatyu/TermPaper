@@ -44,8 +44,8 @@ int main() {
     Button *nameButton = new Button{"Welcome, " + Account::getName() + '!', 1, 50};
 
     mainMenu->emplace_back(new Button{"Contacts", 1, 1});
-    mainMenu->emplace_back(new Button{"Open User Manual(F1)", 1, 4});
-    UserManualMenu *userManual = new UserManualMenu("User Manual", 1, "UserManual.txt");
+    mainMenu->emplace_back(new Button{"Open user manual(F1)", 1, 4});
+    UserManualMenu *userManual = new UserManualMenu("User manual", 1, "UserManual.txt");
     mainMenu->getButton(1)->setMenuToRefer(userManual);
     TimeButton *timeButton = new TimeButton{Date::parseTimePointToString(Date::getLocalTime()), 5, 5};
     TimeManager::startClockUpdateThread(timeButton);
@@ -54,7 +54,7 @@ int main() {
     ContactMenu *contactsMenu = ContactMenu::getInstance("Contacts menu", 20);
     AddContactMenu *addContactMenu = new AddContactMenu{};
     DeleteContactMenu *deleteContactMenu = new DeleteContactMenu{};
-    ContactMenu::setOffset(3);
+    ContactMenu::setOffset(2);
     mainMenu->getButton(0)->setMenuToRefer(contactsMenu);
 
     ConsoleManager::setColorToObject(contactsMenu, Color::LIGHT_BLUE);
@@ -141,7 +141,7 @@ int main() {
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
                 ConsoleManager::setCurrentMenu(addContactMenu);
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
-            } else if(GetAsyncKeyState('s')||GetAsyncKeyState('S')) {
+            } else if(GetAsyncKeyState('s')||GetAsyncKeyState('S')&&!GetAsyncKeyState(VK_F11)) {
                 ConsoleManager::clear();
                 ConsoleManager::hideCursor();
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());

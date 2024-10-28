@@ -189,6 +189,7 @@ void EditContactMenu::print() {
     std::cout << "Press 2 to edit number" << std::endl;
     std::cout << "Press 3 to edit date" << std::endl;
     std::cout << "Press 4 to add tag or 5 to delete" << std::endl;
+    std::cout << "Press Backspace to exit" << std::endl;
     while (true) {
         if (GetAsyncKeyState(VK_NUMPAD1) || GetAsyncKeyState('1')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
