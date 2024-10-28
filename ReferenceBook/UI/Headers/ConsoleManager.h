@@ -8,6 +8,8 @@ class ConsoleManager {
     static std::stack<Menu*> menuStack;
     static Menu *currentMenu;
     static bool ignoreInputStatus;
+    static bool mouseInputEnabled;
+
 public:
     ConsoleManager() = default;
 
@@ -16,6 +18,8 @@ public:
     static void changeTextColor(Color color);
 
     static void hideCursor();
+
+    static void changeCursorVisibilityState();
 
     static void display(Visual *visualObject);
 

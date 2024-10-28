@@ -77,6 +77,8 @@ int main() {
     ConsoleManager::refreshButtonBuffer();
     ConsoleManager::setIgnoreInputStatus(false);
     TimeManager::getClosestBirthday(ContactBook::getContacts());
+    ConsoleManager::changeCursorVisibilityState();
+    ConsoleManager::clear();
     while (true) {
         if (!ConsoleManager::getIgnoreInputStatus()) {
             if (GetAsyncKeyState(VK_TAB) || GetAsyncKeyState(VK_DOWN)) {
@@ -152,6 +154,7 @@ int main() {
                 ConsoleManager::setCurrentMenu(userManual);
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }else if (GetAsyncKeyState(VK_ESCAPE)) {
+                ConsoleManager::changeCursorVisibilityState();
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);
                 FileManager::uploadToFile("../../SampleProject/Accounts/User.txt", *sampleAccount);

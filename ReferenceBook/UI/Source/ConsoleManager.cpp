@@ -5,6 +5,7 @@
 Menu *ConsoleManager::currentMenu = nullptr;
 std::stack<Menu *> ConsoleManager::menuStack{};
 bool ConsoleManager::ignoreInputStatus = false;
+bool ConsoleManager::mouseInputEnabled = true;
 
 ConsoleManager::~ConsoleManager() {
     if (currentMenu != nullptr) {
@@ -41,10 +42,29 @@ void ConsoleManager::changeTextColor(Color color) {
 void ConsoleManager::hideCursor() {
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
-
     GetConsoleCursorInfo(consoleHandle, &cursorInfo);
     cursorInfo.bVisible = false;
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
+}
+
+void ConsoleManager::changeCursorVisibilityState() {
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    DWORD mode;
+
+    // Отримуємо поточний режим консолі
+    if (GetConsoleMode(hInput, &mode)) {
+        if (mouseInputEnabled) {
+            // Вимикаємо обробку миші
+            SetConsoleMode(hInput, ENABLE_EXTENDED_FLAGS | (mode & ~ENABLE_QUICK_EDIT_MODE));
+            std::cout << "Події миші заблоковано." << std::endl;
+        } else {
+            // Увімкнути обробку миші
+            SetConsoleMode(hInput, mode | ENABLE_QUICK_EDIT_MODE);
+            std::cout << "Події миші увімкнено." << std::endl;
+        }
+        // Змінюємо стан
+        mouseInputEnabled = !mouseInputEnabled;
+    }
 }
 
 void ConsoleManager::display(Visual *visualObject) {
