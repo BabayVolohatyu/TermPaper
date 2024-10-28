@@ -154,6 +154,8 @@ int main() {
                 ConsoleManager::setCurrentMenu(userManual);
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
             }else if (GetAsyncKeyState(VK_ESCAPE)) {
+                FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+                ConsoleManager::refreshButtonBuffer();
                 ConsoleManager::changeCursorVisibilityState();
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);

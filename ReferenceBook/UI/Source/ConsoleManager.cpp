@@ -123,6 +123,7 @@ void ConsoleManager::selectPreviousButton(Menu *menu) {
 
 void ConsoleManager::returnToPreviousMenu() {
     try {
+        if(!menuStack.empty())Menu::selectIndex(-1);
         while (!menuStack.empty()) {
             currentMenu = menuStack.top();
             menuStack.pop();

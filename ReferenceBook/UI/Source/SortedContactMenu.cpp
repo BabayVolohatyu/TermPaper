@@ -33,7 +33,7 @@ void SortedContactMenu::clear() {
 
 void SortedContactMenu::print() {
     ConsoleManager::changeTextColor(currentColor);
-    if(tagName.empty()&&selectedIndex<0) {
+    if(tagName.empty()) {
         ConsoleManager::setIgnoreInputStatus(true);
         ConsoleManager::refreshButtonBuffer();
         FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
