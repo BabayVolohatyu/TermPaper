@@ -42,7 +42,7 @@ void ContactMenu::insert(Button *newButton) {
                            buttonToCompareName.end(),
                            buttonToCompareName.begin(),
                            tolower);
-            if (newButtonName <= buttonToCompareName) {
+            if (newButtonName < buttonToCompareName) {
                 getInstance()->buttons.insert(it, newButton);
                 return;
             }
@@ -83,7 +83,7 @@ void ContactMenu::print() {
     int indexToShowStart, indexToShowEnd;
     if (selectedIndex < offsetToShow) {
         indexToShowStart = 0;
-        indexToShowEnd = std::min(offset * 2 - 1, static_cast<int>(buttons.size()));
+        indexToShowEnd = std::min(offset - 1, static_cast<int>(buttons.size()));
     } else {
         if (selectedIndex <= 0) {
             indexToShowStart = 0;

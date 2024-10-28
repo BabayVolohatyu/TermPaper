@@ -56,9 +56,9 @@ void ContactBook::insert(Contact *newContact) {
                            tolower);
 
             // Порівнюємо ім'я нового контакту з іменем поточного контакту.
-            // Якщо ім'я нового контакту алфавітно менше або дорівнює поточному,
+            // Якщо ім'я нового контакту менше поточному,
             // вставляємо новий контакт перед поточним і виходимо з функції.
-            if (newContactName <= contactToCompareName) {
+            if (newContactName < contactToCompareName) {
                 contacts.insert(it, newContact);
                 return;
             }
