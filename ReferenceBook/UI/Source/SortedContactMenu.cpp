@@ -47,11 +47,6 @@ void SortedContactMenu::print() {
             sortedButtons.emplace_back(button, false);
         }
         for(const Contact *contact : sortedContacts) {
-            for (std::pair<Button*, bool> &button : sortedButtons) {
-                if(button.first->getName() == contact->getName() && button.second == false) {
-                    button.second = true;
-                }
-            }
         }
         ConsoleManager::refreshButtonBuffer();
         FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));

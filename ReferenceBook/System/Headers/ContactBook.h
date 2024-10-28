@@ -27,7 +27,7 @@ public:
 
     void deleteInstance();
 
-    static void emplace_back(Contact *newContact);
+    static void insert(Contact *newContact);
 
     static void erase(int id);
 

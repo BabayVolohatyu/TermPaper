@@ -29,7 +29,7 @@ void AddContactMenu::print() {
     std::getline(std::cin, userInput);
     newContact->setDateOfBirth(Date::parseStringToDate(userInput));
     std::cout << std::endl;
-    ContactBook::emplace_back(newContact);
+    ContactBook::insert(newContact);
     TimeManager::getClosestBirthday(ContactBook::getContacts());
     Button *newButton = new Button{
         newContact->getName(),
