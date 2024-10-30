@@ -12,9 +12,11 @@ Date::Date(std::chrono::year_month_day &&date)
 }
 
 Date::Date(int year, unsigned month, unsigned day) {
+    //перевірка правильності введених даних
     validateYear(year);
     validateMonth(month);
     validateDay(year, month, day);
+    //переведення числових типів даних до типів даних часу
     date = std::chrono::year_month_day(
         std::chrono::year(year),
         std::chrono::month(month),
@@ -97,42 +99,62 @@ unsigned Date::getLocalDayAsValue() {
 }
 
 int Date::getLocalHourAsValue() {
+    // Отримуємо поточний час в форматі time_t (кількість секунд, що минули з 1 січня 1970 року).
     std::time_t now = std::chrono::system_clock::to_time_t(
         std::chrono::system_clock::now());
+
+    // Перетворюємо time_t у структуру tm, що містить локальний час.
     std::tm localTime = *std::localtime(&now);
+
+    // Повертаємо годину з локального часу.
     return localTime.tm_hour;
 }
 
 int Date::getLocalMinuteAsValue() {
+    // Отримуємо поточний час в форматі time_t.
     std::time_t now = std::chrono::system_clock::to_time_t(
         std::chrono::system_clock::now());
+
+    // Перетворюємо time_t у локальний час.
     std::tm localTime = *std::localtime(&now);
+
+    // Повертаємо хвилину з локального часу.
     return localTime.tm_min;
 }
 
 int Date::getLocalSecondAsValue() {
+    // Отримуємо поточний час в форматі time_t.
     std::time_t now = std::chrono::system_clock::to_time_t(
         std::chrono::system_clock::now());
+
+    // Перетворюємо time_t у локальний час.
     std::tm localTime = *std::localtime(&now);
+
+    // Повертаємо секунду з локального часу.
     return localTime.tm_sec;
 }
 
 Date Date::parseStringToDate(const std::string &date) {
+    // Визначаємо регулярний вираз для розпізнавання дат у форматах рррр.мм.дд і подібні
     std::regex date_regex(R"((\d{4})[./\-](\d{1,2})[./\-](\d{1,2}))");
     std::smatch matches;
 
+    // Перевіряємо, чи рядок дати відповідає регулярному виразу
     if (std::regex_match(date, matches, date_regex)) {
+        // Перетворюємо знайдені підрядки на цілі числа для року, місяця та дня
         int year = std::stoi(matches[1]);
         unsigned month = std::stoi(matches[2]);
         unsigned day = std::stoi(matches[3]);
+
+        // Валідація року, місяця та дня
         validateYear(year);
         validateMonth(month);
         validateDay(year, month, day);
         return Date{year, month, day};
-    } else {
-        return Date{2000, 1, 1};
     }
+    return Date{2000, 1, 1};
 }
+
 
 std::string Date::parseDateToString(const Date &date) {
     return std::to_string(date.getYearAsValue())
@@ -141,8 +163,13 @@ std::string Date::parseDateToString(const Date &date) {
 }
 
 std::string Date::parseTimePointToString(const std::chrono::system_clock::time_point &tp) {
+    // Перетворюємо time_point у year_month_day, отримуючи лише рік, місяць і день
     std::chrono::year_month_day ymdTemp = std::chrono::floor<std::chrono::days>(tp);
+
+    // Формуємо початкову частину рядка з днем
     std::string str = "Today is: " + std::to_string(static_cast<unsigned>(ymdTemp.day()));
+
+    // Додаємо закінчення до дня
     switch (static_cast<unsigned>(ymdTemp.day())) {
         case 1:
             str += "st ";
@@ -166,7 +193,10 @@ std::string Date::parseTimePointToString(const std::chrono::system_clock::time_p
             str += "th ";
             break;
     }
+
     str += "of ";
+
+    // Додаємо назву місяця
     switch (static_cast<unsigned>(ymdTemp.month())) {
         case 1:
             str += "January ";
@@ -205,31 +235,36 @@ std::string Date::parseTimePointToString(const std::chrono::system_clock::time_p
             str += "December ";
             break;
         default:
-            str += "Some another month ";
             break;
     }
+
     str += std::to_string(static_cast<int>(ymdTemp.year()));
+
     return str;
 }
 
+
 std::string Date::getLocalTimeOfTheDayAsString() {
     std::string str =
-            ((getLocalHourAsValue() < 10)
-                 ? '0' + std::to_string(getLocalHourAsValue())
-                 : std::to_string(getLocalDayAsValue())) +
-            ":" + ((getLocalMinuteAsValue() < 10)
-                       ? '0' + std::to_string(getLocalMinuteAsValue())
-                       : std::to_string(getLocalMinuteAsValue())) +
-            ":" + ((getLocalSecondAsValue() < 10)
-                       ? '0' + std::to_string(getLocalSecondAsValue())
-                       : std::to_string(getLocalSecondAsValue()));
+            ((getLocalHourAsValue() < 10) // Перевірка, чи години менше 10
+                 ? '0' + std::to_string(getLocalHourAsValue()) // Якщо так, додаємо '0' перед годинами
+                 : std::to_string(getLocalHourAsValue())) + // Інакше просто конвертуємо години в рядок
+            ":" + // Додаємо роздільник між годинами і хвилинами
+            ((getLocalMinuteAsValue() < 10) // Перевірка, чи хвилини менше 10
+                 ? '0' + std::to_string(getLocalMinuteAsValue()) // Якщо так, додаємо '0' перед хвилинами
+                 : std::to_string(getLocalMinuteAsValue())) + // Інакше конвертуємо хвилини в рядок
+            ":" + // Додаємо роздільник між хвилинами і секундами
+            ((getLocalSecondAsValue() < 10) // Перевірка, чи секунди менше 10
+                 ? '0' + std::to_string(getLocalSecondAsValue()) // Якщо так, додаємо '0' перед секундами
+                 : std::to_string(getLocalSecondAsValue())); // Інакше конвертуємо секунди в рядок
+
     return str;
 }
 
 void Date::validateYear(int &year) {
     if (year < 0) {
         year = 2000;
-    }else if(year > 9999) {
+    } else if (year > 9999) {
         year = 9999;
     }
 }
@@ -244,13 +279,17 @@ void Date::validateDay(int year, unsigned month, unsigned &day) {
     if (day < 1) {
         day = 1;
     } else if (day > 30 && (month == 4 || month == 6 || month == 9 || month == 11)) {
+        // Перевірка на дні для місяців з 30 днями
         day = 30;
     } else if (day > 31 && (month == 1 || month == 3 || month == 5 || month == 7
                             || month == 8 || month == 10 || month == 12)) {
+        // Перевірка на дні для місяців з 31 днем
         day = 31;
     } else if (day > 29 && month == 2 && year % 4 == 0) {
+        // Перевірка на дні для лютого у високосний рік
         day = 29;
     } else if (day > 28 && month == 2 && year % 4 != 0) {
+        // Перевірка на дні для лютого у невисокосний рік
         day = 28;
     }
 }

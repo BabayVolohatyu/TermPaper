@@ -16,6 +16,7 @@ EditContactMenu::~EditContactMenu() {
 }
 
 void EditContactMenu::editName() {
+    // Вводимо нове ім'я
     std::cout << "Enter new name: ";
     std::string newName;
     std::getline(std::cin, newName);
@@ -23,6 +24,7 @@ void EditContactMenu::editName() {
         std::cout << "Enter correct new name: ";
         std::getline(std::cin, newName);
     }
+    //Отримуємо контакт за старим іменем і змінюємо його ім'я
     for (int i = 0;i<ContactMenu::getInstance()->getButtons()->size();i++) {
         if (ContactMenu::getInstance()->getButton(i)->getName() == contact->getName()) {
             ContactMenu::getInstance()->getButtons()->erase(ContactMenu::getInstance()->getButtons()->begin() + i);
@@ -72,6 +74,7 @@ void EditContactMenu::addTag() {
         std::cout << "Enter correct new tag name: ";
         std::getline(std::cin, newTagName);
     }
+    //Показуємо наявні кольори для тегів
     std::cout << "Choose tag color: ";
     ConsoleManager::changeTextColor(Color::BLACK);
     std::cout << "(1)Black(1) ";
@@ -191,6 +194,7 @@ void EditContactMenu::print() {
     std::cout << "Press 4 to add tag or 5 to delete" << std::endl;
     std::cout << "Press Backspace to exit" << std::endl;
     while (true) {
+        // Обробляємо натискання на NUMPAD цифри або звичайні
         if (GetAsyncKeyState(VK_NUMPAD1) || GetAsyncKeyState('1')) {
             FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
             editName();
@@ -212,6 +216,7 @@ void EditContactMenu::print() {
             deleteTag();
             ConsoleManager::refreshButtonBuffer();
         } else if (GetAsyncKeyState(VK_BACK)) {
+            // Повертаємося назад
             TimeManager::getClosestBirthday(ContactBook::getContacts());
             ConsoleManager::setIgnoreInputStatus(false);
             ConsoleManager::refreshButtonBuffer();

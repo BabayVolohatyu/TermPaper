@@ -35,37 +35,42 @@ bool ConsoleManager::getIgnoreInputStatus() {
 }
 
 void ConsoleManager::changeTextColor(Color color) {
+    // Отримуємо дескриптор консолі для виводу тексту
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Встановлюємо колір тексту
     SetConsoleTextAttribute(hConsole, static_cast<int>(color));
 }
 
 void ConsoleManager::hideCursor() {
+    // Отримуємо дескриптор консолі для виводу тексту
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Отримуємо інформацію про курсор
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(consoleHandle, &cursorInfo);
+
+    // Приховуємо курсор
     cursorInfo.bVisible = false;
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
 void ConsoleManager::changeCursorVisibilityState() {
+    // Отримуємо дескриптор консолі для вводу тексту
     HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     DWORD mode;
 
-    // Отримуємо поточний режим консолі
+    // Отримуємо поточний режим консолі і змінюємо його
     if (GetConsoleMode(hInput, &mode)) {
         if (mouseInputEnabled) {
-            // Вимикаємо обробку миші
             SetConsoleMode(hInput, ENABLE_EXTENDED_FLAGS | (mode & ~ENABLE_QUICK_EDIT_MODE));
-            std::cout << "Події миші заблоковано." << std::endl;
         } else {
-            // Увімкнути обробку миші
             SetConsoleMode(hInput, mode | ENABLE_QUICK_EDIT_MODE);
-            std::cout << "Події миші увімкнено." << std::endl;
         }
-        // Змінюємо стан
         mouseInputEnabled = !mouseInputEnabled;
     }
 }
+
 
 void ConsoleManager::display(Visual *visualObject) {
     visualObject->print();
@@ -76,62 +81,89 @@ void ConsoleManager::clear() {
 }
 
 void ConsoleManager::refreshButtonBuffer() {
+    //Очищуємо буфер кнопок активуючи всі наявні не виконуючи ніяких дій з ними
     for (int key = 0; key < 256; ++key) {
         GetAsyncKeyState(key);
     }
 }
 
 
-void ConsoleManager::delay(int milliseconds) {
+void ConsoleManager::delay(unsigned milliseconds) {
     Sleep(milliseconds);
 }
 
 void ConsoleManager::selectNextButton(Menu *menu) {
     try {
+        // Перевіряємо, чи обраний індекс знаходиться на останньому елементі меню
         if (Menu::getSelectedIndex() >= menu->getSize() - 1) {
+            // Встановлюємо стандартний колір
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+
+            // Якщо обраний індекс знаходиться на останньому елементі, повертаємось на початок
             Menu::selectIndex(0);
+
+            // Змінюємо колір
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
         } else {
-            if (Menu::getSelectedIndex() >= 0) menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+            if (Menu::getSelectedIndex() >= 0) {
+                menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+            }
+
+            // Переходимо до наступного індексу в меню
             Menu::selectIndex(Menu::getSelectedIndex() + 1);
+
+            // Змінюємо колір кнопки
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
         }
-    }catch (...) {
+    } catch (...) {
         Menu::selectIndex(-1);
     }
 }
 
 void ConsoleManager::selectPreviousButton(Menu *menu) {
     try {
+        // Перевіряємо, чи обраний індекс є першим елементом меню
         if (Menu::getSelectedIndex() == 0) {
+            // Встановлюємо стандартний колір для поточної кнопки
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+
+            // Якщо це перший елемент, переходимо на останній
             Menu::selectIndex(menu->getSize() - 1);
+
+            // Змінюємо колір
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
         } else if (Menu::getSelectedIndex() == -1) {
+            // Якщо індекс не обраний, переходимо на останній елемент
             Menu::selectIndex(menu->getSize() - 1);
+
+            // Змінюємо колір
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
         } else {
+            // Встановлюємо стандартний колір для поточної кнопки
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::standardColor);
+
+            // Переходимо на попередній індекс в меню
             Menu::selectIndex(Menu::getSelectedIndex() - 1);
+
+            // Змінюємо колір
             menu->getButton(Menu::getSelectedIndex())->setColor(Visual::selectedColor);
         }
-    }catch (...) {
+    } catch (...) {
         Menu::selectIndex(-1);
     }
 }
 
 void ConsoleManager::returnToPreviousMenu() {
     try {
-        if(!menuStack.empty())Menu::selectIndex(-1);
+        if (!menuStack.empty())Menu::selectIndex(-1);
         while (!menuStack.empty()) {
             currentMenu = menuStack.top();
             menuStack.pop();
             if (currentMenu != nullptr) {
                 return;
+            }
         }
-        }
-    }catch (...) {
+    } catch (...) {
     }
 }
 

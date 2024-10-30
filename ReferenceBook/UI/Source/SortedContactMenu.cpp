@@ -33,6 +33,7 @@ void SortedContactMenu::clear() {
 
 void SortedContactMenu::print() {
     ConsoleManager::changeTextColor(currentColor);
+    //Шукаємо контакти за тегом
     if(tagName.empty()) {
         ConsoleManager::setIgnoreInputStatus(true);
         ConsoleManager::refreshButtonBuffer();
@@ -50,6 +51,7 @@ void SortedContactMenu::print() {
         ConsoleManager::setIgnoreInputStatus(false);
     }
     std::cout << std::endl;
+    // Виводимо верхню частину
     std::cout << '|';
     int offset = (width - static_cast<int>(name.size())) / 2;
     for (int i = 0; i < offset; i++) {
@@ -61,6 +63,7 @@ void SortedContactMenu::print() {
     }
     std::cout << '|' << std::endl;
     int indexToShowStart, indexToShowEnd;
+    //Обраховуємо кількість контактів, яку потрібно показати
     if (selectedIndex < offsetToShow) {
         indexToShowStart = 0;
         indexToShowEnd = std::min(offset*2- 1, static_cast<int>(sortedButtons.size()));
@@ -73,11 +76,13 @@ void SortedContactMenu::print() {
             indexToShowEnd = std::min(selectedIndex + offsetToShow + 1, static_cast<int>(sortedButtons.size()));
         }
     }
+    // Виводимо кнопки
     if(!sortedButtons.empty()) {
         for (int i = indexToShowStart; i < indexToShowEnd; i++) {
             sortedButtons[i]->print();
         }
     }
+    // Виводимо нижні кнопки
     ConsoleManager::changeTextColor(currentColor);
     std::cout << '|';
     for (int i = 0; i < offset; i++) {

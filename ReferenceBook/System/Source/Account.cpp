@@ -2,7 +2,7 @@
 
 #include "../Headers/Account.h"
 #include "../Headers/ContactBook.h"
-
+//оголошення статичних змінних
 Account* Account::instance = nullptr;
 std::string Account::name;
 ContactBook* Account::contactBook = nullptr;
@@ -18,6 +18,7 @@ Account::Account(const std::string& name){
 Account::~Account() = default;
 
 Account* Account::getInstance(const std::string& name){
+	//Якщо об'єкт ще не був створений, то повертаємо новий
 	if (!instance) {
 		instance = new Account(name);
 		return instance;
@@ -26,10 +27,10 @@ Account* Account::getInstance(const std::string& name){
 }
 
 void Account::deleteInstance() {
-	contactBook->deleteInstance();
-	contactBook = nullptr;
+	contactBook->deleteInstance(); // Видалення об'єкта ContactBook
+	contactBook = nullptr; // Очищення вказівника на ContactBook
 	delete instance;
-	instance = nullptr;
+	instance = nullptr; // Очищення вказівника на екземпляр
 }
 
 std::string Account::getName(){

@@ -4,9 +4,11 @@
 class Contact;
 
 class ContactInfoMenu : public Menu {
-    Contact *contact;
+    Contact *contact; //контакт, інформацію про якого потрібно вивести
+
 public:
     ContactInfoMenu() = delete;
+
     ContactInfoMenu(const std::string &name, int width, Contact *contact);
 
     ~ContactInfoMenu() override;
@@ -15,5 +17,6 @@ public:
 
     void setContact(Contact *newContact);
 
+    //перевантаження функції виводу в консоль
     void print() override;
 };

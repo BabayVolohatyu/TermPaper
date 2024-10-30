@@ -2,18 +2,18 @@
 
 #include "Menu.h"
 
-class ContactMenu : public Menu  {
+class ContactMenu : public Menu {
 private:
     static ContactMenu *instance;
 
 
-
-    void emplace_back(Button *button) override {}
+    void emplace_back(Button *button) override {
+    }
 
 protected:
     explicit ContactMenu(const std::string &name = "Contacts", int width = 20);
 
-    static int offsetToShow;
+    static int offsetToShow; //поле для обмеження кількості контактів, що показуються в поточний момент
 
 public:
     ~ContactMenu() override;
@@ -28,5 +28,6 @@ public:
 
     static int getOffset();
 
+    //перевантаження функції виводу в консоль
     void print() override;
 };

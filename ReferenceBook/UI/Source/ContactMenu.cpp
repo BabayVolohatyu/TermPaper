@@ -67,7 +67,10 @@ int ContactMenu::getOffset() {
 }
 
 void ContactMenu::print() {
+    // Змінюємо колір
     ConsoleManager::changeTextColor(currentColor);
+
+    // Виводимо верхній рядок з іменем, вирівнюючи його по центру
     std::cout << std::endl;
     std::cout << '|';
     int offset = (width - static_cast<int>(name.size())) / 2;
@@ -80,26 +83,35 @@ void ContactMenu::print() {
     }
     std::cout << '|' << std::endl;
 
+    // Визначаємо, які елементи показати у вікні перегляду
     int indexToShowStart, indexToShowEnd;
     if (selectedIndex < offsetToShow) {
+        // Якщо обраний індекс менший за відступ, починаємо з 0
         indexToShowStart = 0;
-        indexToShowEnd = std::min(offset*2 - 1, static_cast<int>(buttons.size()));
+        indexToShowEnd = std::min(offset * 2 - 1, static_cast<int>(buttons.size()));
     } else {
         if (selectedIndex <= 0) {
+            // Якщо обраний індекс рівний 0 або менший, показуємо початковий інтервал
             indexToShowStart = 0;
             indexToShowEnd = std::min(selectedIndex + offsetToShow, static_cast<int>(buttons.size()));
         } else {
+            // Встановлюємо інтервал навколо обраного індексу
             indexToShowStart = std::max(selectedIndex - offsetToShow, 0);
             indexToShowEnd = std::min(selectedIndex + offsetToShow + 1, static_cast<int>(buttons.size()));
         }
     }
-    if(static_cast<int>(buttons.size()) > 0) {
-    for (int i = indexToShowStart; i < indexToShowEnd; i++) {
-        buttons[i]->print();
-    }
+
+    // Виводмо кнопки
+    if (static_cast<int>(buttons.size()) > 0) {
+        for (int i = indexToShowStart; i < indexToShowEnd; i++) {
+            buttons[i]->print();
+        }
     }
 
+    // Змінюємо колір тексту
     ConsoleManager::changeTextColor(currentColor);
+
+    // Виводимо нижній рядок з іменем, вирівнюючи його по центру
     std::cout << '|';
     for (int i = 0; i < offset; i++) {
         std::cout << '-';

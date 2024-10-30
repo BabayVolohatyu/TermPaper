@@ -93,8 +93,10 @@ void Contact::addTag(const Tag &tag) {
 }
 
 void Contact::removeTag(const std::string &tagName) {
-    for(int i = 0; i < tags.size(); i++) {
-        if(tags[i].getTagName() == tagName) tags.erase(tags.begin() + i);
+    for (int i = 0; i < tags.size(); i++) {
+        if (tags[i].getTagName() == tagName)
+            tags.erase(tags.begin() + i);
+        i--;
     }
 }
 
@@ -115,9 +117,9 @@ void Contact::setDateOfBirth(const Date &newDateOfBirth) {
 }
 
 bool Contact::isPresentTag(const Tag &tag) const {
-    if(tags.empty()) return false;
-    for(const Tag &t : tags) {
-        if(t.getTagName() == tag.getTagName()) return true;
+    if (tags.empty()) return false;
+    for (const Tag &t: tags) {
+        if (t.getTagName() == tag.getTagName()) return true;
     }
     return false;
 }
@@ -146,14 +148,14 @@ bool Contact::operator<(const Contact &other) const {
     std::string lowerName = name;
     std::string lowerNameOther = other.name;
     return std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), tolower) <
-        std::transform(lowerNameOther.begin(), lowerNameOther.end(), lowerNameOther.begin(), tolower);
+           std::transform(lowerNameOther.begin(), lowerNameOther.end(), lowerNameOther.begin(), tolower);
 }
 
 bool Contact::operator>(const Contact &other) const {
     std::string lowerName = name;
     std::string lowerNameOther = other.name;
     return std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), tolower) >
-        std::transform(lowerNameOther.begin(), lowerNameOther.end(), lowerNameOther.begin(), tolower);
+           std::transform(lowerNameOther.begin(), lowerNameOther.end(), lowerNameOther.begin(), tolower);
 }
 
 void Contact::getDataFromObject(std::ostream &os) const {
@@ -167,7 +169,7 @@ void Contact::getDataFromObject(std::ostream &os) const {
 }
 
 void Contact::setDataToObject(std::istream &is) {
-        std::string currentLine;
+    std::string currentLine;
     try {
         std::getline(is, currentLine);
         name = currentLine;
@@ -176,10 +178,10 @@ void Contact::setDataToObject(std::istream &is) {
         std::getline(is, currentLine);
         dateOfBirth = Date::parseStringToDate(currentLine);
         std::getline(is, currentLine);
-    }catch (...) {
+    } catch (...) {
         name = "New Contact";
         number = "";
-        dateOfBirth = Date{2000,1,1};
+        dateOfBirth = Date{2000, 1, 1};
     }
     int numberOfTags = std::stoi(currentLine);
     for (int i = 0; i < numberOfTags; i++) {

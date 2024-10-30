@@ -9,7 +9,7 @@ protected:
 public:
     static Color selectedColor;
     static Color standardColor;
-
+    //оголошення чистої віртуальної функції
     virtual void print() = 0;
 
     virtual ~Visual() = default;

@@ -8,6 +8,7 @@ std::vector<Contact *> ContactBook::contacts;
 std::vector<Tag> ContactBook::tags;
 
 ContactBook *ContactBook::getInstance() {
+    //Якщо об'єкт ще не був створений, то повертаємо новий
     if (!instance) {
         instance = new ContactBook{};
         return instance;
@@ -27,7 +28,7 @@ void ContactBook::deleteInstance() {
 void ContactBook::insert(Contact *newContact) {
     // Перевіряємо, чи є список контактів порожнім.
     if (contacts.empty())
-        // Якщо так, додаємо новий контакт до кінця списку.
+    // Якщо так, додаємо новий контакт до кінця списку.
         contacts.emplace_back(newContact);
     else {
         // Отримуємо ім'я нового контакту.
@@ -89,8 +90,8 @@ Tag ContactBook::getTag(int id) {
 }
 
 Tag ContactBook::getTag(const std::string &tagName) {
-    for(Tag &tag: tags) {
-        if(tag.getTagName() == tagName) return tag;
+    for (Tag &tag: tags) {
+        if (tag.getTagName() == tagName) return tag;
     }
     return {""};
 }
@@ -118,14 +119,14 @@ Contact *ContactBook::getContact(int id) {
     return *it;
 }
 
-std::vector<Contact *> ContactBook::getContacts(){
+std::vector<Contact *> ContactBook::getContacts() {
     return contacts;
 }
 
 std::vector<Contact *> ContactBook::getContactsWithTag(const std::string &tagName) {
     std::vector<Contact *> result;
     for (Contact *contact: contacts) {
-        if(contact->isPresentTag(tagName)) result.emplace_back(contact);
+        if (contact->isPresentTag(tagName)) result.emplace_back(contact);
     }
     return result;
 }

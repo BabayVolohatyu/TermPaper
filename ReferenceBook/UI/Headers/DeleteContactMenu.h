@@ -7,5 +7,6 @@ public:
 
     ~DeleteContactMenu() override = default;
 
+    //перевантаження функції виводу в консоль
     void print() override;
 };

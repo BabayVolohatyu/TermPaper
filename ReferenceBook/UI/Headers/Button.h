@@ -9,7 +9,7 @@ class Menu;
 
 class Button : public Visual, public Object {
 private:
-    Menu *menuItRefersTo;
+    Menu *menuItRefersTo; //меню, на яке посилається кнопка
 public:
     Button() = delete;
 
@@ -21,7 +21,6 @@ public:
 
     Menu *getMenuItRefersTo();
 
+    //перевантаження функції виводу в консоль
     void print() override;
 };
-
-

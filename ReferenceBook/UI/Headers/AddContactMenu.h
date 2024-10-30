@@ -8,5 +8,6 @@ public:
 
     ~AddContactMenu() override = default;
 
+    //перевантаження функції виводу в консоль
     void print() override;
 };

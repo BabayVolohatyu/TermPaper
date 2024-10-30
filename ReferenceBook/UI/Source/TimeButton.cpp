@@ -7,6 +7,7 @@ TimeButton::TimeButton(const std::string &name, int height, int width) :
 Button{name, height, width}{}
 
 void TimeButton::print() {
+    //Виводимо верхню частину
     ConsoleManager::changeTextColor(currentColor);
     std::cout << ' ';
     for (int i = 0; i < width; i++) {
@@ -41,13 +42,14 @@ void TimeButton::print() {
     for (int i = 0; i < offset; i++) {
         std::cout << ' ';
     }
+    // Виводимо час
     std::cout << preciseTime;
     for (int i = 0; i < offset; i++) {
         std::cout << ' ';
     }
     std::cout << '|';
     std::cout << std::endl;
-
+    // Виводимо нижню частину
     for (int i = 0; i < height / 2; i++) {
         std::cout << '|';
         for (int j = 0; j < width; j++) {
@@ -62,6 +64,7 @@ void TimeButton::print() {
         std::cout << '~';
     }
     std::cout << std::endl;
+    // Виводимо нагадування про найближчий день народження серед контактів
    if(!ContactBook::getContacts().empty()) {
        std::cout <<"|You should call " << TimeManager::getContact()->getName()
     << ", their birthday on " << Date::parseDateToString(TimeManager::getContact()->getDateOfBirth());

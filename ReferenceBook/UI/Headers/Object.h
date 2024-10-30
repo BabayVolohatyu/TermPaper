@@ -4,11 +4,12 @@
 
 class Object {
 protected:
-    std::string name;
-    int width;
-    int height;
+    std::string name;//ім'я об'єкта
+    int width;//ширина
+    int height;//висота
 public:
     Object() = delete;
+
     Object(const std::string &name, int height, int width);
 
     virtual ~Object() = default;

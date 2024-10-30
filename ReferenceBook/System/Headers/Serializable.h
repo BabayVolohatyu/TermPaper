@@ -4,14 +4,15 @@
 
 class Serializable {
 public:
-	virtual ~Serializable() = default;
+    virtual ~Serializable() = default;
 
-	virtual void getDataFromObject(std::ostream& os) const = 0;
+    //оголошення чистих віртуальних функцій запису та зчитування
+    virtual void getDataFromObject(std::ostream &os) const = 0;
 
-	virtual void setDataToObject(std::istream& is) = 0;
+    virtual void setDataToObject(std::istream &is) = 0;
 
-	friend std::istream& operator>>(std::istream& is, Serializable& object);
+    //перевизначення операторів вводу та виводу
+    friend std::istream &operator>>(std::istream &is, Serializable &object);
 
-	friend std::ostream& operator<<(std::ostream& os, const Serializable& object);
-
+    friend std::ostream &operator<<(std::ostream &os, const Serializable &object);
 };

@@ -19,6 +19,7 @@ Menu::~Menu() {
 
 void Menu::emplace_back(Button* button) {
     if(button->getWidth() > this->getWidth()) {
+        //Обрізаємо назву кнопки, якщо вона задовга
         std::string newName = button->getName().substr(0,
              this->getWidth() - (button->getWidth()-button->getName().size())/2 );
         button->setName(newName);
@@ -63,6 +64,7 @@ void Menu::selectIndex(int index) {
 void Menu::print() {
     ConsoleManager::changeTextColor(currentColor);
     std::cout << std::endl;
+    // Виводимо верхню частину
     std::cout << '|';
     int offset = (width - static_cast<int>(name.size())) / 2;
     for (int i = 0; i < offset; i++) {
@@ -73,9 +75,11 @@ void Menu::print() {
         std::cout << '-';
     }
     std::cout << '|' << std::endl;
+    // Виводимо наявні кнопки
     for (Button *button: buttons) {
         button->print();
     }
+    // Виводимо нижню частину
     ConsoleManager::changeTextColor(currentColor);
     std::cout << '|';
     for (int i = 0; i < offset; i++) {
