@@ -52,6 +52,8 @@ void DeleteContactMenu::print() {
     ConsoleManager::clear();
     ConsoleManager::display(ConsoleManager::getCurrentMenu());
 
+    FlushConsoleInputBuffer(GetStdHandle(STD_OUTPUT_HANDLE));
+    ConsoleManager::refreshButtonBuffer();
     // Встановлюємо статус ігнорування функцій основного меню
     ConsoleManager::setIgnoreInputStatus(false);
 }

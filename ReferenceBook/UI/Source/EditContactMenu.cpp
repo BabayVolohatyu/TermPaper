@@ -25,20 +25,23 @@ void EditContactMenu::editName() {
         std::getline(std::cin, newName);
     }
     //Отримуємо контакт за старим іменем і змінюємо його ім'я
-    for (int i = 0;i<ContactMenu::getInstance()->getButtons()->size();i++) {
+    for (int i = 0; i < ContactMenu::getInstance()->getButtons()->size(); i++) {
         if (ContactMenu::getInstance()->getButton(i)->getName() == contact->getName()) {
             ContactMenu::getInstance()->getButtons()->erase(ContactMenu::getInstance()->getButtons()->begin() + i);
             contact->setName(newName);
-            Button *newButton = new Button{newName,1,ContactMenu::getInstance()->getWidth()};
-            ContactInfoMenu* newContactInfoMenu = new ContactInfoMenu{contact->getName(),5,contact};
+            Contact *newContact = contact;
+            ContactBook::erase(i);
+            Button *newButton = new Button{newName, 1, ContactMenu::getInstance()->getWidth()};
+            ContactInfoMenu *newContactInfoMenu = new ContactInfoMenu{contact->getName(), 5, contact};
             newContactInfoMenu->emplace_back(new Button{
-            "Edit",
-            newContactInfoMenu->getHeight(),
-            5
-        });
+                "Edit",
+                newContactInfoMenu->getHeight(),
+                5
+            });
             newContactInfoMenu->getButton(0)->setMenuToRefer(new EditContactMenu{contact});
             newButton->setMenuToRefer(newContactInfoMenu);
             ContactMenu::insert(newButton);
+            ContactBook::insert(newContact);
             return;
         }
     }

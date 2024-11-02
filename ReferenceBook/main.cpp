@@ -16,11 +16,11 @@
 #include "UI/Headers/UserManualMenu.h"
 #include "UI/Headers/ConsoleManager.h"
 #include "UI/Headers/AddContactMenu.h"
-#include "Enums/Color.h"
 #include "UI/Headers/DeleteContactMenu.h"
 #include "UI/Headers/EditContactMenu.h"
 #include "UI/Headers/SortedContactMenu.h"
 
+#include "Enums/Color.h"
 
 void displayMainMenu(Menu *mainMenu,
                      Button *nameButton,
@@ -36,7 +36,7 @@ void displayMainMenu(Menu *mainMenu,
 
 int main() {
     Account *sampleAccount = Account::getInstance("SampleAccount");
-    FileManager::downloadFromFile("../../SampleProject/Accounts/User.txt", *sampleAccount);
+    FileManager::downloadFromFile("SampleProject/Accounts/User.txt", *sampleAccount);
 
     Menu *mainMenu = new Menu{"Main menu", 20};
     ConsoleManager::setColorToObject(mainMenu, Color::RED);
@@ -141,7 +141,7 @@ int main() {
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
                 ConsoleManager::setCurrentMenu(addContactMenu);
                 ConsoleManager::display(ConsoleManager::getCurrentMenu());
-            } else if(GetAsyncKeyState('s')||GetAsyncKeyState('S')&&!GetAsyncKeyState(VK_F11)) {
+            } else if(GetAsyncKeyState('s')||GetAsyncKeyState('S')&&!GetAsyncKeyState(VK_F11)/*на ноутбуках кнопка F11 може подавати сигнали на інші клавіші*/) {
                 ConsoleManager::clear();
                 ConsoleManager::hideCursor();
                 ConsoleManager::pushMenu(ConsoleManager::getCurrentMenu());
@@ -159,7 +159,7 @@ int main() {
                 ConsoleManager::changeCursorVisibilityState();
                 ConsoleManager::clear();
                 ConsoleManager::changeTextColor(Color::WHITE);
-                FileManager::uploadToFile("../../SampleProject/Accounts/User.txt", *sampleAccount);
+                FileManager::uploadToFile("SampleProject/Accounts/User.txt", *sampleAccount);
                 delete mainMenu;
                 delete nameButton;
                 delete timeButton;
@@ -175,5 +175,4 @@ int main() {
             }
         }
     }
-    return 0;
 }

@@ -34,10 +34,10 @@ void SortedContactMenu::clear() {
 void SortedContactMenu::print() {
     ConsoleManager::changeTextColor(currentColor);
     //Шукаємо контакти за тегом
-    if(tagName.empty()) {
         ConsoleManager::setIgnoreInputStatus(true);
         ConsoleManager::refreshButtonBuffer();
         FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+    if(tagName.empty()&&selectedIndex<0) {
         sortedButtons.clear();
         std::cout << "|Enter the name of tag, please: ";
         std::getline(std::cin, tagName);
@@ -46,10 +46,10 @@ void SortedContactMenu::print() {
                 sortedButtons.emplace_back(getInstance()->getButton(i));
             }
         }
+    }
         ConsoleManager::refreshButtonBuffer();
         FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
         ConsoleManager::setIgnoreInputStatus(false);
-    }
     std::cout << std::endl;
     // Виводимо верхню частину
     std::cout << '|';

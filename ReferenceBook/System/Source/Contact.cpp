@@ -96,7 +96,6 @@ void Contact::removeTag(const std::string &tagName) {
     for (int i = 0; i < tags.size(); i++) {
         if (tags[i].getTagName() == tagName)
             tags.erase(tags.begin() + i);
-        i--;
     }
 }
 

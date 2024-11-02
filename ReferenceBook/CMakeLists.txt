@@ -7,6 +7,7 @@ if (NOT WIN32)
   message(FATAL_ERROR "This project can only be compiled on Windows.")
 endif()
 
+
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
@@ -14,7 +15,6 @@ if (POLICY CMP0141)
 endif()
 
 project ("ReferenceBook")
-
 # Add source to this project's executable.
 add_executable (ReferenceBook
         main.cpp
