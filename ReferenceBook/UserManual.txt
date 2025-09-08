@@ -1,0 +1,64 @@
+                 This is user manual
+1.     Press the Backspace key to return to the
+       previous menu.
+       Press the Esc key in any menu to exit the
+       program.
+1.1.   Creating, deleting and searching menus don`t 
+       support the Esc or Backspace keys.
+1.1.1. Esc or Backspace keys are available in
+       searching menu after pressing the Enter
+       key.
+1.1.2. Esc key isn`t available in editing menu.
+       Backspace key is available in editing menu only
+       in the moment of choosing the option of the menu 
+       and after pressing the Enter key.
+
+
+2.     Press the TAB or arrow down keys to select next
+       option of the current menu.
+       Press the arrow up key to select the previous
+       option of the current menu.
+2.1.   If you`re on top of the menu and press the arrow up
+       key, program will select the last option of the
+       menu.
+       If you`re on bottom of the menu and press the TAB
+       or arrow down keys, program will select the first
+       option of the menu.
+
+3.     Press the Enter key to choose the selected option
+       of the menu.
+3.1.   If you press the Enter key without selected option,
+       it will do nothing.
+
+4.     Press  the "C","D", or "S" keys in any menu to go
+       to the special menu.
+4.1.   Press the Enter key to confirm action in these
+       menus.
+4.2.   Pressing any of mentioned in section 4 keys inside
+       of these menus will do nothing.
+4.2.1. Pressing "C" or "D" inside of searching menu will open
+       the menus these keys are referred to.
+4.3.   Press the "C" key in any menu to open the menu that
+       will add the contact.
+4.1.1. Pressing the Enter key without any input or wrong
+       input will insert corrected data.
+4.4.   Press the "D" key in any menu to open the menu that
+       will delete a contact.
+4.4.1. Pressing the Enter key without any input or wrong
+       input will insert corrected data.
+4.5.   Press the "S" key in any menu to open the menu that
+       will show a contacts by chosen tag.
+4.5.1. Pressing the Enter key without any input or wrong
+       input will show the empty menu. 
+
+5.     Choosing the Contact option in the main menu will show 
+       you the list of your contacts.
+
+6.     Choosing the contact in your contacts list will show
+       you the detailed information about the contact.
+6.1.   Choosing the Edit key in the info menu will lead you
+       to the editing menu.
+6.1.1. After completing action in editing menu you can choose
+       again or exit.  
+ 
+      

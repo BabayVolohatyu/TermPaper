@@ -1,0 +1,16 @@
+MainUser
+2
+Alice
+123456789
+1999-05-12
+2
+friend
+1
+work
+2
+Bob
+987654321
+2001-11-23
+1
+family
+3
